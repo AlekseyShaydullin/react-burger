@@ -1,18 +1,21 @@
 import React from 'react';
-import style from './NavLink.module.css';
+import styleNavLink from './NavLink.module.css';
 import PropTypes from 'prop-types';
 
-function NavLink({ icon, text }) {
+function NavLink({ text, icon, type }) {
+  const color = type === 'secondary' ? 'text text_type_main-default text_color_inactive' : 'text text_type_main-default';
+
   return (
-    <a className={style.link} href='#'>
+    <a className={styleNavLink.link + ' pt-4 pb-4 pr-5 pl-5'} href='#'>
       {icon}
-      <p className={style.caption}>{text}</p>
+      <p className={color}>{text}</p>
     </a>
   )
 }
 
 NavLink.propTypes = {
   icon: PropTypes.object,
+  text: PropTypes.string,
   text: PropTypes.string
 }
 

@@ -1,29 +1,29 @@
 import React from 'react';
-import style from './AppHeader.module.css';
+import styleAppHeader from './AppHeader.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import NavLink from '../NavLink/NavLink';
 
 function AppHeader() {
   return (
-    <header className={style.header}>
-      <div className={style.content}>
+    <header className={styleAppHeader.header}>
+      <div className={styleAppHeader.content}>
         <nav>
-          <ul className={style.navlist}>
+          <ul className={styleAppHeader.navlist + ' m-4'}>
             <li>
-              <NavLink text={'Конструктор'} icon={<BurgerIcon type='primary' />} />
+              <NavLink text={'Конструктор'} className='p-4 m-4' icon={<BurgerIcon type='primary' />} />
             </li>
             <li>
-              <NavLink text={'Лента заказов'} icon={<ListIcon type='secondary' />} />
+              <NavLink text={'Лента заказов'} className='p-4 m-4' icon={<ListIcon type='secondary' />} type='secondary' />
             </li>
           </ul>
         </nav>
-        <div className={style.logo}>
+        <div className={styleAppHeader.logo}>
           <Logo />
         </div>
         <nav>
-          <ul className={style.navlist}>
+          <ul className={styleAppHeader.navlist}>
             <li>
-              <NavLink text={'Личный кабинет'} icon={<ProfileIcon type='secondary' />} />
+              <NavLink text={'Личный кабинет'} className='p-4 m-4' icon={<ProfileIcon type='secondary' />} type='secondary' />
             </li>
           </ul>
         </nav>
