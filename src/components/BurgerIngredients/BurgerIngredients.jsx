@@ -31,7 +31,7 @@ function BurgerIngredients({ data }) {
       <div className={styleBurgerIngred.ingredients}>
         <section className={styleBurgerIngred.buns}>
           <h2 className='text text_type_main-medium'>Булки</h2>
-          <ul className={styleBurgerIngred.bunsList + ' mt-6 ml-4'}>
+          <ul className={styleBurgerIngred.bunslist + ' mt-6 ml-4'}>
             {data.filter((ing) => ing.type === 'bun').map((ing) => (
               <Ingredient data={ing} key={ing._id} />
             ))}
@@ -39,7 +39,7 @@ function BurgerIngredients({ data }) {
         </section>
         <section className='mt-10'>
           <h2 className='text text_type_main-medium'>Соусы</h2>
-          <ul className={styleBurgerIngred.bunsList + ' mt-6 ml-4'}>
+          <ul className={styleBurgerIngred.bunslist + ' mt-6 ml-4'}>
             {data.filter((ing) => ing.type === 'sauce').map((ing) => (
               <Ingredient data={ing} key={ing._id} />
             ))}
@@ -47,7 +47,7 @@ function BurgerIngredients({ data }) {
         </section>
         <section className='mt-10'>
           <h2 className='text text_type_main-medium'>Начинки</h2>
-          <ul className={styleBurgerIngred.bunsList + ' mt-6 ml-4'}>
+          <ul className={styleBurgerIngred.bunslist + ' mt-6 ml-4'}>
             {data.filter((ing) => ing.type === 'main').map((ing) => (
               <Ingredient data={ing} key={ing._id} />
             ))}
