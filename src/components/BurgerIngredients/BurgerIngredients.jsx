@@ -1,8 +1,11 @@
 import React from 'react';
 import styleBurgerIngred from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import Ingredient from '../Ingredient/Ingredient';
+import { ingredientType } from '../../utils/types';
+import PropTypes from 'prop-types';
 
-function BurgerIngredients(props) {
+function BurgerIngredients({ data }) {
   const [current, setCurrent] = React.useState('Булки')
 
   return (
@@ -25,13 +28,38 @@ function BurgerIngredients(props) {
           </Tab>
         </li>
       </nav>
-      <div className={styleBurgerIngred.Ingredients}>
-        <div className={styleBurgerIngred.buns}>
+      <div className={styleBurgerIngred.ingredients}>
+        <section className={styleBurgerIngred.buns}>
           <h2 className='text text_type_main-medium'>Булки</h2>
-        </div>
+          <ul className={styleBurgerIngred.bunsList + ' mt-6 ml-4'}>
+            {data.filter((ing) => ing.type === 'bun').map((ing) => (
+              <Ingredient data={ing} key={ing._id} />
+            ))}
+          </ul>
+        </section>
+        <section className='mt-10'>
+          <h2 className='text text_type_main-medium'>Соусы</h2>
+          <ul className={styleBurgerIngred.bunsList + ' mt-6 ml-4'}>
+            {data.filter((ing) => ing.type === 'sauce').map((ing) => (
+              <Ingredient data={ing} key={ing._id} />
+            ))}
+          </ul>
+        </section>
+        <section className='mt-10'>
+          <h2 className='text text_type_main-medium'>Начинки</h2>
+          <ul className={styleBurgerIngred.bunsList + ' mt-6 ml-4'}>
+            {data.filter((ing) => ing.type === 'main').map((ing) => (
+              <Ingredient data={ing} key={ing._id} />
+            ))}
+          </ul>
+        </section>
       </div>
     </section>
   )
+}
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientType).isRequired
 }
 
 export default BurgerIngredients;
