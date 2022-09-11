@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-.itembun {
+.item__bun {
   display: flex;
   justify-content: end;
   box-sizing: border-box;
