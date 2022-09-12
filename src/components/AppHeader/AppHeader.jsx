@@ -18,7 +18,7 @@ function AppHeader() {
         <div className={styleAppHeader.logo}>
           <Logo />
         </div>
-        <ul className={styleAppHeader.navlist}>
+        <ul className={styleAppHeader.nav__list}>
           <li>
             <NavLink text={'Личный кабинет'} className='p-4 m-4' icon={<ProfileIcon type={'secondary'} />} type={'secondary'} />
           </li>
