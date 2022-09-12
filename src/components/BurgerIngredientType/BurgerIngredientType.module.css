@@ -1,0 +1,15 @@
+.buns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buns__list {
+  max-width: 600px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+}
