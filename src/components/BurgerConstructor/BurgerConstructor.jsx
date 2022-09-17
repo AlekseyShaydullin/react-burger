@@ -33,7 +33,7 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  data: PropTypes.arrayOf(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired
 }
 

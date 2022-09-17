@@ -20,7 +20,7 @@ function BurgerIngredient(props) {
 }
 
 BurgerIngredient.propTypes = {
-  data: ingredientType.isRequired,
+  data: ingredientType,
   openModal: PropTypes.func.isRequired
 }
 

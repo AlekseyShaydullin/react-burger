@@ -20,7 +20,7 @@ function BurgerIngredientType(props) {
 BurgerIngredientType.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  data: PropTypes.arrayOf(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired
 }
 

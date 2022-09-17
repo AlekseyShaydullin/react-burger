@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const ModalOverlay = (props) => {
 
   const handleOverlay = (e) => {
-    if (e.target === e.currentTarget) { props.onClose() }
+    if (e.target === e.currentTarget) { props.closeModal() }
   }
 
   return (
@@ -17,7 +17,7 @@ const ModalOverlay = (props) => {
 }
 
 ModalOverlay.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired
 }
