@@ -1,58 +1,57 @@
 import React, { useEffect } from 'react';
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
-import stylesModal from '../Modal/Modal.module.css'
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import ReactDOM from "react-dom";
-import { modalContainer } from "../../utils/constants";
+import ReactDOM from 'react-dom';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import styleModal from '../Modal/Modal.module.css'
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
+import { modalContainer, body } from '../../utils/constants';
 
-
-const Modal = (props) => {
-
-  const isModalOpen = props.activeModal;
+const Modal = ({ activeModal, onClose, title, children }) => {
 
   useEffect(() => {
     const handleEscClose = (e) => {
-      e.key === 'Escape' && props.closeModal();
+      e.key === 'Escape' && onClose();
     };
-    if (isModalOpen) {
+    if (activeModal) {
       document.addEventListener('keydown', handleEscClose);
+      body.style.overflow = 'hidden';
     }
     return () => {
-      document.removeEventListener('keydown', handleEscClose)
+      document.removeEventListener('keydown', handleEscClose);
+      body.style.overflow = 'visible';
     };
-  }, [isModalOpen]);
+  }, [activeModal]);
 
-  return ReactDOM.createPortal(
-    <ModalOverlay closeModal={props.closeModal} isActive={props.activeModal}>
-      <div className={`${stylesModal.modal} pt-10 pb-10 pl-10 pr-10`}>
-        <div className={`${stylesModal.header}`}>
+  return ReactDOM.createPortal((
+    <ModalOverlay closeModal={onClose} isActive={activeModal}>
+      <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
+        <div className={`${styleModal.header}`}>
           {
-            props.title
-            && <h3 className={`text text_type_main-large`}>{props.title}</h3>
+            title
+            && <h3 className={`text text_type_main-large`}>{title}</h3>
           }
-          <div className={stylesModal.closeIcon} onClick={props.closeModal}>
+          <div className={styleModal.closeIcon} onClick={onClose}>
             <CloseIcon type={'primary'} />
           </div>
         </div>
-        <div className={`${stylesModal.container}`}>
-          {props.children}
+        <div className={`${styleModal.container}`}>
+          {children}
         </div>
       </div>
     </ModalOverlay>
-    , modalContainer
+  ), modalContainer
   )
-};
+}
 
 Modal.defaultProps = {
   title: ''
-};
+}
 
 Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
   activeModal: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired
-};
+  children: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string
+}
 
-export default Modal
+export default Modal;

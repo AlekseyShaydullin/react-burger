@@ -1,27 +1,25 @@
 import React from 'react';
-import stylesModalOverlay from '../ModalOverlay/ModalOverlay.module.css'
-import PropTypes from "prop-types";
+import styleModalOverlay from '../ModalOverlay/ModalOverlay.module.css'
+import PropTypes from 'prop-types';
 
 
 const ModalOverlay = (props) => {
 
   const handleOverlay = (e) => {
-    if (e.target === e.currentTarget) {
-      props.closeModal();
-    }
-  };
+    if (e.target === e.currentTarget) { props.onClose() }
+  }
 
   return (
-    <section className={props.isActive ? `${stylesModalOverlay.overlay} ${stylesModalOverlay.overlay_active}` : `${stylesModalOverlay.overlay}`} onClick={handleOverlay}>
-      <div className={stylesModalOverlay.content}>{props.children}</div>
+    <section className={props.isActive ? `${styleModalOverlay.overlay} ${styleModalOverlay.overlay_active}` : `${styleModalOverlay.overlay}`} onClick={handleOverlay}>
+      <div className={styleModalOverlay.content}>{props.children}</div>
     </section>
   )
-};
+}
 
 ModalOverlay.propTypes = {
-  closeModal: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired
-};
+}
 
-export default ModalOverlay
+export default ModalOverlay;

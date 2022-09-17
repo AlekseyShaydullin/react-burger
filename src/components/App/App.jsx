@@ -6,26 +6,28 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import styleApp from './App.module.css';
-import { ingredientType } from '../../utils/types';
-import { apiUrl } from "../../utils/constants";
+import { apiUrl } from '../../utils/constants';
 
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([]);
-  const [currentIngredient, setCurrentIngredient] = useState({})
-  const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
-  const [isOpenedOrderModal, setModalOrderState] = useState(false)
+  const [ingredients, setIngredients] = useState([]);
+  const [currentIngredient, setCurrentIngredient] = useState({});
+  const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
+  const [isOpenedOrderModal, setModalOrderState] = useState(false);
 
-  const handleOrderState = () => {
-    setModalOrderState(!isOpenedOrderModal)
+  const handleIngredientState = (data) => {
+    setCurrentIngredient(data);
+    setModalIngredientsState(set => !set)
   };
-  const handleIngredientState = (i) => {
-    setCurrentIngredient(i);
-    setModalIngredientsState(t => !t)
-  };
+
   const closeOrderModal = () => {
     setModalOrderState(false)
   };
+
+  const handleOrderModal = () => {
+    setModalOrderState(true)
+  };
+
   const closeIngredientModal = () => {
     setModalIngredientsState(false)
   };
@@ -49,25 +51,18 @@ function App() {
     <>
       <AppHeader />
       <main className={styleApp.main__wrapper}>
-        {ingredients.length &&
-          <>
-            <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
-            <BurgerConstructor data={ingredients} openModal={handleOrderState} />
-          </>
-        }
+        <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
+        {ingredients.length > 0 && <BurgerConstructor data={ingredients} openModal={handleOrderModal} />}
       </main>
-      <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} closeModal={closeIngredientModal}>
+
+      <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} onClose={closeIngredientModal}>
         <IngredientDetails selectedElement={currentIngredient} />
       </Modal>
-      <Modal activeModal={isOpenedOrderModal} closeModal={closeOrderModal} >
+      <Modal activeModal={isOpenedOrderModal} onClose={closeOrderModal} >
         <OrderDetails />
       </Modal>
     </>
   );
-}
-
-App.propTypes = {
-  data: ingredientType.isRequired
 }
 
 export default App;
