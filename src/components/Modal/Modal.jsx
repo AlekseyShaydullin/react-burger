@@ -22,23 +22,29 @@ const Modal = ({ activeModal, onClose, title, children }) => {
     };
   }, [activeModal]);
 
+
+
+
   return ReactDOM.createPortal((
-    <ModalOverlay closeModal={onClose} isActive={activeModal}>
-      <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
-        <div className={`${styleModal.header}`}>
-          {
-            title
-            && <h3 className={`text text_type_main-large`}>{title}</h3>
-          }
-          <div className={styleModal.closeIcon} onClick={onClose}>
-            <CloseIcon type={'primary'} />
+    <>
+      <div className={activeModal ? `${styleModal.popup} ${styleModal.popup_active}` : `${styleModal.popup}`} >
+        <ModalOverlay closeModal={onClose} />
+        <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
+          <div className={`${styleModal.header}`}>
+            {
+              title
+              && <h3 className={`text text_type_main-large`}>{title}</h3>
+            }
+            <div className={styleModal.closeIcon} onClick={onClose}>
+              <CloseIcon type={'primary'} />
+            </div>
+          </div>
+          <div className={`${styleModal.container}`}>
+            {children}
           </div>
         </div>
-        <div className={`${styleModal.container}`}>
-          {children}
-        </div>
       </div>
-    </ModalOverlay>
+    </>
   ), modalContainer
   )
 }

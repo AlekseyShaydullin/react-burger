@@ -10,16 +10,14 @@ const ModalOverlay = (props) => {
   }
 
   return (
-    <section className={props.isActive ? `${styleModalOverlay.overlay} ${styleModalOverlay.overlay_active}` : `${styleModalOverlay.overlay}`} onClick={handleOverlay}>
-      <div className={styleModalOverlay.content}>{props.children}</div>
-    </section>
+    <div className={`${styleModalOverlay.overlay}`} onClick={handleOverlay}></div>
   )
 }
 
 ModalOverlay.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired
+  //isActive: PropTypes.bool.isRequired,
+  //children: PropTypes.node.isRequired
 }
 
 export default ModalOverlay;

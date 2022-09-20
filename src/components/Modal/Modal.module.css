@@ -41,3 +41,14 @@
 .closeIcon:hover {
   opacity: .8;
 }
+
+.popup {
+  opacity: 0;
+  visibility: hidden;
+  transition: .5s;
+}
+
+.popup_active {
+  opacity: 1;
+  visibility: visible;
+}
