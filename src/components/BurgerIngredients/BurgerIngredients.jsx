@@ -5,7 +5,7 @@ import { ingredientType } from '../../utils/types';
 import PropTypes from 'prop-types';
 import BurgerIngredientType from '../BurgerIngredientType/BurgerIngredientType';
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState('bun')
 
   return (
@@ -23,16 +23,17 @@ function BurgerIngredients({ data }) {
         </Tab>
       </nav>
       <ul className={styleBurgerIngred.ingredients}>
-        <BurgerIngredientType data={data} type={'bun'} title={'Булки'} />
-        <BurgerIngredientType data={data} type={'sauce'} title={'Соусы'} />
-        <BurgerIngredientType data={data} type={'main'} title={'Начинки'} />
+        <BurgerIngredientType data={props.data} type={'bun'} title={'Булки'} openModal={props.openModal} />
+        <BurgerIngredientType data={props.data} type={'sauce'} title={'Соусы'} openModal={props.openModal} />
+        <BurgerIngredientType data={props.data} type={'main'} title={'Начинки'} openModal={props.openModal} />
       </ul>
     </section>
   )
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired
+  data: PropTypes.arrayOf(ingredientType).isRequired,
+  openModal: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

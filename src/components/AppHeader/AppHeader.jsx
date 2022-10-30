@@ -9,7 +9,7 @@ function AppHeader() {
       <nav className={styleAppHeader.content}>
         <ul className={`${styleAppHeader.nav__list} m-4`}>
           <li>
-            <NavLink text={'Конструктор'} className='p-4 m-4' icon={<BurgerIcon type={'primary'} />} />
+            <NavLink text={'Конструктор'} className='p-4 m-4' icon={<BurgerIcon type={'primary'} />} type={'primary'} />
           </li>
           <li>
             <NavLink text={'Лента заказов'} className='p-4 m-4' icon={<ListIcon type={'secondary'} />} type={'secondary'} />
@@ -27,5 +27,6 @@ function AppHeader() {
     </header>
   );
 }
+
 
 export default AppHeader;
