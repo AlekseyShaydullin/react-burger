@@ -11,10 +11,10 @@ import { IngredientsContext } from '../../services/ingredientsContext';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
-  const [currentIngredient, setCurrentIngredient] = useState({});
+  const [currentIngredient, setCurrentIngredient] = useState(null);
   const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
   const [isOpenedOrderModal, setModalOrderState] = useState(false);
-  const [orderState, setOrderState] = useState(0);
+  const [orderState, setOrderState] = useState(null);
 
   const handleIngredientState = (data) => {
     setCurrentIngredient(data);
@@ -42,28 +42,30 @@ function App() {
       .catch(err => console.error(err))
   }, [])
 
-//console.log(ingredients)
-
   return (
     <>
       <AppHeader />
       <main className={styleApp.main__wrapper}>
-        <IngredientsContext.Provider value={{ingredients}}>
-          {ingredients.length > 0 && (
-            <>
-              <BurgerIngredients openModal={handleIngredientState} />
-              <BurgerConstructor openModal={handleOrderModal} />
-            </>
-          )}
-        </IngredientsContext.Provider>
+        {ingredients.length > 0 && (
+          <IngredientsContext.Provider value={{ingredients}}>
+            <BurgerIngredients openModal={handleIngredientState} />
+            <BurgerConstructor openModal={handleOrderModal} />
+          </IngredientsContext.Provider>
+        )}
       </main>
 
-      <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} onClose={closeIngredientModal}>
-        <IngredientDetails selectedElement={currentIngredient} />
-      </Modal>
-      <Modal activeModal={isOpenedOrderModal} onClose={closeOrderModal} >
-        <OrderDetails order={orderState} />
-      </Modal>
+      {isOpenedIngredientsModal && (
+        <Modal title={"Детали ингредиента"} onClose={closeIngredientModal}>
+          <IngredientDetails selectedElement={!currentIngredient ? {} : currentIngredient} />
+        </Modal>
+      )}
+
+      {isOpenedOrderModal && (
+        <Modal onClose={closeOrderModal} >
+          <OrderDetails order={orderState} />
+        </Modal>
+      )}
+
     </>
   );
 }

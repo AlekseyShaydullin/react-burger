@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styleBurgerIngred from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import BurgerIngredientType from '../BurgerIngredientType/BurgerIngredientType';
 
 function BurgerIngredients(props) {
-  const [current, setCurrent] = React.useState('bun');
+  const [current, setCurrent] = useState('bun');
 
   return (
     <section className={`${styleBurgerIngred.wrapper} mt-10`}>

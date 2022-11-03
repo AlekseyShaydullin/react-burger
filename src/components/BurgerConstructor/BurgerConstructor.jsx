@@ -9,6 +9,10 @@ function BurgerConstructor(props) {
   const ingredientBun = useMemo(() => ingredients.find(ingredient => ingredient.type === 'bun'), [ingredients]);
   const ingredientNotBun = useMemo(() => ingredients.filter(ingredient => ingredient.type !== 'bun'), [ingredients]);
   const price = useMemo(() => ingredientBun.price * 2 + ingredientNotBun.reduce((a, b) => a + b.price, 0), [ingredientBun, ingredientNotBun]);
+  
+  //const ingredientsId =  [ingredientBun._id, ...ingredientNotBun.map(ing => ing._id), ingredientBun._id];
+  // Создал массив с набором ID для запроса на создание заказа POST/orders. Но без использования redux ничего не могу придумать. 
+  // Тут в компоненте создавать запрос к серверу плохо. И повторно в компоненте App использовать хук useMemo тоже плохо, так как будет дублирование кода. 
 
   return (
     <section className={`${styleBurgerConstruct.wrapper} mt-25 pl-4`}>
