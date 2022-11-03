@@ -7,9 +7,7 @@ import PropTypes from 'prop-types';
 function BurgerConstructor(props) {
   const {ingredients} = useContext(IngredientsContext);
   const ingredientBun = useMemo(() => ingredients.find(ingredient => ingredient.type === 'bun'), [ingredients]);
-  const ingredientNotBun = useMemo(() => ingredients.find(ingredient => ingredient.type !== 'bun'), [ingredients]);
-  //console.log(ingredientBun);
-  console.log(ingredientNotBun);
+  const ingredientNotBun = useMemo(() => ingredients.filter(ingredient => ingredient.type !== 'bun'), [ingredients]);
   const price = useMemo(() => ingredientBun.price * 2 + ingredientNotBun.reduce((a, b) => a + b.price, 0), [ingredientBun, ingredientNotBun]);
 
   return (
