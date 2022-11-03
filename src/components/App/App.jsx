@@ -6,14 +6,15 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import styleApp from './App.module.css';
-import { apiUrl } from '../../utils/constants';
-
+import { getData, setOrder } from '../../utils/api';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
   const [currentIngredient, setCurrentIngredient] = useState({});
   const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
   const [isOpenedOrderModal, setModalOrderState] = useState(false);
+  const [orderState, setOrderState] = useState(0);
 
   const handleIngredientState = (data) => {
     setCurrentIngredient(data);
@@ -26,6 +27,9 @@ function App() {
 
   const handleOrderModal = () => {
     setModalOrderState(true)
+    setOrder(ingredients.map(ing => ing._id))
+      .then(res => setOrderState(res.order.number))
+      .catch(err => console.error(err))
   };
 
   const closeIngredientModal = () => {
@@ -33,33 +37,32 @@ function App() {
   };
 
   useEffect(() => {
-    const getData = () => {
-      fetch(apiUrl)
-        .then(res => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(res.status);
-        })
-        .then(res => setIngredients(res.data))
-        .catch(err => console.error(err))
-    }
     getData()
+      .then(res => setIngredients(res.data))
+      .catch(err => console.error(err))
   }, [])
+
+//console.log(ingredients)
 
   return (
     <>
       <AppHeader />
       <main className={styleApp.main__wrapper}>
-        <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
-        {ingredients.length > 0 && <BurgerConstructor data={ingredients} openModal={handleOrderModal} />}
+        <IngredientsContext.Provider value={{ingredients}}>
+          {ingredients.length > 0 && (
+            <>
+              <BurgerIngredients openModal={handleIngredientState} />
+              <BurgerConstructor openModal={handleOrderModal} />
+            </>
+          )}
+        </IngredientsContext.Provider>
       </main>
 
       <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} onClose={closeIngredientModal}>
         <IngredientDetails selectedElement={currentIngredient} />
       </Modal>
       <Modal activeModal={isOpenedOrderModal} onClose={closeOrderModal} >
-        <OrderDetails />
+        <OrderDetails order={orderState} />
       </Modal>
     </>
   );

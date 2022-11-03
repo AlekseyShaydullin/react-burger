@@ -1,12 +1,11 @@
 import React from 'react';
 import styleBurgerIngred from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientType } from '../../utils/types';
 import PropTypes from 'prop-types';
 import BurgerIngredientType from '../BurgerIngredientType/BurgerIngredientType';
 
 function BurgerIngredients(props) {
-  const [current, setCurrent] = React.useState('bun')
+  const [current, setCurrent] = React.useState('bun');
 
   return (
     <section className={`${styleBurgerIngred.wrapper} mt-10`}>
@@ -23,16 +22,15 @@ function BurgerIngredients(props) {
         </Tab>
       </nav>
       <ul className={styleBurgerIngred.ingredients}>
-        <BurgerIngredientType data={props.data} type={'bun'} title={'Булки'} openModal={props.openModal} />
-        <BurgerIngredientType data={props.data} type={'sauce'} title={'Соусы'} openModal={props.openModal} />
-        <BurgerIngredientType data={props.data} type={'main'} title={'Начинки'} openModal={props.openModal} />
+        <BurgerIngredientType type={'bun'} title={'Булки'} openModal={props.openModal} />
+        <BurgerIngredientType type={'sauce'} title={'Соусы'} openModal={props.openModal} />
+        <BurgerIngredientType type={'main'} title={'Начинки'} openModal={props.openModal} />
       </ul>
     </section>
   )
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired
 }
 
