@@ -54,9 +54,9 @@ function App() {
         )}
       </main>
 
-      {isOpenedIngredientsModal && (
+      {currentIngredient !== null  && (
         <Modal title={"Детали ингредиента"} onClose={closeIngredientModal}>
-          <IngredientDetails selectedElement={!currentIngredient ? {} : currentIngredient} />
+          <IngredientDetails selectedElement={currentIngredient} />
         </Modal>
       )}
 
