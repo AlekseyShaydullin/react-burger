@@ -6,41 +6,38 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { modalContainer, body } from '../../utils/constants';
 
-const Modal = ({ activeModal, onClose, title, children }) => {
+const Modal = (props) => {
 
   useEffect(() => {
     const handleEscClose = (e) => {
-      e.key === 'Escape' && onClose();
+      e.key === 'Escape' && props.onClose();
     };
-    if (activeModal) {
-      document.addEventListener('keydown', handleEscClose);
-      body.style.overflow = 'hidden';
-    }
+    
+    document.addEventListener('keydown', handleEscClose);
+    body.style.overflow = 'hidden';
+
     return () => {
       document.removeEventListener('keydown', handleEscClose);
       body.style.overflow = 'visible';
     };
-  }, [activeModal]);
-
-
-
+  });
 
   return ReactDOM.createPortal((
     <>
-      <div className={activeModal ? `${styleModal.popup} ${styleModal.popup_active}` : `${styleModal.popup}`} >
-        <ModalOverlay closeModal={onClose} />
+      <div className={`${styleModal.popup} ${styleModal.popup_active}`} >
+        <ModalOverlay closeModal={props.onClose} />
         <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
           <div className={`${styleModal.header}`}>
             {
-              title
-              && <h3 className={`text text_type_main-large`}>{title}</h3>
+              props.title
+              && <h3 className={`text text_type_main-large`}>{props.title}</h3>
             }
-            <div className={styleModal.closeIcon} onClick={onClose}>
+            <div className={styleModal.closeIcon} onClick={props.onClose}>
               <CloseIcon type={'primary'} />
             </div>
           </div>
           <div className={`${styleModal.container}`}>
-            {children}
+            {props.children}
           </div>
         </div>
       </div>
@@ -54,7 +51,6 @@ Modal.defaultProps = {
 }
 
 Modal.propTypes = {
-  activeModal: PropTypes.bool.isRequired,
   children: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string
