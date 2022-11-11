@@ -1,4 +1,6 @@
+
 import React, { forwardRef } from 'react';
+
 import styleBurgerIngredType from './BurgerIngredientType.module.css';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import PropTypes from 'prop-types';
