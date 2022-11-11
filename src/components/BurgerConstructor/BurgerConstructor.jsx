@@ -24,8 +24,8 @@ function BurgerConstructor(props) {
   })
 
   const price = useMemo(() => {
-    return ingredients.length > 0 && bun.price * 2 + ingredients.reduce((acc, item) => acc + item.price, 0)
-  }, [ingredients, bun]);
+    return ingredients.reduce((acc, item) => acc + item.price, 0)
+  }, [ingredients]);
   
   const moveIngredient = useCallback((dragIndex, hoverIndex) => {
     const dragItem = ingredients[dragIndex];
@@ -61,7 +61,6 @@ function BurgerConstructor(props) {
               <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
             </div>
             }
-
             {ingredients.length > 0 ?
             <ul className={styleBurgerConstruct.filling}>
               {ingredients.map((ing, index) => renderIngredients(ing, index))}
@@ -89,19 +88,15 @@ function BurgerConstructor(props) {
               <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
             </div>
             }
-
-            {ingredients.length > 0 && bun ?
             <div className={`${styleBurgerConstruct.order} mt-10`}>
               <div className={styleBurgerConstruct.price}>
-                <p className="text text_type_digits-medium">{price}</p>
+                <p className="text text_type_digits-medium">{bun ? price + (bun.price * 2) : price}</p>
                 <CurrencyIcon type="primary" />
               </div>
               <Button type="primary" size="large" onClick={props.openModal}>
                 Оформить заказ
               </Button>
             </div>
-            : <></>
-            }
         </article>
       </section>
     </>

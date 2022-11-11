@@ -1,47 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styleBurgerIngred from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientType from '../BurgerIngredientType/BurgerIngredientType';
 
 function BurgerIngredients() {
   const [current, setCurrent] = useState('bun');
-  const [bunTab, setBunTab] = useState(false);
-  const [sauceTab, setSauceTab] = useState(false);
-  const [mainTab, setMainTab] = useState(false);
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        entry.target.id = 'bun' && setBunTab(entry.isIntersecting);
-        entry.target.id = 'sauce' && setSauceTab(entry.isIntersecting);
-        entry.target.id = 'main' && setMainTab(entry.isIntersecting);
-      });
-    })
-    bunRef.current !== null && observer.observe(bunRef.current);
-    sauceRef.current !== null && observer.observe(sauceRef.current);
-    mainRef.current !== null && observer.observe(mainRef.current);
-  }, [])
-
-  useEffect(() => {
-    bunTab && setCurrent('bun');
-    !bunTab && sauceTab && setCurrent('sauce');
-    !sauceTab && mainTab && setCurrent('main');
-  }, [bunTab, sauceTab, mainTab]);
 
   const handlerTabClick = (tab) => {
     if(tab !== current) {
       switch (tab) {
         case 'bun':
           bunRef.current.scrollIntoView({ behavior: 'smooth' });
+          setCurrent('bun');
           break;
         case 'sauce':
           sauceRef.current.scrollIntoView({ behavior: 'smooth' });
+          setCurrent('sauce');
           break;
         case 'main':
           mainRef.current.scrollIntoView({ behavior: 'smooth' });
+          setCurrent('main');
           break;
         default: return bunRef.current.scrollIntoView({ behavior: 'smooth' });
       }
