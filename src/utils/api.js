@@ -12,7 +12,7 @@ export async function getData() {
   return checkRes(res);
 }
 
-export async function setOrder(ingredients) {
+export async function setOrderApi(ingredients) {
   const res = await fetch(`${apiUrl}orders`, {
     method: 'POST',
     headers: { "Content-Type": "application/json" },

@@ -10,37 +10,37 @@ const Modal = (props) => {
 
   useEffect(() => {
     const handleEscClose = (e) => {
-      e.key === 'Escape' && props.onClose();
-    };
+      if (e.key === 'Escape') {props.onClose()}
+    }
     
-    document.addEventListener('keydown', handleEscClose);
-    body.style.overflow = 'hidden';
+    if (props.visible) {
+      document.addEventListener('keydown', handleEscClose);
+      body.style.overflow = 'hidden';
+    }
 
     return () => {
       document.removeEventListener('keydown', handleEscClose);
       body.style.overflow = 'visible';
     };
-  });
+  }, [props, props.visible]);
 
   return ReactDOM.createPortal((
     <>
-      <div className={`${styleModal.popup} ${styleModal.popup_active}`} >
-        <ModalOverlay closeModal={props.onClose} />
-        <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
-          <div className={`${styleModal.header}`}>
-            {
-              props.title
-              && <h3 className={`text text_type_main-large`}>{props.title}</h3>
-            }
-            <div className={styleModal.closeIcon} onClick={props.onClose}>
-              <CloseIcon type={'primary'} />
+    <ModalOverlay visible={props.visible} onClose={props.onClose} >
+        <div className={styleModal.modal}>
+          <div className={styleModal.header}>
+            <h2 className='text text_type_main-large'>
+              {props.title}
+            </h2>
+            <div className={styleModal.closeIcon}>
+              <CloseIcon type="primary" onClick={props.onClose}/>
             </div>
           </div>
-          <div className={`${styleModal.container}`}>
+          <div className={styleModal.content}>
             {props.children}
           </div>
         </div>
-      </div>
+      </ModalOverlay>
     </>
   ), modalContainer
   )
@@ -51,6 +51,7 @@ Modal.defaultProps = {
 }
 
 Modal.propTypes = {
+  visible: PropTypes.bool.isRequired,
   children: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string

@@ -1,36 +1,34 @@
 import React from 'react'
 import styleIngredientDetails from '../IngredientDetails/IngredientDetails.module.css';
-import { ingredientType } from '../../utils/types';
+import { useSelector } from 'react-redux';
 
-const IngredientDetails = (props) => {
+const IngredientDetails = () => {
+  const selectedElement = useSelector(store => store.ingredientDetail.ingredient);
+
   return (
     <section className={styleIngredientDetails.container}>
-      <img src={props.selectedElement.image_large} alt={props.selectedElement.name} />
-      <p className={`${styleIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{props.selectedElement.name}</p>
+      <img src={selectedElement.image_large} alt={selectedElement.name} />
+      <p className={`${styleIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{selectedElement.name}</p>
       <ul className={`${styleIngredientDetails.ingredientDetails}`}>
         <li className={styleIngredientDetails.listItem}>
           <p className={`text text_type_main-default text_color_inactive`}>Калории,ккал</p>
-          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{props.selectedElement.calories}</p>
+          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{selectedElement.calories}</p>
         </li>
         <li className={styleIngredientDetails.listItem}>
           <p className={`text text_type_main-default text_color_inactive`}>Белки, г</p>
-          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{props.selectedElement.proteins}</p>
+          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{selectedElement.proteins}</p>
         </li>
         <li className={styleIngredientDetails.listItem}>
           <p className={`text text_type_main-default text_color_inactive`}>Жиры, г</p>
-          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{props.selectedElement.fat}</p>
+          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{selectedElement.fat}</p>
         </li>
         <li className={styleIngredientDetails.listItem}>
           <p className={`text text_type_main-default text_color_inactive`}>Углеводы, г</p>
-          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{props.selectedElement.carbohydrates}</p>
+          <p className={`text text_type_digits-default text_color_inactive pt-3`}>{selectedElement.carbohydrates}</p>
         </li>
       </ul>
     </section>
   )
-}
-
-IngredientDetails.propTypes = {
-  selectedElement: ingredientType
 }
 
 export default IngredientDetails;
