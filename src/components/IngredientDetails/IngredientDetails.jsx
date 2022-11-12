@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const IngredientDetails = () => {
   const selectedElement = useSelector(store => store.ingredientDetail.ingredient);
 
-  return (
+  return ( selectedElement !== null &&
     <section className={styleIngredientDetails.container}>
       <img src={selectedElement.image_large} alt={selectedElement.name} />
       <p className={`${styleIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{selectedElement.name}</p>
