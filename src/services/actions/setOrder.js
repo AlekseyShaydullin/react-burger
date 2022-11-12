@@ -9,17 +9,18 @@ export function setOrder(arr) {
     dispatch({
       type: SET_ORDER_REQUEST
     })
-    setOrderApi(arr).then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: SET_ORDER_SUCCESS,
-          order: res.order.number
-        })
-      } else {
+    setOrderApi(arr)
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: SET_ORDER_SUCCESS,
+            order: res.order.number
+          })
+        }})
+      .catch(() => {
         dispatch({
           type: SET_ORDER_ERROR
         })
-      }
-    })
+      })
+    }
   }
-}

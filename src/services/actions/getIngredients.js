@@ -10,17 +10,19 @@ export function getIngredients() {
       type: GET_INGREDIENTS_REQUEST
     })
 
-    getData().then(res => {
+    getData()
+    .then(res => {
       if (res && res.success) {
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
           data: res.data
         })
-      } else {
-        dispatch({
-          type: GET_INGREDIENTS_ERROR
-        })
-      }
-    })
+      }})
+    .catch(() => {
+      dispatch({
+        type: GET_INGREDIENTS_ERROR
+      })
+    }
+    )
   }
 }

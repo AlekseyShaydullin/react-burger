@@ -1,7 +1,7 @@
 import {SET_ORDER_REQUEST, SET_ORDER_ERROR, SET_ORDER_SUCCESS} from '../actions/setOrder';
 
 const initialState = {
-  order: 0,
+  order: null,
   orderRequest: false,
   orderFailed: false,
 }

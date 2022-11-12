@@ -1,28 +1,29 @@
 .modal {
-  max-width: 720px;
-  width: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
   background: rgba(28, 28, 33, 1);
   border: 1px solid rgba(76, 76, 255, .2);
   box-sizing: border-box;
   box-shadow: 0 24px 32px rgba(0, 0, 0, .04), 0 16px 24px rgba(0, 0, 0, .04), 0 4px 8px rgba(0, 0, 0, .04), 0 0 1px rgba(0, 0, 0, .04);
   border-radius: 40px;
-  padding: 40px 40px 60px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 5;
+}
+
+.enable {
+  opacity: 1;
 }
 
 .header {
-  height: 64px;
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 64px;
 }
 
-.content {
-  max-width: 520px;
-  width: 100%;
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,9 +31,24 @@
 
 .closeIcon {
   cursor: pointer;
-  transition: opacity .2s;
+  transition: .2s;
+  background: transparent;
+  position: absolute;
+  top: 60px;
+  right: 45px;
 }
 
 .closeIcon:hover {
   opacity: .8;
+}
+
+.popup {
+  opacity: 0;
+  visibility: hidden;
+  transition: .5s;
+}
+
+.popup_active {
+  opacity: 1;
+  visibility: visible;
 }

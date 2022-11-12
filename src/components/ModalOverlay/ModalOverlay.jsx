@@ -4,22 +4,19 @@ import PropTypes from 'prop-types';
 
 
 const ModalOverlay = (props) => {
-  const {visible, children, onClose} = props;
+  const {visible, onClose} = props;
 
   const handleOverlay = (e) => {
     if (e.target === e.currentTarget) { onClose() }
   }
 
   return (
-    <div className={visible ? `${styleModalOverlay.overlay} + ${styleModalOverlay.overlay_active}` : `${styleModalOverlay.overlay}`} onClick={handleOverlay}>
-    {children}
-  </div>
+    <div className={visible ? `${styleModalOverlay.overlay} ${styleModalOverlay.overlay_active}` : `${styleModalOverlay.overlay}`} onClick={handleOverlay}></div>
   )
 }
 
 ModalOverlay.propTypes = {
   visible: PropTypes.bool,
-  children: PropTypes.object,
   onClose: PropTypes.func
 }
 

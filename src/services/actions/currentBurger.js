@@ -12,7 +12,8 @@ export const setBurgerBun = item => ({
 
 export const addBurgerIngredient = item => ({
   type: ADD_BURGER_INGREDIENTS, 
-  data: item, keyId: uuid4()
+  data: item, 
+  keyId: uuid4()
 });
 
 export const deleteBurgerIngredient = id => ({

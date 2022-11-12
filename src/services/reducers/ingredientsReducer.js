@@ -3,7 +3,7 @@ import {GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_ERROR, GET_INGREDIENTS_SUCCESS}
 const initialState = {
   dataRequest: false,
   dataFailed: false,
-  data: []
+  data: null
 }
 
 

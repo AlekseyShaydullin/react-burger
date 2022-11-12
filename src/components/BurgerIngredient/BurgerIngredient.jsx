@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styleBurgerIngredient from './BurgerIngredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientType } from '../../utils/types';
@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {showIngredientDetails} from '../../services/actions/showIngredientDetails';
 import { useDrag } from 'react-dnd';
 import { OPEN_MODAL_INGREDIENT } from '../../services/actions/modal';
-import { getIngredients } from '../../services/actions/getIngredients';
 
 function BurgerIngredient(props) {
   const {ingredients} = useSelector(store => store.burgerIngredients);
@@ -27,7 +26,7 @@ function BurgerIngredient(props) {
 
   const setCounter = () => {
     if (props.data.type !== 'bun') {
-      return ingredients.filter((item) => item._id === props.data._id).length
+      return ingredients !== null && ingredients.filter((item) => item._id === props.data._id).length
     } else if (bun?._id === props.data._id) {
       return 2
     } else return 0

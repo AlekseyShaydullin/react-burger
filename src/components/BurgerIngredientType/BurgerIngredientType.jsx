@@ -13,7 +13,7 @@ const BurgerIngredientType = forwardRef((props, ref) => {
     <section className={styleBurgerIngredType.buns} ref={ref} id={props.id}>
       <h2 className={`text text_type_main-medium mb-6`}>{props.title}</h2>
       <ul className={`${styleBurgerIngredType.buns__list} mr-4 mb-10 ml-4`}>
-        {ingredients.filter((ing) => ing.type === props.type).map((ing) => (
+        {ingredients !== null && ingredients.filter((ing) => ing.type === props.type).map((ing) => (
           <BurgerIngredient data={ing} key={ing._id} />
         ))}
       </ul>

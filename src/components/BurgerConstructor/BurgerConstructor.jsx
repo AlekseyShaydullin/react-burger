@@ -112,8 +112,4 @@ function BurgerConstructor() {
   )
 }
 
-BurgerConstructor.propTypes = {
-  openModal: PropTypes.func.isRequired
-}
-
 export default BurgerConstructor;
