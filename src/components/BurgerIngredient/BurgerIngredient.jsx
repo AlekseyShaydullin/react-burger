@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styleBurgerIngredient from './BurgerIngredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientType } from '../../utils/types';
@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {showIngredientDetails} from '../../services/actions/showIngredientDetails';
 import { useDrag } from 'react-dnd';
+import { OPEN_MODAL_INGREDIENT } from '../../services/actions/modal';
+import { getIngredients } from '../../services/actions/getIngredients';
 
 function BurgerIngredient(props) {
   const {ingredients} = useSelector(store => store.burgerIngredients);
@@ -18,6 +20,9 @@ function BurgerIngredient(props) {
 
   const openModal = () => {
     dispatch(showIngredientDetails(props.data))
+    dispatch({
+      type: OPEN_MODAL_INGREDIENT
+    })
   }
 
   const setCounter = () => {
@@ -29,7 +34,7 @@ function BurgerIngredient(props) {
   }
   
   const counter = setCounter();
-
+  
   return (
     <>
       <li className={`${styleBurgerIngredient.wrapper} mb-8`} ref={dragRef} onClick={openModal}>

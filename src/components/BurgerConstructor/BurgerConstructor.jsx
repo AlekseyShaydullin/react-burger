@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import {sortedIngredients, setBurgerBun, addBurgerIngredient} from '../../services/actions/currentBurger';
 import ConstructorBurgerItem from '../ConstructorBurgerItem/ConstructorBurgerItem';
+import { setOrder } from '../../services/actions/setOrder';
+import { OPEN_MODAL_ORDER } from '../../services/actions/modal';
 
-function BurgerConstructor(props) {
+function BurgerConstructor() {
   const {ingredients} = useSelector(store => store.burgerIngredients);
   const {bun} = useSelector(store => store.burgerIngredients);
   const dispatch = useDispatch();
@@ -41,6 +43,13 @@ function BurgerConstructor(props) {
       <ConstructorBurgerItem ing={ing} index={index} key={ing.keyId} moveIng={moveIngredient}/>
     )
   }
+
+  const handleOrderModal = () => {
+    dispatch({
+      type: OPEN_MODAL_ORDER
+    })
+    dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
+  };
 
   return (
     <>
@@ -93,7 +102,7 @@ function BurgerConstructor(props) {
                 <p className="text text_type_digits-medium">{bun ? price + (bun.price * 2) : price}</p>
                 <CurrencyIcon type="primary" />
               </div>
-              <Button type="primary" size="large" onClick={props.openModal}>
+              <Button type="primary" size="large" onClick={handleOrderModal}>
                 Оформить заказ
               </Button>
             </div>
