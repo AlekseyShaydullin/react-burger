@@ -10,10 +10,10 @@ const OrderDetails = () => {
     (
     <section className={`${styleOrderDetails.container} pb-20`}>
       <p className={`${styleOrderDetails.title} text text_type_digits-large`}>{order}</p>
-      <p className={`${styleOrderDetails.color_text} text text_type_main-medium pt-8 pb-15`}>ИНДЕНТИФИКАТОР ЗАКАЗА НЕ НАЙДЕН</p>
+      <p className={`${styleOrderDetails.color_text} text text_type_main-medium pt-8 pb-15`}>НАМ КАЖЕТСЯ, ЧТО ВЫ НИЧЕГО НЕ ВЫБРАЛИ</p>
       <img className={styleOrderDetails.image} src={doneIndicationImg} alt={'finished'} />
       <p className={`text text_type_main-default pt-15 pb-2`}>Пожалуйста, вернитесь на шаг назад</p>
-      <p className={`text text_type_main-default text_color_inactive`}>выберите ингридиенты</p>
+      <p className={`text text_type_main-default text_color_inactive`}>выберите ингредиенты</p>
     </section>
     ) :
     (<section className={`${styleOrderDetails.container} pb-20`}>

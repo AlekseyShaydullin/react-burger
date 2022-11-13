@@ -18,10 +18,12 @@ export function getIngredients() {
           data: res.data
         })
       }})
-    .catch(() => {
-      dispatch({
-        type: GET_INGREDIENTS_ERROR
-      })
+    .catch((res) => {
+      if (res && res.success) {
+        dispatch({
+          type: GET_INGREDIENTS_ERROR
+        })
+      }
     }
     )
   }

@@ -17,10 +17,12 @@ export function setOrder(arr) {
             order: res.order.number
           })
         }})
-      .catch(() => {
-        dispatch({
-          type: SET_ORDER_ERROR
-        })
+      .catch(res => {
+        if (res && res.success) {
+          dispatch({
+            type: SET_ORDER_ERROR
+          })
+        }
       })
     }
   }

@@ -46,28 +46,6 @@ const Modal = (props) => {
     </>
   ), modalContainer
   )
-
-  // return ReactDOM.createPortal((
-  //   <>
-  //     {props.visible ? ( 
-  //       <div className={styleModal.modal}>
-  //       <ModalOverlay onClose={props.onClose} />
-  //         <div className={styleModal.header}>
-  //           <h2 className='text text_type_main-large'>
-  //             {props.title}
-  //           </h2>
-  //           <div className={styleModal.closeIcon}>
-  //             <CloseIcon type="primary" onClick={props.onClose}/>
-  //           </div>
-  //         </div>
-  //         <div className={styleModal.content}>
-  //           {props.children}
-  //         </div>
-  //       </div>
-  //     ) : ''}
-  //   </>
-  // ), modalContainer
-  // )
 }
 
 Modal.defaultProps = {

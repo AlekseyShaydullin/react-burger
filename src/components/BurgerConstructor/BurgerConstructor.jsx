@@ -48,7 +48,10 @@ function BurgerConstructor() {
     dispatch({
       type: OPEN_MODAL_ORDER
     })
-    dispatch(setOrder((ingredients !== null && bun !== null && [bun._id, ...ingredients.map(ing => ing._id), bun._id])));
+    if(ingredients !== null && bun !== null) {
+      dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
+    }
+    
   };
 
   return (
