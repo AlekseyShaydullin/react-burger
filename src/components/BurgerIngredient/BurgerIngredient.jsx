@@ -23,7 +23,7 @@ function BurgerIngredient(props) {
       type: OPEN_MODAL_INGREDIENT
     })
   }
-
+  //console.log(ingredients)
   const setCounter = () => {
     if (props.data.type !== 'bun') {
       return ingredients !== null && ingredients.filter((item) => item._id === props.data._id).length
@@ -43,7 +43,7 @@ function BurgerIngredient(props) {
           <CurrencyIcon type={'primary'} />
         </div>
         <p className={'text text_type_main-default'}>{props.data.name}</p>
-        {counter !== 0 ? <Counter className={styleBurgerIngredient.count} size={'default'} count={counter} /> : <></>}
+        {counter !== 0 ? <Counter className={styleBurgerIngredient.count} size={'default'} count={counter} /> : null}
       </li>
     </>
   )

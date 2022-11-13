@@ -5,15 +5,24 @@ import {useSelector} from 'react-redux';
 
 const OrderDetails = () => {
   const order = useSelector(store => store.order.order)
-
-  return (
+  
+  return (order === null ?
+    (
     <section className={`${styleOrderDetails.container} pb-20`}>
+      <p className={`${styleOrderDetails.title} text text_type_digits-large`}>{order}</p>
+      <p className={`${styleOrderDetails.color_text} text text_type_main-medium pt-8 pb-15`}>ИНДЕНТИФИКАТОР ЗАКАЗА НЕ НАЙДЕН</p>
+      <img className={styleOrderDetails.image} src={doneIndicationImg} alt={'finished'} />
+      <p className={`text text_type_main-default pt-15 pb-2`}>Пожалуйста, вернитесь на шаг назад</p>
+      <p className={`text text_type_main-default text_color_inactive`}>выберите ингридиенты</p>
+    </section>
+    ) :
+    (<section className={`${styleOrderDetails.container} pb-20`}>
       <p className={`${styleOrderDetails.title} text text_type_digits-large`}>{order}</p>
       <p className={`text text_type_main-medium pt-8 pb-15`}>идентификатор заказа</p>
       <img className={styleOrderDetails.image} src={doneIndicationImg} alt={'finished'} />
       <p className={`text text_type_main-default pt-15 pb-2`}>Ваш заказ начали готовить</p>
       <p className={`text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
-    </section>
+    </section>)
   )
 };
 

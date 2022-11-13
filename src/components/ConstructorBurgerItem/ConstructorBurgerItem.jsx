@@ -51,7 +51,7 @@ function ConstructorBurgerItem({ing, index, moveIng}) {
         text={ing.name}
         price={ing.price}
         thumbnail={ing.image}
-        handleClose={() => onHandleClose()}
+        handleClose={onHandleClose}
       />
     </li>
   )

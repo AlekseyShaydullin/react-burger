@@ -9,7 +9,7 @@ export function setOrder(arr) {
     dispatch({
       type: SET_ORDER_REQUEST
     })
-    setOrderApi(arr)
+    arr !== false && setOrderApi(arr)
       .then(res => {
         if (res && res.success) {
           dispatch({

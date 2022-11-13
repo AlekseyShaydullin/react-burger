@@ -48,7 +48,7 @@ function BurgerConstructor() {
     dispatch({
       type: OPEN_MODAL_ORDER
     })
-    dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
+    dispatch(setOrder((ingredients !== null && bun !== null && [bun._id, ...ingredients.map(ing => ing._id), bun._id])));
   };
 
   return (
@@ -72,7 +72,7 @@ function BurgerConstructor() {
             }
             {ingredients.length > 0 ?
             <ul className={styleBurgerConstruct.filling}>
-              {ingredients.map((ing, index) => renderIngredients(ing, index))}
+              {ingredients.map(renderIngredients)}
             </ul>
             :
             <>
