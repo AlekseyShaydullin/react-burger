@@ -1,21 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
-import { CLOSE_MODAL_ORDER } from "../../services/actions/modal";
+import { resetOrder } from "../../services/actions/stateOrder";
 import Modal from "../Modal/Modal"
 import OrderDetails from "../OrderDetails/OrderDetails"
 
 const ModalOrder = () => {
-  const {modalOrder} = useSelector(store => store.modal)
+  const { order } = useSelector(store => store.order)
   const dispatch = useDispatch();
 
   const closeOrderModal = () => {
-    dispatch({
-      type: CLOSE_MODAL_ORDER
-    })
-  };
+    dispatch(resetOrder())
+  }
 
-  return (
+  return (order !== null &&
     <>
-      <Modal onClose={closeOrderModal} visible={modalOrder}>
+      <Modal onClose={closeOrderModal} visible={true}>
         <OrderDetails />
       </Modal>
     </>

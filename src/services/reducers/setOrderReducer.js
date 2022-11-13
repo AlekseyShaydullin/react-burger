@@ -1,4 +1,5 @@
 import {SET_ORDER_REQUEST, SET_ORDER_ERROR, SET_ORDER_SUCCESS} from '../actions/setOrder';
+import { RESET_STATE_ORDER } from '../actions/stateOrder';
 
 const initialState = {
   order: null,
@@ -26,6 +27,11 @@ export const setOrderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: false,
         orderFailed: true
+      }
+    case RESET_STATE_ORDER:
+      return {
+        ...state,
+        order: null
       }
     default:
       return state
