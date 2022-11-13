@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 
 const ModalOverlay = (props) => {
-  const {visible, onClose} = props;
+  const {visible, closeModal} = props;
 
   const handleOverlay = (e) => {
-    if (e.target === e.currentTarget) { onClose() }
+    if (e.target === e.currentTarget) { closeModal() }
   }
 
   return (

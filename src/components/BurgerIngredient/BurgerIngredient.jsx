@@ -23,7 +23,7 @@ function BurgerIngredient(props) {
       type: OPEN_MODAL_INGREDIENT
     })
   }
-  //console.log(ingredients)
+
   const setCounter = () => {
     if (props.data.type !== 'bun') {
       return ingredients !== null && ingredients.filter((item) => item._id === props.data._id).length

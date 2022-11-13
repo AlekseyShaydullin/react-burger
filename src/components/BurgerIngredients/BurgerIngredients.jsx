@@ -4,7 +4,13 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientType from '../BurgerIngredientType/BurgerIngredientType';
 
 function BurgerIngredients() {
-  const [current, setCurrent] = useState('bun');
+  const Tabs = {
+    BUN: 'bun',
+    SAUCE: 'sauce',
+    MAIN: 'main'
+  }
+
+  const [current, setCurrent] = useState(Tabs.BUN);
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
@@ -14,15 +20,15 @@ function BurgerIngredients() {
       switch (tab) {
         case 'bun':
           bunRef.current.scrollIntoView({ behavior: 'smooth' });
-          setCurrent('bun');
+          setCurrent(Tabs.BUN);
           break;
         case 'sauce':
           sauceRef.current.scrollIntoView({ behavior: 'smooth' });
-          setCurrent('sauce');
+          setCurrent(Tabs.SAUCE);
           break;
         case 'main':
           mainRef.current.scrollIntoView({ behavior: 'smooth' });
-          setCurrent('main');
+          setCurrent(Tabs.MAIN);
           break;
         default: return bunRef.current.scrollIntoView({ behavior: 'smooth' });
       }
@@ -33,13 +39,13 @@ function BurgerIngredients() {
     <section className={`${styleBurgerIngred.wrapper} mt-10`}>
       <h1 className={'text text_type_main-large'}>Соберите бургер</h1>
       <nav className={`${styleBurgerIngred.tabs} mt-5 mb-10`}>
-        <Tab value={'bun'} active={current === 'bun'} onClick={handlerTabClick} id={'bun'}>
+        <Tab value={'bun'} active={current === Tabs.BUN} onClick={handlerTabClick} id={'bun'}>
           Булки
         </Tab>
-        <Tab value={'sauce'} active={current === 'sauce'} onClick={handlerTabClick} id={'sauce'}>
+        <Tab value={'sauce'} active={current === Tabs.SAUCE} onClick={handlerTabClick} id={'sauce'}>
           Соусы
         </Tab>
-        <Tab value={'main'} active={current === 'main'} onClick={handlerTabClick} id={'main'}>
+        <Tab value={'main'} active={current === Tabs.MAIN} onClick={handlerTabClick} id={'main'}>
           Начинки
         </Tab>
       </nav>
