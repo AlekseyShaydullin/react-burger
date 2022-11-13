@@ -24,7 +24,7 @@ function BurgerConstructor() {
       isOver: monitor.isOver()
     })
   })
-
+  
   const price = useMemo(() => {
     return ingredients.reduce((acc, item) => acc + item.price, 0)
   }, [ingredients]);

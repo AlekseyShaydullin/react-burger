@@ -26,7 +26,7 @@ function BurgerIngredient(props) {
 
   const setCounter = () => {
     if (props.data.type !== 'bun') {
-      return ingredients !== null && ingredients.filter((item) => item._id === props.data._id).length
+      return ingredients !== null && ingredients.reduce((acc,item) => acc + (item._id === props.data._id), 0)
     } else if (bun?._id === props.data._id) {
       return 2
     } else return 0
