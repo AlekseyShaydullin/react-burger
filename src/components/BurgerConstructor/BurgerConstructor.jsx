@@ -7,7 +7,6 @@ import { useDrop } from 'react-dnd';
 import {sortedIngredients, setBurgerBun, addBurgerIngredient} from '../../services/actions/currentBurger';
 import ConstructorBurgerItem from '../ConstructorBurgerItem/ConstructorBurgerItem';
 import { setOrder } from '../../services/actions/setOrder';
-import { OPEN_MODAL_ORDER } from '../../services/actions/modal';
 
 function BurgerConstructor() {
   const {ingredients} = useSelector(store => store.burgerIngredients);
@@ -45,9 +44,6 @@ function BurgerConstructor() {
   }
 
   const handleOrderModal = () => {
-    dispatch({
-      type: OPEN_MODAL_ORDER
-    })
     if(ingredients !== null && bun !== null) {
       dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
     }

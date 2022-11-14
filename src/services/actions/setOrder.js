@@ -16,13 +16,15 @@ export function setOrder(arr) {
             type: SET_ORDER_SUCCESS,
             order: res.order.number
           })
-        }})
-      .catch(res => {
-        if (res && res.success) {
+        } else {
           dispatch({
             type: SET_ORDER_ERROR
           })
-        }
+        }})
+      .catch(() => {
+        dispatch({
+          type: SET_ORDER_ERROR
+        })
       })
     }
   }

@@ -17,14 +17,15 @@ export function getIngredients() {
           type: GET_INGREDIENTS_SUCCESS,
           data: res.data
         })
-      }})
-    .catch(res => {
-      if (res && res.success) {
+      } else {
         dispatch({
           type: GET_INGREDIENTS_ERROR
         })
-      }
-    }
-    )
+      }})
+    .catch(() => {
+      dispatch({
+        type: GET_INGREDIENTS_ERROR
+      })
+    })
   }
 }

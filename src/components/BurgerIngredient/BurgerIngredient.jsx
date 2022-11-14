@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
 import {showIngredientDetails} from '../../services/actions/showIngredientDetails';
 import { useDrag } from 'react-dnd';
-import { OPEN_MODAL_INGREDIENT } from '../../services/actions/modal';
 
 function BurgerIngredient(props) {
   const {ingredients} = useSelector(store => store.burgerIngredients);
@@ -19,9 +18,6 @@ function BurgerIngredient(props) {
 
   const openModal = () => {
     dispatch(showIngredientDetails(props.data))
-    dispatch({
-      type: OPEN_MODAL_INGREDIENT
-    })
   }
 
   const setCounter = () => {
