@@ -1,48 +1,114 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import styleBurgerConstruct from './BurgerConstructor.module.css';
-import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsContext } from '../../services/ingredientsContext';
+import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import {sortedIngredients, setBurgerBun, addBurgerIngredient} from '../../services/actions/currentBurger';
+import ConstructorBurgerItem from '../ConstructorBurgerItem/ConstructorBurgerItem';
+import { setOrder } from '../../services/actions/setOrder';
 
-function BurgerConstructor(props) {
-  const {ingredients} = useContext(IngredientsContext);
-  const ingredientBun = useMemo(() => ingredients.find(ingredient => ingredient.type === 'bun'), [ingredients]);
-  const ingredientNotBun = useMemo(() => ingredients.filter(ingredient => ingredient.type !== 'bun'), [ingredients]);
-  const price = useMemo(() => ingredientBun.price * 2 + ingredientNotBun.reduce((a, b) => a + b.price, 0), [ingredientBun, ingredientNotBun]);
+function BurgerConstructor() {
+  const {ingredients} = useSelector(store => store.burgerIngredients);
+  const {bun} = useSelector(store => store.burgerIngredients);
+  const dispatch = useDispatch();
+
+  const [{isOver}, dropRef] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      if (item.type === 'bun') {dispatch(setBurgerBun(item))}
+      else {dispatch(addBurgerIngredient(item))}
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver()
+    })
+  })
   
-  //const ingredientsId =  [ingredientBun._id, ...ingredientNotBun.map(ing => ing._id), ingredientBun._id];
-  // Создал массив с набором ID для запроса на создание заказа POST/orders. Но без использования redux ничего не могу придумать. 
-  // Тут в компоненте создавать запрос к серверу плохо. И повторно в компоненте App использовать хук useMemo тоже плохо, так как будет дублирование кода. 
+  const price = useMemo(() => {
+    return ingredients.reduce((acc, item) => acc + item.price, 0)
+  }, [ingredients]);
+  
+  const moveIngredient = useCallback((dragIndex, hoverIndex) => {
+    const dragItem = ingredients[dragIndex];
+    const hoverItem = ingredients[hoverIndex];
+    const newIngredients = [...ingredients];
+    newIngredients[dragIndex] = hoverItem;
+    newIngredients[hoverIndex] = dragItem;
+    dispatch(sortedIngredients(newIngredients));
+  }, [dispatch, ingredients])
+
+  const renderIngredients = (ing, index) => {
+    return (
+      <ConstructorBurgerItem ing={ing} index={index} key={ing.keyId} moveIng={moveIngredient}/>
+    )
+  }
+
+  const handleOrderModal = () => {
+    if(ingredients !== null && bun !== null) {
+      dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
+    }
+    
+  };
 
   return (
-    <section className={`${styleBurgerConstruct.wrapper} mt-25 pl-4`}>
-      <div className={`${styleBurgerConstruct.item__bun} pr-4`}>
-        <ConstructorElement type={'top'} isLocked text={`${ingredientBun.name} (верх)`} price={ingredientBun.price} thumbnail={ingredientBun.image} />
-      </div>
-      <ul className={styleBurgerConstruct.filling}>
-        {ingredientNotBun.map((ing) => (
-          <li className={`${styleBurgerConstruct.item} pr-2`} key={ing._id}>
-            <DragIcon type={'primary'} />
-            <ConstructorElement text={ing.name} price={ing.price} thumbnail={ing.image} isLocked={false} />
-          </li>
-        ))}
-      </ul>
-      <div className={`${styleBurgerConstruct.item__bun} pr-4`}>
-        <ConstructorElement type={'bottom'} isLocked text={`${ingredientBun.name} (низ)`} price={ingredientBun.price} thumbnail={ingredientBun.image} />
-      </div>
-      <div className={`${styleBurgerConstruct.order} mt-10`}>
-        <div className={styleBurgerConstruct.price}>
-          <p className={'text text_type_digits-medium'}>{price}</p>
-          <CurrencyIcon type={'primary'} />
-        </div>
-        <Button type={'primary'} size={'large'} onClick={props.openModal}>Оформить заказ</Button>
-      </div>
-    </section>
+    <>
+      <section ref={dropRef} className={isOver ? `${styleBurgerConstruct.wrapper} ${styleBurgerConstruct.border_color}` : `${styleBurgerConstruct.wrapper}`}>
+        <article className={`${styleBurgerConstruct.item__bun} pr-4`}>
+        {bun ?
+              <div className={`${styleBurgerConstruct.item_bun} pr-4`}>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${bun.name} (верх)`}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </div>
+            : 
+            <div className={`${styleBurgerConstruct.drop}`}>
+              <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
+            </div>
+            }
+            {ingredients.length > 0 ?
+            <ul className={styleBurgerConstruct.filling}>
+              {ingredients.map(renderIngredients)}
+            </ul>
+            :
+            <>
+              <div className={`${styleBurgerConstruct.drop}`}>
+                <h2 className={`${styleBurgerConstruct.title}`}>Добавьте начинку</h2>
+              </div>
+            </>
+            }
+          
+            {bun ?
+            <div className={`${styleBurgerConstruct.item_bun} pr-4`}>
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={`${bun.name} (низ)`}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </div>
+              : 
+            <div className={`${styleBurgerConstruct.drop}`}>
+              <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
+            </div>
+            }
+            <div className={`${styleBurgerConstruct.order} mt-10`}>
+              <div className={styleBurgerConstruct.price}>
+                <p className="text text_type_digits-medium">{bun ? price + (bun.price * 2) : price}</p>
+                <CurrencyIcon type="primary" />
+              </div>
+              <Button type="primary" size="large" onClick={handleOrderModal}>
+                Оформить заказ
+              </Button>
+            </div>
+        </article>
+      </section>
+    </>
   )
-}
-
-BurgerConstructor.propTypes = {
-  openModal: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

@@ -16,7 +16,7 @@
   flex-direction: column;
   outline: none;
   overflow-y: scroll;
-  height: 720px;
+  max-height: 756px;
 }
 
 ::-webkit-scrollbar-track {

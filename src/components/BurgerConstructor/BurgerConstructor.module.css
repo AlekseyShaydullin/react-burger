@@ -1,29 +1,35 @@
 .wrapper {
   max-width: 600px;
   width: 100%;
+  margin-top: 100px;
+  border: 1px solid transparent;
 }
 
-.item__bun {
+.list {
   display: flex;
-  justify-content: end;
-  box-sizing: border-box;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .filling {
-  max-height: 465px;
-  padding: 0;
-  margin: 16px 0;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 0;
+  margin: 16px 0;
   overflow-y: scroll;
+  max-height: 465px;
 }
 
-.item {
+.item_bun {
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: end;
 }
 
 .order {
@@ -36,4 +42,25 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.title {
+  font-family: 'Jet Brains Mono';
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.drop {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #7B61FF;
+}
+
+.border_color {
+  border-color: lightgreen;
 }

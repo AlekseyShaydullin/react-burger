@@ -10,22 +10,24 @@ const Modal = (props) => {
 
   useEffect(() => {
     const handleEscClose = (e) => {
-      e.key === 'Escape' && props.onClose();
-    };
+      if (e.key === 'Escape') {props.onClose()}
+    }
     
-    document.addEventListener('keydown', handleEscClose);
-    body.style.overflow = 'hidden';
+    if (props.visible) {
+      document.addEventListener('keydown', handleEscClose);
+      body.style.overflow = 'hidden';
+    }
 
     return () => {
       document.removeEventListener('keydown', handleEscClose);
       body.style.overflow = 'visible';
     };
-  });
+  }, [props, props.visible]);
 
   return ReactDOM.createPortal((
     <>
-      <div className={`${styleModal.popup} ${styleModal.popup_active}`} >
-        <ModalOverlay closeModal={props.onClose} />
+      <div className={props.visible ? `${styleModal.popup} ${styleModal.popup_active}` : `${styleModal.popup}`}>
+        <ModalOverlay closeModal={props.onClose} visible={props.visible} />
         <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
           <div className={`${styleModal.header}`}>
             {
@@ -51,6 +53,7 @@ Modal.defaultProps = {
 }
 
 Modal.propTypes = {
+  visible: PropTypes.bool.isRequired,
   children: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string
