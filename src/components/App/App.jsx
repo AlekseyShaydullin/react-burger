@@ -7,6 +7,7 @@ import { BrowserRouter as Router,	Route, Switch } from "react-router-dom";
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import ForgotPassPage from '../../pages/ForgotPassPage/ForgotPassPage';
+import ResetPassPage from '../../pages/ResetPassPage/ResetPassPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path='/forgot-password' exact>
             <ForgotPassPage />
+          </Route>
+          <Route path='/reset-password' exact>
+            <ResetPassPage />
           </Route>
         </Switch>
       </Router>
