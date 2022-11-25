@@ -5,6 +5,7 @@ import { getIngredients } from '../../services/actions/getIngredients';
 import HomePage from '../../pages/HomePage/HomePage';
 import { BrowserRouter as Router,	Route, Switch } from "react-router-dom";
 import LoginPage from '../../pages/LoginPage/LoginPage';
+import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path='/login' exact>
             <LoginPage />
+          </Route>
+          <Route path='/register' exact>
+            <RegisterPage />
           </Route>
         </Switch>
       </Router>
