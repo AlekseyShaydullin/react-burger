@@ -3,6 +3,8 @@ import AppHeader from '../AppHeader/AppHeader';
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/getIngredients';
 import HomePage from '../../pages/HomePage/HomePage';
+import { BrowserRouter as Router,	Route, Switch } from "react-router-dom";
+import LoginPage from '../../pages/LoginPage/LoginPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,7 +16,16 @@ function App() {
   return (
     <>
       <AppHeader />
-      <HomePage />
+      <Router>
+        <Switch>
+          <Route path='/' exact>
+            <HomePage />
+          </Route>
+          <Route path='/login' exact>
+            <LoginPage />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }
