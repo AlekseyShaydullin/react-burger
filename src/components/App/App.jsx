@@ -8,6 +8,7 @@ import LoginPage from '../../pages/LoginPage/LoginPage';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage';
 import ForgotPassPage from '../../pages/ForgotPassPage/ForgotPassPage';
 import ResetPassPage from '../../pages/ResetPassPage/ResetPassPage';
+import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path='/reset-password' exact>
             <ResetPassPage />
+          </Route>
+          <Route path='/profile' exact>
+            <ProfilePage />
           </Route>
         </Switch>
       </Router>
