@@ -7,11 +7,14 @@ import { useDrop } from 'react-dnd';
 import {sortedIngredients, setBurgerBun, addBurgerIngredient} from '../../services/actions/currentBurger';
 import ConstructorBurgerItem from '../ConstructorBurgerItem/ConstructorBurgerItem';
 import { setOrder } from '../../services/actions/setOrder';
+import { useHistory } from 'react-router-dom';
+import { getCookie } from '../../utils/cookie';
 
 function BurgerConstructor() {
   const {ingredients} = useSelector(store => store.burgerIngredients);
   const {bun} = useSelector(store => store.burgerIngredients);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
@@ -44,8 +47,13 @@ function BurgerConstructor() {
   }
 
   const handleOrderModal = () => {
-    if(ingredients !== null && bun !== null) {
+    const refreshToken = localStorage.getItem('refreshToken');
+		const accessToken = getCookie('token');
+
+    if(ingredients !== null && bun !== null && refreshToken && accessToken) {
       dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
+    } else {
+      history.push('/login');
     }
     
   };

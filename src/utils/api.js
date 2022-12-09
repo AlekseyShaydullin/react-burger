@@ -47,7 +47,7 @@ export async function setOrderApi(ingredients) {
   return checkRes(res);
   }
 
-  export async function setRegisterApi({email, password, name}) {
+  export async function registerApi({email, password, name}) {
     const res = await fetch(`${apiUrl}auth/register`, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },

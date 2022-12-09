@@ -8,7 +8,6 @@ import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 
 function HomePage() {
-
   return (
     <>
       <DndProvider backend={HTML5Backend}>
