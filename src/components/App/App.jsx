@@ -19,29 +19,31 @@ function App() {
 
   return (
     <>
+    <Router>
       <AppHeader />
-      <Router>
-        <Switch>
-          <Route path='/' exact>
-            <HomePage />
-          </Route>
-          <Route path='/login' exact>
-            <LoginPage />
-          </Route>
-          <Route path='/register' exact>
-            <RegisterPage />
-          </Route>
-          <Route path='/forgot-password' exact>
-            <ForgotPassPage />
-          </Route>
-          <Route path='/reset-password' exact>
-            <ResetPassPage />
-          </Route>
-          <Route path='/profile' exact>
-            <ProfilePage />
-          </Route>
-        </Switch>
-      </Router>
+        <Router>
+          <Switch>
+            <Route path='/' exact>
+              <HomePage />
+            </Route>
+            <Route path='/login' exact>
+              <LoginPage />
+            </Route>
+            <Route path='/register' exact>
+              <RegisterPage />
+            </Route>
+            <Route path='/forgot-password' exact>
+              <ForgotPassPage />
+            </Route>
+            <Route path='/reset-password' exact>
+              <ResetPassPage />
+            </Route>
+            <Route path='/profile' exact>
+              <ProfilePage />
+            </Route>
+          </Switch>
+        </Router>
+    </Router>
     </>
   );
 }

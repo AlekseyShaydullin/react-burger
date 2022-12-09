@@ -34,3 +34,26 @@
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
+
+.link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-inactive-color);
+  transition: var(--common-transition);
+  cursor: pointer;
+}
+
+.link_active {
+  color: var(--text-primary-color);
+  cursor: default;
+}
+
+.link:hover {
+  color: var(--text-primary-color);
+}
+
+.text {
+  margin: 0;
+}
