@@ -3,7 +3,6 @@ import styleHomePage from './HomePage.module.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
-import ModalIngredient from '../../components/ModalIngredient/ModalIngredient';
 import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 
