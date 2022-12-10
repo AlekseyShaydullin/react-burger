@@ -16,8 +16,6 @@ function HomePage() {
           <BurgerConstructor />
         </main>
       </DndProvider>
-      
-      <ModalIngredient />
       <ModalOrder />
     </>
   );
