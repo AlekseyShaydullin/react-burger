@@ -4,23 +4,6 @@
   justify-content: center;
 }
 
-.title {
-  text-align: center;
-  margin: 0;
-}
-
-.ingredientDetails {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  text-align: center;
-  padding: 0;
-}
-
-.listItem {
-  list-style-type: none;
-}
-
 .container_page {
   margin: 120px auto 0;
   max-width: 720px;
