@@ -9,6 +9,7 @@ const ModalIngredient = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+
   const closeIngredientModal = () => {
     dispatch(deleteIngredientDetails());
     history.goBack();

@@ -97,6 +97,8 @@ export async function setOrderApi(ingredients) {
   export async function getUserApi() {
     const res = await fetch(`${apiUrl}auth/user`, {
       method: 'GET',
+      mode: 'cors',
+      credentials: 'same-origin',
       headers: { 
       "Content-Type": "application/json",
       Authorization: "Bearer " + getCookie("token")

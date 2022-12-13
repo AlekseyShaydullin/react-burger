@@ -5,6 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
+import ModalIngredient from '../../components/ModalIngredient/ModalIngredient';
 
 function HomePage() {
   return (
@@ -15,7 +16,9 @@ function HomePage() {
           <BurgerConstructor />
         </main>
       </DndProvider>
+
       <ModalOrder />
+      <ModalIngredient />
     </>
   );
 }

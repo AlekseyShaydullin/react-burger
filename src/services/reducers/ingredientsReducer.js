@@ -1,6 +1,7 @@
 import {GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_ERROR, GET_INGREDIENTS_SUCCESS} from '../actions/getIngredients';
 
 const initialState = {
+  isLoading: false,
   dataRequest: false,
   dataFailed: false,
   data: null
@@ -20,7 +21,8 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         data: action.data,
         dataRequest: false,
-        dataFailed: false
+        dataFailed: false,
+        isLoading: true
       }
     case GET_INGREDIENTS_ERROR: 
       return {

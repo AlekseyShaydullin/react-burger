@@ -12,7 +12,6 @@ function LoginPage () {
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');
   const { user } = useSelector(store => store.userInfo);
-  console.log(user);
 
   const onSubmit = useCallback(
     e => {
@@ -44,13 +43,13 @@ return (
         <EmailInput 
           name={'email'}
           placeholder={'E-mail'}
-          value={'valEmail'}
+          value={valEmail}
           onChange={e => setValEmail(e.target.value)}
         />
         <PasswordInput 
           name={'password'}
           icon={'HideIcon'}
-          value={'valPass'}
+          value={valPass}
           onChange={e => setValPass(e.target.value)}
         />
         <Button type={'primary'} htmlType={'submit'}>Войти</Button>

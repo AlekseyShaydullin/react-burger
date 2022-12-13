@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/getIngredients';
-import { BrowserRouter as Router } from "react-router-dom";
 import { getCookie } from '../../utils/cookie';
 import { getUser, refreshToken } from '../../services/actions/usersAction';
 import ModalSwitch from '../ModalSwitch/ModalSwitch';
