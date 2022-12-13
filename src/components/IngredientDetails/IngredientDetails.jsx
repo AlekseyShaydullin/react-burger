@@ -21,7 +21,7 @@ const IngredientDetails = () => {
   }, [dispatch, id, ingredients, isLoading])
 
   if(location.pathname === history.location.pathname) {
-    return ( selectedElement !== null && (
+    return ( selectedElement !== null && selectedElement !== undefined && (
       <section className={styleIngredientDetails.container_page}>
         <h3 className={`${styleIngredientDetails.title_page} text text_type_main-large`}>Детали ингредиента</h3>
         <img src={selectedElement.image_large} alt={selectedElement.name} />
