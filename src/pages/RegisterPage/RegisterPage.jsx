@@ -28,48 +28,45 @@ function RegisterPage() {
     }
 
   return(
-    <>
-      <section className={styleRegisterPage.wrapper}>
-        <form className={styleRegisterPage.form} onSubmit={onSubmit}>
-          <h1 className='text text_type_main-medium'>Регистрация</h1>
-          <Input 
-            type={'text'}
-            placeholder={'Имя'}
-            name={'name'}
-            value={valName}
-            error={false}
-            errorText={'Error'}
-            size={'default'}
-            onChange={e => setValName(e.target.value)}
-          />
-          <EmailInput 
-            name={'email'} 
-            placeholder={'E-mail'} 
-            value={valEmail}
-            onChange={e => setValEmail(e.target.value)}
-
-          />
-          <PasswordInput 
-            name={'password'}
-            icon={'HideIcon'}
-            value={valPass}
-            onChange={e => setValPass(e.target.value)}
-          />
-          <Button type={'primary'} htmlType={'submit'}>Зарегистрироваться</Button>
-        </form>
-        <div className={styleRegisterPage.clarification}>
-          <p className='text text_type_main-default text_color_inactive'>Уже зарегистрированы?</p>
-          <Button 
-            type={'secondary'} 
-            extraClass={styleRegisterPage.link} 
-            htmlType={'button'} 
-            onClick={login}
-          >
-            Войти
-          </Button>
-        </div>
-      </section>
-    </>
+    <section className={styleRegisterPage.wrapper}>
+      <form className={styleRegisterPage.form} onSubmit={onSubmit}>
+        <h1 className='text text_type_main-medium'>Регистрация</h1>
+        <Input 
+          type={'text'}
+          placeholder={'Имя'}
+          name={'name'}
+          value={valName}
+          error={false}
+          errorText={'Error'}
+          size={'default'}
+          onChange={e => setValName(e.target.value)}
+        />
+        <EmailInput 
+          name={'email'} 
+          placeholder={'E-mail'} 
+          value={valEmail}
+          onChange={e => setValEmail(e.target.value)}
+        />
+        <PasswordInput 
+          name={'password'}
+          icon={'HideIcon'}
+          value={valPass}
+          onChange={e => setValPass(e.target.value)}
+        />
+        <Button type={'primary'} htmlType={'submit'}>Зарегистрироваться</Button>
+      </form>
+      <div className={styleRegisterPage.clarification}>
+        <p className='text text_type_main-default text_color_inactive'>Уже зарегистрированы?</p>
+        <Button 
+          type={'secondary'} 
+          extraClass={styleRegisterPage.link} 
+          htmlType={'button'} 
+          onClick={login}
+        >
+          Войти
+        </Button>
+      </div>
+    </section>
   )
 }
 

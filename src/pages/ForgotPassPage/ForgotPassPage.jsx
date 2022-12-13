@@ -20,31 +20,29 @@ function ForgotPassPage() {
   }, [history]);
 
   return(
-    <>
-      <section className={styleForgotPass.wrapper}>
-        <form className={styleForgotPass.form} onSubmit={onSubmit}>
-          <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
-          <EmailInput 
-            name={'email'} 
-            placeholder={'Укажите e-mail'} 
-            value={valEmail}
-            onChange={e => setValEmail(e.target.value)}
-          />
-          <Button type={'primary'} htmlType={'submit'}>Восстановить</Button>
-        </form>
-        <div className={styleForgotPass.clarification}>
-          <p className='text text_type_main-default text_color_inactive'>Вспомнили пароль?</p>
-          <Button 
-            type={'secondary'} 
-            extraClass={styleForgotPass.link} 
-            htmlType={'button'}
-            onClick={login}
-          >
-            Войти
-          </Button>
-        </div>
-      </section>
-    </>
+    <section className={styleForgotPass.wrapper}>
+      <form className={styleForgotPass.form} onSubmit={onSubmit}>
+        <h1 className='text text_type_main-medium'>Восстановление пароля</h1>
+        <EmailInput 
+          name={'email'} 
+          placeholder={'Укажите e-mail'} 
+          value={valEmail}
+          onChange={e => setValEmail(e.target.value)}
+        />
+        <Button type={'primary'} htmlType={'submit'}>Восстановить</Button>
+      </form>
+      <div className={styleForgotPass.clarification}>
+        <p className='text text_type_main-default text_color_inactive'>Вспомнили пароль?</p>
+        <Button 
+          type={'secondary'} 
+          extraClass={styleForgotPass.link} 
+          htmlType={'button'}
+          onClick={login}
+        >
+          Войти
+        </Button>
+      </div>
+    </section>
   )
 }
 

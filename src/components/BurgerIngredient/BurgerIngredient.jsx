@@ -31,17 +31,15 @@ function BurgerIngredient(props) {
   const counter = setCounter();
   
   return (
-    <>
-      <li className={`${styleBurgerIngredient.wrapper} mb-8`} ref={dragRef} onClick={openModal}>
-        <img className={`${styleBurgerIngredient.img} pr-4 pl-4`} src={props.data.image} alt={props.data.name} />
-        <div className={`${styleBurgerIngredient.price} pt-1 pb-1`}>
-          <p className={'text text_type_digits-default'}>{props.data.price}</p>
-          <CurrencyIcon type={'primary'} />
-        </div>
-        <p className={'text text_type_main-default'}>{props.data.name}</p>
-        {counter !== 0 ? <Counter className={styleBurgerIngredient.count} size={'default'} count={counter} /> : null}
-      </li>
-    </>
+    <li className={`${styleBurgerIngredient.wrapper} mb-8`} ref={dragRef} onClick={openModal}>
+      <img className={`${styleBurgerIngredient.img} pr-4 pl-4`} src={props.data.image} alt={props.data.name} />
+      <div className={`${styleBurgerIngredient.price} pt-1 pb-1`}>
+        <p className={'text text_type_digits-default'}>{props.data.price}</p>
+        <CurrencyIcon type={'primary'} />
+      </div>
+      <p className={'text text_type_main-default'}>{props.data.name}</p>
+      {counter !== 0 ? <Counter className={styleBurgerIngredient.count} size={'default'} count={counter} /> : null}
+    </li>
   )
 }
 

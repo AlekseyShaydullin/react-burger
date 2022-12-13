@@ -12,11 +12,9 @@ const ModalOrder = () => {
   }
 
   return (order !== null &&
-    <>
-      <Modal onClose={closeOrderModal} visible={true}>
-        <OrderDetails />
-      </Modal>
-    </>
+    <Modal onClose={closeOrderModal} visible={true}>
+      <OrderDetails />
+    </Modal>
   )
 }
 

@@ -25,25 +25,23 @@ const Modal = (props) => {
   }, [props, props.visible]);
 
   return ReactDOM.createPortal((
-    <>
-      <div className={props.visible ? `${styleModal.popup} ${styleModal.popup_active}` : `${styleModal.popup}`}>
-        <ModalOverlay closeModal={props.onClose} visible={props.visible} />
-        <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
-          <div className={`${styleModal.header}`}>
-            {
-              props.title
-              && <h3 className={`text text_type_main-large`}>{props.title}</h3>
-            }
-            <div className={styleModal.closeIcon} onClick={props.onClose}>
-              <CloseIcon type={'primary'} />
-            </div>
-          </div>
-          <div className={`${styleModal.container}`}>
-            {props.children}
+    <div className={props.visible ? `${styleModal.popup} ${styleModal.popup_active}` : `${styleModal.popup}`}>
+      <ModalOverlay closeModal={props.onClose} visible={props.visible} />
+      <div className={`${styleModal.modal} pt-10 pb-10 pl-10 pr-10`}>
+        <div className={`${styleModal.header}`}>
+          {
+            props.title
+            && <h3 className={`text text_type_main-large`}>{props.title}</h3>
+          }
+          <div className={styleModal.closeIcon} onClick={props.onClose}>
+            <CloseIcon type={'primary'} />
           </div>
         </div>
+        <div className={`${styleModal.container}`}>
+          {props.children}
+        </div>
       </div>
-    </>
+    </div>
   ), modalContainer
   )
 }

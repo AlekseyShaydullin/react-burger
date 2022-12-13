@@ -25,11 +25,9 @@ function App() {
   }, [cookie, dispatch, token])
 
   return (
-    <>
-      <Router>
-        <ModalSwitch />
-      </Router>
-    </>
+    <Router>
+      <ModalSwitch />
+    </Router>
   );
 }
 
