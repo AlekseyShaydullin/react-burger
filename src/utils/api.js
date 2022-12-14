@@ -8,35 +8,37 @@ function checkRes(res) {
   return Promise.reject(`Ошибка ${res}`)
 }
 
-export async function getData() {
-  const res = await fetch(`${apiUrl}ingredients`);
+async function request(url, options) {
+  const res = await fetch(`${apiUrl}${url}`, options);
   return checkRes(res);
 }
 
+export async function getData() {
+  return await request('ingredients');
+}
+
 export async function setOrderApi(ingredients) {
-  const res = await fetch(`${apiUrl}orders`, {
+  return await request('orders', {
     method: 'POST',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       'ingredients': ingredients,
     }),
   });
-  return checkRes(res);
   }
 
   export async function setEmailApi(email) {
-    const res = await fetch(`${apiUrl}password-reset`, {
+    return await request('password-reset', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: email
       }),
     });
-  return checkRes(res);
   }
 
   export async function setResetPassApi({password, token}) {
-    const res = await fetch(`${apiUrl}password-reset/reset`, {
+    return await request('password-reset/reset', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -44,11 +46,10 @@ export async function setOrderApi(ingredients) {
         token: token
       }),
     });
-  return checkRes(res);
   }
 
   export async function registerApi({email, password, name}) {
-    const res = await fetch(`${apiUrl}auth/register`, {
+    return await request('auth/register', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -57,11 +58,10 @@ export async function setOrderApi(ingredients) {
         name: name
       }),
     });
-  return checkRes(res);
   }
 
   export async function loginApi({email, password}) {
-    const res = await fetch(`${apiUrl}auth/login`, {
+    return await request('auth/login', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -69,33 +69,30 @@ export async function setOrderApi(ingredients) {
         password: password
       }),
     });
-  return checkRes(res);
   }
 
   export async function logoutApi() {
-    const res = await fetch(`${apiUrl}auth/logout`, {
+    return await request('auth/logout', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         token: localStorage.getItem("refreshToken")
       }),
     });
-  return checkRes(res);
   }
 
   export async function refreshTokenApi() {
-    const res = await fetch(`${apiUrl}auth/token`, {
+    return await request('auth/token', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         token: localStorage.getItem("refreshToken")
       }),
     });
-  return checkRes(res);
   }
 
   export async function getUserApi() {
-    const res = await fetch(`${apiUrl}auth/user`, {
+    return await request('auth/user', {
       method: 'GET',
       mode: 'cors',
       credentials: 'same-origin',
@@ -104,11 +101,10 @@ export async function setOrderApi(ingredients) {
       Authorization: "Bearer " + getCookie("token")
     }
     });
-  return checkRes(res);
   }
 
   export async function updateUserApi({email, password, name}) {
-    const res = await fetch(`${apiUrl}auth/user`, {
+    return await request('auth/user', {
       method: 'PATCH',
       headers: { 
       "Content-Type": "application/json",
@@ -120,5 +116,4 @@ export async function setOrderApi(ingredients) {
         name: name,
       }),
     });
-  return checkRes(res);
   }
