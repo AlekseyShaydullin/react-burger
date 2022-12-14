@@ -35,7 +35,7 @@ const IngredientDetails = () => {
       <IngredientCard selectedElement={selectedElement} />
     </section>
   ) : (
-    'Загрузка'
+    <img className={styleIngredientDetails.img} src='https://acegif.com/wp-content/uploads/loading-5.gif' alt='Загрузка' />
   ))
 }
 
