@@ -7,7 +7,7 @@ import ForgotPassPage from '../../pages/ForgotPassPage/ForgotPassPage';
 import ResetPassPage from '../../pages/ResetPassPage/ResetPassPage';
 import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function ModalSwitch() {
@@ -21,19 +21,19 @@ function ModalSwitch() {
         <Route path='/' exact>
           <HomePage />
         </Route>
-        <Route path='/login' exact>
+        <ProtectedRoute path='/login' onlyForAuth={false} exact>
           <LoginPage />
-        </Route>
-        <Route path='/register' exact>
+        </ProtectedRoute>
+        <ProtectedRoute path='/register' onlyForAuth={false} exact>
           <RegisterPage />
-        </Route>
-        <Route path='/forgot-password' exact>
+        </ProtectedRoute>
+        <ProtectedRoute path='/forgot-password' onlyForAuth={false} exact>
           <ForgotPassPage />
-        </Route>
-        <Route path='/reset-password' exact>
+        </ProtectedRoute>
+        <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
           <ResetPassPage />
-        </Route>
-        <ProtectedRoute path='/profile' exact>
+        </ProtectedRoute>
+        <ProtectedRoute path='/profile' onlyForAuth={true} exact>
           <ProfilePage />
         </ProtectedRoute>
         <Route path='/ingredients/:id' exact>
