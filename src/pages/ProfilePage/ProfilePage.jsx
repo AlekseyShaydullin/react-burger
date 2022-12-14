@@ -19,7 +19,7 @@ function ProfilePage() {
       setValName(user.name);
       setValEmail(user.email);
     }
-  }, [dispatch, user]);
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
