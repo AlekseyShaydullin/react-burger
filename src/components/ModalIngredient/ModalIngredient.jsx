@@ -9,13 +9,12 @@ const ModalIngredient = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
   const closeIngredientModal = () => {
     dispatch(deleteIngredientDetails());
     history.goBack();
   }
 
-  return( ingredient !== null && 
+  return( ingredient !== null && ingredient !== undefined &&
     <Modal title={'Детали ингредиента'} onClose={closeIngredientModal} visible={true}>
       <IngredientDetails />
     </Modal>
