@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { getIngredients } from "../../services/actions/getIngredients";
 import { deleteIngredientDetails } from "../../services/actions/showIngredientDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails"
 import Modal from "../Modal/Modal"
@@ -10,9 +9,6 @@ const ModalIngredient = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation()
-  console.log(ingredient);
-  console.log(history);
-  console.log(location);
 
   const closeIngredientModal = () => {
     dispatch(deleteIngredientDetails());
