@@ -1,17 +1,19 @@
 import React, { useCallback, useMemo } from 'react'
 import styleBurgerConstruct from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import {sortedIngredients, setBurgerBun, addBurgerIngredient} from '../../services/actions/currentBurger';
 import ConstructorBurgerItem from '../ConstructorBurgerItem/ConstructorBurgerItem';
 import { setOrder } from '../../services/actions/setOrder';
+import { useHistory } from 'react-router-dom';
+import { getCookie } from '../../utils/cookie';
 
 function BurgerConstructor() {
   const {ingredients} = useSelector(store => store.burgerIngredients);
   const {bun} = useSelector(store => store.burgerIngredients);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
@@ -44,70 +46,73 @@ function BurgerConstructor() {
   }
 
   const handleOrderModal = () => {
-    if(ingredients !== null && bun !== null) {
+    const refreshToken = localStorage.getItem('refreshToken');
+		const accessToken = getCookie('token');
+
+    if(ingredients !== null && bun !== null && refreshToken && accessToken) {
       dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
+    } else {
+      history.push('/login');
     }
     
   };
 
   return (
-    <>
-      <section ref={dropRef} className={isOver ? `${styleBurgerConstruct.wrapper} ${styleBurgerConstruct.border_color}` : `${styleBurgerConstruct.wrapper}`}>
-        <article className={`${styleBurgerConstruct.item__bun} pr-4`}>
-        {bun ?
-              <div className={`${styleBurgerConstruct.item_bun} pr-4`}>
-              <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={`${bun.name} (верх)`}
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
-            : 
-            <div className={`${styleBurgerConstruct.drop}`}>
-              <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
-            </div>
-            }
-            {ingredients.length > 0 ?
-            <ul className={styleBurgerConstruct.filling}>
-              {ingredients.map(renderIngredients)}
-            </ul>
-            :
-            <>
-              <div className={`${styleBurgerConstruct.drop}`}>
-                <h2 className={`${styleBurgerConstruct.title}`}>Добавьте начинку</h2>
-              </div>
-            </>
-            }
-          
-            {bun ?
+    <section ref={dropRef} className={isOver ? `${styleBurgerConstruct.wrapper} ${styleBurgerConstruct.border_color}` : `${styleBurgerConstruct.wrapper}`}>
+      <article className={`${styleBurgerConstruct.item__bun} pr-4`}>
+      {bun ?
             <div className={`${styleBurgerConstruct.item_bun} pr-4`}>
-              <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text={`${bun.name} (низ)`}
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
-              : 
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />
+          </div>
+          : 
+          <div className={`${styleBurgerConstruct.drop}`}>
+            <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
+          </div>
+          }
+          {ingredients.length > 0 ?
+          <ul className={styleBurgerConstruct.filling}>
+            {ingredients.map(renderIngredients)}
+          </ul>
+          :
+          <>
             <div className={`${styleBurgerConstruct.drop}`}>
-              <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
+              <h2 className={`${styleBurgerConstruct.title}`}>Добавьте начинку</h2>
             </div>
-            }
-            <div className={`${styleBurgerConstruct.order} mt-10`}>
-              <div className={styleBurgerConstruct.price}>
-                <p className="text text_type_digits-medium">{bun ? price + (bun.price * 2) : price}</p>
-                <CurrencyIcon type="primary" />
-              </div>
-              <Button type="primary" size="large" onClick={handleOrderModal}>
-                Оформить заказ
-              </Button>
+          </>
+          }
+        
+          {bun ?
+          <div className={`${styleBurgerConstruct.item_bun} pr-4`}>
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${bun.name} (низ)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />
+          </div>
+            : 
+          <div className={`${styleBurgerConstruct.drop}`}>
+            <h2 className={`${styleBurgerConstruct.title}`}>Добавьте булку</h2>
+          </div>
+          }
+          <div className={`${styleBurgerConstruct.order} mt-10`}>
+            <div className={styleBurgerConstruct.price}>
+              <p className="text text_type_digits-medium">{bun ? price + (bun.price * 2) : price}</p>
+              <CurrencyIcon type="primary" />
             </div>
-        </article>
-      </section>
-    </>
+            <Button type="primary" size="large" htmlType={'button'} onClick={handleOrderModal}>
+              Оформить заказ
+            </Button>
+          </div>
+      </article>
+    </section>
   )
 }
 

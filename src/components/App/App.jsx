@@ -1,35 +1,33 @@
 import React, { useEffect } from 'react';
-import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import styleApp from './App.module.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/getIngredients';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from "react-dnd-html5-backend";
-import ModalOrder from '../ModalOrder/ModalOrder';
-import ModalIngredient from '../ModalIngredient/ModalIngredient';
+import { getCookie } from '../../utils/cookie';
+import { getUser, refreshToken } from '../../services/actions/usersAction';
+import ModalSwitch from '../ModalSwitch/ModalSwitch';
 
 function App() {
   const dispatch = useDispatch();
+
+  const cookie = getCookie('token');
+  const token = localStorage.getItem('refreshToken')
 
   useEffect(() => {
     dispatch(getIngredients())
   }, [dispatch]);
 
+  useEffect(() => {
+    if(!cookie && token) {
+      dispatch(refreshToken());
+    } else if(cookie && token) {
+      dispatch(getUser());
+    }
+  }, [cookie, dispatch, token])
+
   return (
-    <>
-      <AppHeader />
-      <DndProvider backend={HTML5Backend}>
-        <main className={styleApp.main__wrapper}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </main>
-      </DndProvider>
-      
-      <ModalIngredient />
-      <ModalOrder />
-    </>
+    <Router>
+      <ModalSwitch />
+    </Router>
   );
 }
 

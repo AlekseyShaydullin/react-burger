@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styleBurgerIngred from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientType from '../BurgerIngredientType/BurgerIngredientType';
@@ -10,10 +10,32 @@ function BurgerIngredients() {
     MAIN: 'main'
   }
 
+  const [bunActive, setBunActive] = useState(false);
+  const [sauceActive, setSauceActive] = useState(false);
+  const [ingredientsActive, setIngredientsActive] = useState(false);
   const [current, setCurrent] = useState(Tabs.BUN);
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            entry.target.id === 'bun' && setBunActive(entry.isIntersecting);
+            entry.target.id === 'sauce' && setSauceActive(entry.isIntersecting);
+            entry.target.id === 'main' && setIngredientsActive(entry.isIntersecting);
+        });
+    });
+    bunRef.current !== null && observer.observe(bunRef.current);
+    sauceRef.current !== null && observer.observe(sauceRef.current);
+    mainRef.current !== null && observer.observe(mainRef.current);
+  }, []);
+
+  useEffect(() => {
+    bunActive && setCurrent('bun');
+    !bunActive && sauceActive && setCurrent('sauce');
+    !sauceActive && ingredientsActive && setCurrent('main');
+}, [bunActive, sauceActive, ingredientsActive]);
 
   const handlerTabClick = (tab) => {
     if(tab !== current) {
