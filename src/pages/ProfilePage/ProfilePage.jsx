@@ -2,6 +2,7 @@ import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-de
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
+import NavProfile from "../../components/NavProfile/NavProfile";
 import { getUser, logout, updateUser } from "../../services/actions/usersAction";
 import styleProfilePage from './ProfilePage.module.css';
 
@@ -41,34 +42,7 @@ function ProfilePage() {
   return(
     <section className={styleProfilePage.wrapper}>
       <nav className={styleProfilePage.nav}>
-        <ul className={styleProfilePage.list}>
-          <li className={styleProfilePage.item}>
-            <NavLink 
-              to={{ pathname: '/profile' }} 
-              className={`${styleProfilePage.link} text text_type_main-medium text_color_inactive`}
-              activeClassName={styleProfilePage.active_link}>
-                Профиль
-            </NavLink>
-          </li>
-          <li className={styleProfilePage.item}>
-            <NavLink 
-              to={{ pathname: '/profile/order' }} 
-              className={`${styleProfilePage.link} text text_type_main-medium text_color_inactive`}
-              activeClassName={styleProfilePage.active_link}>
-                История заказов
-            </NavLink>
-          </li>
-          <li className={styleProfilePage.item}>
-            <NavLink 
-              to={{ pathname: '/login' }} 
-              className={`${styleProfilePage.link} text text_type_main-medium text_color_inactive`}
-              activeClassName={styleProfilePage.active_link}
-              onClick={logoutUser}
-            >
-              Выход
-            </NavLink>
-          </li>
-        </ul>
+        <NavProfile />
         <p className="text text_type_main-default text_color_inactive">
           В этом разделе вы можете изменить свои персональные данные
         </p>
