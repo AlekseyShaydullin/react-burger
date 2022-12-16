@@ -1,14 +1,12 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
 import NavProfile from "../../components/NavProfile/NavProfile";
 import { getUser, logout, updateUser } from "../../services/actions/usersAction";
 import styleProfilePage from './ProfilePage.module.css';
 
 function ProfilePage() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { user } = useSelector(store => store.userInfo);
   const [valName, setValName] = useState('');
   const [valPass, setValPass] = useState('');
@@ -33,11 +31,6 @@ function ProfilePage() {
     setValName(user.name);
     setValEmail(user.email);
   };
-
-  const logoutUser = useCallback(() => {
-    dispatch(logout());
-    history.replace({ pathname: '/login' })
-  }, [dispatch, history])
 
   return(
     <section className={styleProfilePage.wrapper}>

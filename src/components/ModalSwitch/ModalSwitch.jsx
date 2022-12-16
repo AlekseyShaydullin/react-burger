@@ -9,6 +9,7 @@ import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import OrderHistoryPage from '../../pages/OrderHistoryPage/OrderHistoryPage';
 
 function ModalSwitch() {
   const location = useLocation();
@@ -39,6 +40,9 @@ function ModalSwitch() {
         <Route path='/ingredients/:id' exact>
           <IngredientDetails />
         </Route>
+        <ProtectedRoute path='/profile/orders' onlyForAuth exact>
+          <OrderHistoryPage />
+        </ProtectedRoute>
       </Switch>
       {background && (
         <Route path='/ingredients/:id'>

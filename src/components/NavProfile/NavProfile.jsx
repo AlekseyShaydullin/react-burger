@@ -20,15 +20,17 @@ function NavProfile() {
           <NavLink
             to={{ pathname: '/profile' }} 
             className={`${styleNavProfile.link} text text_type_main-medium text_color_inactive`}
-            activeClassName={styleNavProfile.active_link}>
+            activeClassName={styleNavProfile.active_link}
+            exact>
               Профиль
           </NavLink>
         </li>
         <li className={styleNavProfile.item}>
           <NavLink 
-            to={{ pathname: '/profile/order' }} 
+            to={{ pathname: '/profile/orders' }} 
             className={`${styleNavProfile.link} text text_type_main-medium text_color_inactive`}
-            activeClassName={styleNavProfile.active_link}>
+            activeClassName={styleNavProfile.active_link}
+            exact>
               История заказов
           </NavLink>
         </li>
@@ -38,8 +40,8 @@ function NavProfile() {
             className={`${styleNavProfile.link} text text_type_main-medium text_color_inactive`}
             activeClassName={styleNavProfile.active_link}
             onClick={logoutUser}
-          >
-            Выход
+            exact>
+              Выход
           </NavLink>
         </li>
       </ul>
