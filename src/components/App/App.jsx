@@ -5,11 +5,12 @@ import { getIngredients } from '../../services/actions/getIngredients';
 import { getCookie } from '../../utils/cookie';
 import { getUser, refreshToken } from '../../services/actions/usersAction';
 import ModalSwitch from '../ModalSwitch/ModalSwitch';
+import { wsConnectionClosed, wsConnectionOpen, wsUserConnectionClosed, wsUserConnectionOpen } from '../../services/actions/wsAction';
 
 function App() {
   const dispatch = useDispatch();
 
-  const cookie = getCookie('token');
+  const cookie = getCookie('accessToken');
   const token = localStorage.getItem('refreshToken')
 
   useEffect(() => {
@@ -23,6 +24,20 @@ function App() {
       dispatch(getUser());
     }
   }, [cookie, dispatch, token])
+
+  useEffect(() => {
+    dispatch(wsConnectionOpen());
+    return () => {
+      dispatch(wsConnectionClosed());
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(wsUserConnectionOpen());
+    return () => {
+      dispatch(wsUserConnectionClosed());
+    }
+  }, [dispatch])
 
   return (
     <Router>

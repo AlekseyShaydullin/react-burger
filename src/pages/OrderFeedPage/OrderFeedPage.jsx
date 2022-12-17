@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Order from '../../components/Order/Order';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
 function OrderFeedPage() {
+
+  const orders = useSelector(state => state.wsOrders.orders);
+  console.log(orders)
+
+
   return (
     <main className={styleOrderFeedPage.main__wrapper}>
       <section className={`${styleOrderFeedPage.feed} mt-10`}>
