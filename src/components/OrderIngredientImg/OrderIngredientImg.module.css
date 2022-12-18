@@ -1,0 +1,21 @@
+.wrapper {
+  border-radius: 100%;
+  border: 2px dashed var(--colors-interface-accent);
+  background: linear-gradient(to right, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1));
+  width: fit-content;
+}
+
+.img {
+  width: 64px;
+  height: 64px;
+  background: var(--background-alt);
+  border-radius: 100px;
+  box-sizing: border-box;
+  background-size: cover;
+}
+
+.pic {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

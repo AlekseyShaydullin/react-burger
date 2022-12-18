@@ -4,17 +4,16 @@ import Order from '../../components/Order/Order';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
 function OrderFeedPage() {
-
   const orders = useSelector(state => state.wsOrders.orders);
-  console.log(orders)
-
 
   return (
     <main className={styleOrderFeedPage.main__wrapper}>
       <section className={`${styleOrderFeedPage.feed} mt-10`}>
         <h1 className={'text text_type_main-large mb-5'}>Лента заказов</h1>
         <ul className={styleOrderFeedPage.orders}>
-          <Order />
+          {orders?.map(order => (
+            <Order data={order} key={order._id}/>
+          ))}
         </ul>
       </section>
       <section className={styleOrderFeedPage.statistics}>

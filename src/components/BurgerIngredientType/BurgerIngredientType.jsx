@@ -10,7 +10,7 @@ import { Link, useLocation } from 'react-router-dom';
 const BurgerIngredientType = forwardRef((props, ref) => {
   const ingredients = useSelector(store => store.ingredients.data);
   const location = useLocation();
-  
+
   return (
     <section className={styleBurgerIngredType.buns} ref={ref} id={props.id}>
       <h2 className={`text text_type_main-medium mb-6`}>{props.title}</h2>

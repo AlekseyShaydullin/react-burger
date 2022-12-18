@@ -15,13 +15,39 @@
   justify-content: space-between;
 }
 
+.title {
+  color: #F2F2F3;
+}
+
+.status {
+  color: var(--colors-interface-success);
+  margin: 0;
+}
+
 .details {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 24px;
+}
+
+.ingredientsList {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+.list {
+  flex-shrink: 0;
+  max-width: 610px;
+}
+
+.list:not(:last-child) {
+  margin-right: -20px;
 }
 
 .price {
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 }
