@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import ModalOrderInfo from '../../components/ModalOrderInfo/ModalOrderInfo';
 import Order from '../../components/Order/Order';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
@@ -27,7 +28,7 @@ function OrderFeedPage() {
             return (
               <Link 
                 className={styleOrderFeedPage.link} 
-                to={{pathname: `/ingredients/${order._id}`, state: {background: location}}}
+                to={{pathname: `/feed/${order._id}`, state: {background: location}}}
                 key={order._id}>
                   <Order data={order} />
               </Link>
@@ -75,6 +76,7 @@ function OrderFeedPage() {
           <p className={`text text_type_digits-large ${styleOrderFeedPage.text}`}>{ordersData.totalToday}</p>
         </div>
       </section>
+      <ModalOrderInfo />
     </main>
   )
 }

@@ -17,14 +17,14 @@ const ModalIngredient = () => {
 
   if(location.pathname !== history.location.pathname) {
     return(
-      <Modal title={'Детали ингредиента'} onClose={closeIngredientModal} visible={true}>
+      <Modal title={'Детали ингредиента'} onClose={closeIngredientModal} visible>
         <IngredientDetails />
       </Modal>
     )
   }
 
   return( ingredient !== null && ingredient !== undefined &&
-    <Modal title={'Детали ингредиента'} onClose={closeIngredientModal} visible={true}>
+    <Modal title={'Детали ингредиента'} onClose={closeIngredientModal} visible>
       <IngredientDetails />
     </Modal>
   )

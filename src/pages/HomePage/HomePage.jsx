@@ -6,6 +6,7 @@ import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstruc
 import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import ModalIngredient from '../../components/ModalIngredient/ModalIngredient';
+import ModalOrderInfo from '../../components/ModalOrderInfo/ModalOrderInfo';
 
 function HomePage() {
   return (

@@ -11,6 +11,7 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderHistoryPage from '../../pages/OrderHistoryPage/OrderHistoryPage';
 import OrderFeedPage from '../../pages/OrderFeedPage/OrderFeedPage';
+import OrderInfo from '../OrderInfo/OrderInfo';
 
 function ModalSwitch() {
   const location = useLocation();
@@ -47,10 +48,18 @@ function ModalSwitch() {
         <Route path='/feed' exact>
           <OrderFeedPage />
         </Route>
+        <Route path='/feed/:id'>
+          <OrderInfo />
+        </Route>
       </Switch>
       {background && (
         <Route path='/ingredients/:id'>
           <IngredientDetails />
+        </Route>
+      )}
+      {background && (
+        <Route path='/feed/:id'>
+          <OrderInfo />
         </Route>
       )}
     </>
