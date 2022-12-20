@@ -1,19 +1,38 @@
-import React, {useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import Order from '../../components/Order/Order';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
 function OrderFeedPage() {
   const orders = useSelector(state => state.wsOrders.orders);
+  const ordersData = useSelector(state => state.wsOrders);
+  const location = useLocation();
+
+
+  const completedOrders = orders
+    .filter(order => order.status === 'done')
+    .filter((order, index) => index < 10);
+
+  const uncompletedOrders = orders
+    .filter(order => order.status !== 'done')
+    .filter((order, index) => index < 10);
 
   return (
     <main className={styleOrderFeedPage.main__wrapper}>
       <section className={`${styleOrderFeedPage.feed} mt-10`}>
         <h1 className={'text text_type_main-large mb-5'}>Лента заказов</h1>
         <ul className={styleOrderFeedPage.orders}>
-          {orders?.map(order => (
-            <Order data={order} key={order._id}/>
-          ))}
+          {orders?.map(order => {
+            return (
+              <Link 
+                className={styleOrderFeedPage.link} 
+                to={{pathname: `/ingredients/${order._id}`, state: {background: location}}}
+                key={order._id}>
+                  <Order data={order} />
+              </Link>
+            )
+            })}
         </ul>
       </section>
       <section className={styleOrderFeedPage.statistics}>
@@ -21,30 +40,39 @@ function OrderFeedPage() {
           <div className={styleOrderFeedPage.ordersWrapper}>
             <h2 className={styleOrderFeedPage.title}>Готовы:</h2>
             <ul className={styleOrderFeedPage.list}>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}>034533</li>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}>034538</li>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}>034533</li>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}>034538</li>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}>034533</li>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}>034538</li>
+              {completedOrders.map(order => {
+                return (
+                  <li className={`text text_type_digits-default 
+                  ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}
+                  key={order._id}
+                  >{order.number}
+                  </li>
+                )
+              })}
             </ul>
           </div>
           <div className={styleOrderFeedPage.ordersWrapper}>
             <h2 className={styleOrderFeedPage.title}>В работе:</h2>
             <ul className={styleOrderFeedPage.list}>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item}`}>034538</li>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item}`}>034538</li>
-              <li className={`text text_type_digits-default ${styleOrderFeedPage.item}`}>034538</li>
+            {uncompletedOrders.map(order => {
+                return (
+                  <li className={`text text_type_digits-default 
+                  ${styleOrderFeedPage.item}`}
+                  key={order._id}
+                  >{order.number}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>
         <div className={styleOrderFeedPage.allStatistics}>
           <h2 className={styleOrderFeedPage.title}>Выполнено за все время:</h2>
-          <p className={`text text_type_digits-large ${styleOrderFeedPage.text}`}>28 752</p>
+          <p className={`text text_type_digits-large ${styleOrderFeedPage.text}`}>{ordersData.total}</p>
         </div>
         <div className={styleOrderFeedPage.allStatistics}>
           <h2 className={styleOrderFeedPage.title}>Выполнено за сегодня:</h2>
-          <p className={`text text_type_digits-large ${styleOrderFeedPage.text}`}>138</p>
+          <p className={`text text_type_digits-large ${styleOrderFeedPage.text}`}>{ordersData.totalToday}</p>
         </div>
       </section>
     </main>

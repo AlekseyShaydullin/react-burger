@@ -85,3 +85,7 @@
 .item_job{
   color: var(--colors-interface-success);
 }
+
+.link {
+  text-decoration: none;
+}

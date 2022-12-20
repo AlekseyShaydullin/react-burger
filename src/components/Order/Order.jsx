@@ -5,13 +5,14 @@ import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import styleOrder from './Order.module.css'
 
 function Order(props) {
-  const { number, createdAt, name, updatedAt, status } = props.data;
+  const { number, createdAt, name, status } = props.data;
   const ingredients = useSelector(store => store.ingredients.data)
 
   const currentDay = new Date().getDate();
   const dayOfOrder = createdAt.slice(8,10);
 
   const orderLength = props.data.ingredients.length;
+  const disabledIngredientsCount = orderLength - 5;
 
   const checkDay = () => {
     if(dayOfOrder == currentDay) {
@@ -20,7 +21,7 @@ function Order(props) {
   }
 
   const orderIngredients = useMemo(() => 
-    props.data.ingredients.map(id => 
+    props.data.ingredients.filter(id => id !== null).map(id => 
       ingredients.find(item => id === item._id)
     ), [ingredients, props.data.ingredients]);
 
@@ -32,7 +33,7 @@ function Order(props) {
   return (
     <li className={`${styleOrder.wrapper} mr-2`}>
       <div className={styleOrder.info}>
-        <p className={`text text_type_digits-default`}>{`#${number}`}</p>
+        <p className={`text text_type_digits-default ${styleOrder.title}`}>{`#${number}`}</p>
         <p className={`text text_type_main-default text_color_inactive`}>
           {checkDay ? 'Сегодня' : 'Вчера'}, {createdAt.slice(11,16)} {`i-GMT+3`}</p>
       </div>
@@ -45,23 +46,35 @@ function Order(props) {
       </p>
       <div className={styleOrder.details}>
         <ul className={styleOrder.ingredientsList}>
-          {orderIngredients && orderLength <= 6 && orderIngredients.map((ing, index) => {
+          {orderIngredients && orderLength < 6 && orderIngredients.map((ing, index)=> {
             return(
               <li className={styleOrder.list} key={index}>
-                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={index} />}
+                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={ing._id} />}
+              </li>
+            )
+          })}
+          {orderIngredients && orderLength >= 6 && orderIngredients.slice(0,5).map((ing, index) => {
+            return(
+              <li className={styleOrder.list} key={index}>
+                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={ing._id} />}
               </li>
             )
           })}
           {orderIngredients && orderLength > 6 && orderIngredients.slice(5,6).map((ing, index) => {
-            return(
-              <li className={styleOrder.list} key={index}>
-                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={index} />}
-              </li>
+            return( 
+              <>
+                <li className={styleOrder.list} key={index}>
+                  <p className={`text text_type_main-default ${styleOrder.disabledCount}`}>{`+${disabledIngredientsCount}`}</p>
+                  <div className={styleOrder.disabledImg}>
+                    {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={ing._id} />}
+                  </div>
+                </li>
+              </>
             )
           })}
         </ul>
         <div className={styleOrder.price}>
-          <p className={`text text_type_digits-default ${styleOrder.priceScore}`}>{priceScore}</p>
+          <p className={`text text_type_digits-default ${styleOrder.title}`}>{priceScore}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

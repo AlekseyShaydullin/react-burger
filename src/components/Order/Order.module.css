@@ -16,7 +16,7 @@
 }
 
 .title {
-  color: #F2F2F3;
+  color: var(--text-primary-color);
 }
 
 .status {
@@ -40,10 +40,23 @@
 .list {
   flex-shrink: 0;
   max-width: 610px;
+  position: relative;
 }
 
 .list:not(:last-child) {
   margin-right: -20px;
+}
+
+.disabledCount {
+  position: absolute;
+  color: var(--text-primary-color);
+  top: 32%;
+  left: 35%;
+  z-index: 2
+}
+
+.disabledImg {
+  opacity: .6;
 }
 
 .price {

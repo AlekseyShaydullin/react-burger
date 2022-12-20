@@ -2,7 +2,7 @@ import React from 'react';
 import styleOrderIngredientImg from './OrderIngredientImg.module.css';
 
 function OrderIngredientImg(props) {
-  console.log(props);
+
   return (
     <div className={styleOrderIngredientImg.wrapper}>
       <div className={styleOrderIngredientImg.img}>
