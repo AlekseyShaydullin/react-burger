@@ -12,10 +12,6 @@
   color: var(--text-primary-color);
 }
 
-.status {
-  color: var(--colors-interface-success);
-}
-
 .ingredients {
   height: 350px;
   padding: 0 24px 0 0;
@@ -50,6 +46,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+}
+
+.name {
+  width: 320px;
 }
 
 .price {

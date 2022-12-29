@@ -6,8 +6,8 @@ import Order from '../../components/Order/Order';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
 function OrderFeedPage() {
-  const orders = useSelector(state => state.wsOrders.orders);
-  const ordersData = useSelector(state => state.wsOrders);
+  const orders = useSelector(store => store.wsOrders.orders);
+  const ordersData = useSelector(store => store.wsOrders);
   const location = useLocation();
 
 
@@ -20,6 +20,7 @@ function OrderFeedPage() {
     .filter((order, index) => index < 10);
 
   return (
+    <>
     <main className={styleOrderFeedPage.main__wrapper}>
       <section className={`${styleOrderFeedPage.feed} mt-10`}>
         <h1 className={'text text_type_main-large mb-5'}>Лента заказов</h1>
@@ -76,8 +77,10 @@ function OrderFeedPage() {
           <p className={`text text_type_digits-large ${styleOrderFeedPage.text}`}>{ordersData.totalToday}</p>
         </div>
       </section>
-      <ModalOrderInfo />
     </main>
+    {/* <ModalOrderInfo /> */}
+    </>
+    
   )
 }
 

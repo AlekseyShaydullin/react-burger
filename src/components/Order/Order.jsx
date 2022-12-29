@@ -19,7 +19,8 @@ function Order(props) {
       return 'Сегодня'
     }
   }
-
+//   console.log(props.data);
+// console.log(props.data.ingredients);
   const orderIngredients = useMemo(() => 
     props.data.ingredients.filter(id => id !== null).map(id => 
       ingredients.find(item => id === item._id)
@@ -46,7 +47,7 @@ function Order(props) {
       </p>
       <div className={styleOrder.details}>
         <ul className={styleOrder.ingredientsList}>
-          {orderIngredients && orderLength < 6 && orderIngredients.map((ing, index)=> {
+          {orderIngredients && orderLength < 6 && orderIngredients.map((ing, index) => {
             return(
               <li className={styleOrder.list} key={index}>
                 {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={ing._id} />}

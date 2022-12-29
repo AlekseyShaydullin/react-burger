@@ -12,6 +12,7 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderHistoryPage from '../../pages/OrderHistoryPage/OrderHistoryPage';
 import OrderFeedPage from '../../pages/OrderFeedPage/OrderFeedPage';
 import OrderInfo from '../OrderInfo/OrderInfo';
+import ModalOrderInfo from '../ModalOrderInfo/ModalOrderInfo';
 
 function ModalSwitch() {
   const location = useLocation();
@@ -59,7 +60,7 @@ function ModalSwitch() {
       )}
       {background && (
         <Route path='/feed/:id'>
-          <OrderInfo />
+          <ModalOrderInfo />
         </Route>
       )}
     </>
