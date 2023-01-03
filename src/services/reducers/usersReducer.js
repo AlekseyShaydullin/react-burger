@@ -117,9 +117,8 @@ export const usersReducer = (state = initialState, action) => {
     case GET_USER_SUCCESS:
       return {
         ...state,
-        success: false,
-        error: false,
-        user: action.user
+        user: action.user,
+        authorizedUser: true
       };
 
     case GET_USER_ERROR:
