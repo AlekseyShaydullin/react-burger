@@ -78,9 +78,7 @@ function OrderFeedPage() {
         </div>
       </section>
     </main>
-    {/* <ModalOrderInfo /> */}
     </>
-    
   )
 }
 

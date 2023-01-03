@@ -1,32 +1,16 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import styleOrder from './Order.module.css'
 
 function Order(props) {
-  const { number, createdAt, name, status } = props.data;
+  const { number, name } = props.data;
   const ingredients = useSelector(store => store.ingredients.data)
-
-  const currentDay = new Date().getDate();
-  const dayOfOrder = createdAt.slice(8,10);
 
   const orderLength = props.data.ingredients.length;
   const disabledIngredientsCount = orderLength - 5;
-
-  const checkDay = () => {
-    if(dayOfOrder == currentDay) {
-      return 'Сегодня'
-    }
-  }
-//   console.log(props.data);
-// console.log(props.data.ingredients);
-
-const statusOrder = status !== undefined && status === 'done' ? 
-{ text: 'Выполнен', color: 'var(--colors-interface-success)' } : 
-status === 'pending' ? 
-{ text: 'Готовится', color: 'var(--colors-interface-accent)' } : 
-{ text: 'Отменен', color: 'var(--colors-interface-error)' };
 
   const orderIngredients = useMemo(() => 
     props.data.ingredients.filter(id => id !== null).map(id => 
@@ -41,11 +25,9 @@ status === 'pending' ?
     <li className={`${styleOrder.wrapper} mr-2`}>
       <div className={styleOrder.info}>
         <p className={`text text_type_digits-default ${styleOrder.title}`}>{`#${number}`}</p>
-        <p className={`text text_type_main-default text_color_inactive`}>
-          {checkDay ? 'Сегодня' : 'Вчера'}, {createdAt.slice(11,16)} {`i-GMT+3`}</p>
+        <OrderCheckDay order={props.data} />
       </div>
       <h2 className={`text text_type_main-medium ${styleOrder.title}`}>{name}</h2>
-      <p className={`text text_type_main-default`} style={{color: statusOrder.color}}>{statusOrder.text}</p>
       <div className={styleOrder.details}>
         <ul className={styleOrder.ingredientsList}>
           {orderIngredients && orderLength < 6 && orderIngredients.map((ing, index) => {

@@ -49,7 +49,7 @@ function ModalSwitch() {
         <Route path='/feed' exact>
           <OrderFeedPage />
         </Route>
-        <Route path='/feed/:id'>
+        <Route path='/feed/:id' exact>
           <OrderInfo />
         </Route>
       </Switch>

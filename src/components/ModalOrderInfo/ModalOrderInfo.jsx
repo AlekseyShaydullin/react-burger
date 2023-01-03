@@ -15,9 +15,9 @@ function ModalOrderInfo() {
     history.goBack();
   }
 
-  return (
+  return (orders !== undefined &&
     <Modal onClose={closeOrderInfoModal} visible>
-      <OrderInfo />
+      <OrderInfo orders={orders}/>
     </Modal>
   )
 }
