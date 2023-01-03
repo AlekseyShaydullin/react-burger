@@ -48,7 +48,7 @@ export function register(form) {
     registerApi(form)
       .then((res) => {
         if(res && res.success) {
-          setCookie('token', res.accessToken.split('Bearer ')[1]);
+          setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
           localStorage.setItem('refreshToken', res.refreshToken);
           dispatch({
             type: REGISTRATION_SUCCESS,
@@ -78,7 +78,7 @@ export function login(form) {
     loginApi(form)
       .then((res) => {
         if(res && res.success) {
-          setCookie('token', res.accessToken.split('Bearer ')[1]);
+          setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
           localStorage.setItem('refreshToken', res.refreshToken);
           dispatch({
             type: LOGIN_SUCCESS,
@@ -213,7 +213,7 @@ export function refreshToken() {
     refreshTokenApi()
       .then((res) => {
         if(res && res.success) {
-          setCookie('token', res.accessToken.split('Bearer ')[1]);
+          setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
           localStorage.setItem('refreshToken', res.refreshToken);
           dispatch({
             type: GET_REFRESH_TOKEN_SUCCESS,
@@ -239,7 +239,7 @@ export function logout() {
     logoutApi()
       .then((res) => {
         if(res && res.success) {
-          setCookie('token', '');
+          setCookie('accessToken', '');
           localStorage.removeItem('refreshToken');
           dispatch({
             type: EXIT_SUCCESS,

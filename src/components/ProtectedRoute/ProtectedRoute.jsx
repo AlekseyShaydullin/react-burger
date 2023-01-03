@@ -5,7 +5,7 @@ import {useLocation} from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
-    const isAuthorized = getCookie('token');
+    const isAuthorized = getCookie('accessToken');
     const location = useLocation();
 
     if (!onlyForAuth && isAuthorized) {
