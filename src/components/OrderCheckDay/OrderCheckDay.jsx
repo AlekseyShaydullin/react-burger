@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from "prop-types";
 
 function OrderCheckDay(props) {
   const order = props.order
@@ -8,17 +9,22 @@ function OrderCheckDay(props) {
 
   const checkDay = () => {
     if(dayOfOrder == currentDay) {
-      return 'Сегодня'
+      return true
     }
+    return false
   }
 
   return (
     <>
       <p className={`text text_type_main-default text_color_inactive`}>
-        {checkDay ? 'Сегодня' : 'Вчера'}, {order.createdAt.slice(11,16)} {`i-GMT+3`}
+        {checkDay() ? 'Сегодня' : 'Вчера'}, {order.createdAt.slice(11,16)} {`i-GMT+3`}
       </p>
     </>
   )
 }
+
+OrderCheckDay.propTypes = {
+  order: PropTypes.object.isRequired
+};
 
 export default OrderCheckDay

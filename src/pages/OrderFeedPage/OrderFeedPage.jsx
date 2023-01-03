@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import ModalOrderInfo from '../../components/ModalOrderInfo/ModalOrderInfo';
 import Order from '../../components/Order/Order';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
@@ -9,7 +8,6 @@ function OrderFeedPage() {
   const orders = useSelector(store => store.wsOrders.orders);
   const ordersData = useSelector(store => store.wsOrders);
   const location = useLocation();
-
 
   const completedOrders = orders
     .filter(order => order.status === 'done')

@@ -21,6 +21,7 @@ function Order(props) {
     return orderIngredients.reduce((acc, ing) => acc + ing.price, 0)
   }, [orderIngredients])
 
+  
   return (
     <li className={`${styleOrder.wrapper} mr-2`}>
       <div className={styleOrder.info}>

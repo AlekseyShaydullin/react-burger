@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from "prop-types";
 
 function OrderStatus(props) {
 
@@ -15,5 +16,9 @@ function OrderStatus(props) {
     </>
   )
 }
+
+OrderStatus.propTypes = {
+  order: PropTypes.object.isRequired
+};
 
 export default OrderStatus;

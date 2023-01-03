@@ -1,45 +1,25 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { wsGetOrders } from '../../services/actions/wsAction';
+import React, { useMemo } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
 import styleOrderInfo from './OrderInfo.module.css';
+import PropTypes from "prop-types";
 
-function OrderInfo() {
+function OrderInfo(props) {
   const history = useHistory();
   const location = useLocation();
-  const isLoading = useSelector(store => store.wsOrders.wsConnected)
-  const params = useParams();
-  const orders = useSelector(store => store.wsOrders.orders);
-  const dispatch = useDispatch();
-  // const orders = props.orders;
-  const ingredients = useSelector(store => store.ingredients.data);
+
+  console.log(history);
+  console.log(location);
 
   const sortOrders = []
 
-  console.log(orders); //Прилетает пустой массив
-
-  useEffect(() => {
-    console.log(isLoading);
-    if(isLoading !== true){
-      
-      dispatch(wsGetOrders())
-    }
-  })
-
-  const order = useMemo(() => orders.find(item => params.id === item._id), [orders, params.id]);
-
-  console.log(order); //undefined
-
-  console.log(ingredients);
-
   const orderIngredients = useMemo(() => 
-    order?.ingredients.filter(id => id !== null).map(id => ingredients !== undefined && 
-      ingredients.find(item => id === item._id)
-    ), [ingredients, order.ingredients]);
+    props.order.ingredients.filter(id => id !== null).map(id => props.ingredients !== undefined && 
+      props.ingredients.find(item => id === item._id)
+    ), [props.ingredients, props.order.ingredients]);
 
   const priceScore = useMemo(() => {
     return orderIngredients.reduce((acc, ing) => acc + ing.price, 0)
@@ -56,11 +36,11 @@ function OrderInfo() {
     }
   })
 
-  return (order !== undefined && 
-    <section className={styleOrderInfo.wrapper}>
-      <p className={`text text_type_digits-default ${styleOrderInfo.orderNumber}`}>{`#${order.number}`}</p>
-      <h1 className={`text text_type_main-medium ${styleOrderInfo.title} mt-10`}>{order.name}</h1>
-      <OrderStatus order={order} />
+  return (props.order !== undefined && 
+    <>
+      <p className={`text text_type_digits-default ${styleOrderInfo.orderNumber}`}>{`#${props.order.number}`}</p>
+      <h1 className={`text text_type_main-medium ${styleOrderInfo.title} mt-10`}>{props.order.name}</h1>
+      <OrderStatus order={props.order} />
       <p className={`text text_type_main-medium ${styleOrderInfo.title} mt-15`}>Состав:</p>
       <ul className={styleOrderInfo.ingredients}>
         {sortOrders.map(({item, count}) => {
@@ -77,14 +57,19 @@ function OrderInfo() {
         })}
       </ul>
       <div className={styleOrderInfo.footer}>
-        <OrderCheckDay order={order} />
+        <OrderCheckDay order={props.order} />
         <div className={styleOrderInfo.totalPrice}>
           <p className={`text text_type_digits-default`}>{priceScore}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
-    </section>
+    </>
   )
 }
+
+OrderInfo.propTypes = {
+  order: PropTypes.object.isRequired,
+  ingredients: PropTypes.array.isRequired
+};
 
 export default OrderInfo;

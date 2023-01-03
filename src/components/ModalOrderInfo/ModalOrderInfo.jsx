@@ -1,23 +1,18 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom';
-import { wsConnectionClosed, wsConnectionOpen, wsGetOrders, wsUserConnectionClosed, wsUserGetOrders } from '../../services/actions/wsAction';
-import Modal from '../Modal/Modal'
-import OrderInfo from '../OrderInfo/OrderInfo'
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import Modal from '../Modal/Modal';
+import OrderPreRender from '../OrderPreRender/OrderPreRender';
 
 function ModalOrderInfo() {
-  const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
-  const orders = useSelector(state => state.wsOrders.orders);
   
   const closeOrderInfoModal = () => {
     history.goBack();
   }
 
-  return (orders !== undefined &&
+  return (
     <Modal onClose={closeOrderInfoModal} visible>
-      <OrderInfo orders={orders}/>
+      <OrderPreRender />
     </Modal>
   )
 }
