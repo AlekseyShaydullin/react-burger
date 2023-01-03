@@ -1,7 +1,8 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { wsGetOrders } from '../../services/actions/wsAction';
 import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
@@ -13,6 +14,7 @@ function OrderInfo() {
   const isLoading = useSelector(store => store.wsOrders.wsConnected)
   const params = useParams();
   const orders = useSelector(store => store.wsOrders.orders);
+  const dispatch = useDispatch();
   // const orders = props.orders;
   const ingredients = useSelector(store => store.ingredients.data);
 
@@ -22,6 +24,10 @@ function OrderInfo() {
 
   useEffect(() => {
     console.log(isLoading);
+    if(isLoading !== true){
+      
+      dispatch(wsGetOrders())
+    }
   })
 
   const order = useMemo(() => orders.find(item => params.id === item._id), [orders, params.id]);
