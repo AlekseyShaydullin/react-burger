@@ -62,40 +62,44 @@ export function register(form) {
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: REGISTRATION_ERROR
+          type: REGISTRATION_ERROR,
+          error: err.message,
         })
       });
   }
 }
 
-export function login(form) {
+export function login(form, history) {
   return function(dispatch) {
-    dispatch({
+    dispatch({  
       type: LOGIN_REQUEST
     });
     loginApi(form)
       .then((res) => {
         if(res && res.success) {
-          setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-          localStorage.setItem('refreshToken', res.refreshToken);
-          dispatch({
-            type: LOGIN_SUCCESS,
-            user: res.user,
-            accessToken: res.accessToken,
-            refreshToken: res.refreshToken
-          });
-          form.history.replace({ pathname: '/' });
+          if(!localStorage.length){
+            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+            localStorage.setItem('refreshToken', res.refreshToken);
+            dispatch({
+              type: LOGIN_SUCCESS,
+              user: res.user,
+              accessToken: res.accessToken,
+              refreshToken: res.refreshToken
+            });
+          }
+          history.replace({ pathname: '/' });
         } else {
           dispatch({
             type: LOGIN_ERROR
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: LOGIN_ERROR
+          type: LOGIN_ERROR,
+          error: err.message
         })
       });
   }
@@ -119,9 +123,10 @@ export function getUser() {
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: GET_USER_ERROR
+          type: GET_USER_ERROR,
+          error: err.message
         })
       });
   }
@@ -145,9 +150,10 @@ export function updateUser(form) {
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: SET_USER_ERROR
+          type: SET_USER_ERROR,
+          error: err.message
         })
       });
   }
@@ -170,9 +176,10 @@ export function resetPassword(form) {
           })
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: RESET_PASSWORD_ERROR
+          type: RESET_PASSWORD_ERROR,
+          error: err.message
         })
       });
   }
@@ -197,9 +204,10 @@ export function forgotPassword(email, history) {
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: FORGOT_PASSWORD_ERROR
+          type: FORGOT_PASSWORD_ERROR,
+          error: err.message
         })
       });
   }
@@ -226,9 +234,10 @@ export function refreshToken() {
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: GET_REFRESH_TOKEN_ERROR
+          type: GET_REFRESH_TOKEN_ERROR,
+          error: err.message
         })
       });
   }
@@ -249,9 +258,10 @@ export function logout() {
           })
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({
-          type: EXIT_ERROR
+          type: EXIT_ERROR,
+          error: err.message
         })
       });
   }

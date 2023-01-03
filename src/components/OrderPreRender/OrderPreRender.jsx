@@ -12,8 +12,6 @@ function OrderPreRender() {
 
   const order = orders.find(item => params.id === item._id);
 
-  console.log(location.state);
-
   if(location.state === undefined) {
     return (order !== undefined && 
       <section className={styleOrderPreRender.wrapperPage} >

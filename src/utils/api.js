@@ -94,11 +94,9 @@ export async function setOrderApi(ingredients) {
   export async function getUserApi() {
     return await request('auth/user', {
       method: 'GET',
-      mode: 'cors',
-      credentials: 'same-origin',
       headers: { 
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token")
+      Authorization: "Bearer " + getCookie("accessToken")
     }
     });
   }
@@ -108,7 +106,7 @@ export async function setOrderApi(ingredients) {
       method: 'PATCH',
       headers: { 
       "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("token")
+      Authorization: "Bearer " + getCookie("accessToken")
     },
       body: JSON.stringify({
         email: email,
