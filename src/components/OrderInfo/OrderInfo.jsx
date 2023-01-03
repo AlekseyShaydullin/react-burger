@@ -1,6 +1,5 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
@@ -8,12 +7,6 @@ import styleOrderInfo from './OrderInfo.module.css';
 import PropTypes from "prop-types";
 
 function OrderInfo(props) {
-  const history = useHistory();
-  const location = useLocation();
-
-  console.log(history);
-  console.log(location);
-
   const sortOrders = []
 
   const orderIngredients = useMemo(() => 
@@ -36,7 +29,7 @@ function OrderInfo(props) {
     }
   })
 
-  return (props.order !== undefined && 
+  return (
     <>
       <p className={`text text_type_digits-default ${styleOrderInfo.orderNumber}`}>{`#${props.order.number}`}</p>
       <h1 className={`text text_type_main-medium ${styleOrderInfo.title} mt-10`}>{props.order.name}</h1>
