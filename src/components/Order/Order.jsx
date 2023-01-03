@@ -21,14 +21,20 @@ function Order(props) {
   }
 //   console.log(props.data);
 // console.log(props.data.ingredients);
+
+const statusOrder = status !== undefined && status === 'done' ? 
+{ text: 'Выполнен', color: 'var(--colors-interface-success)' } : 
+status === 'pending' ? 
+{ text: 'Готовится', color: 'var(--colors-interface-accent)' } : 
+{ text: 'Отменен', color: 'var(--colors-interface-error)' };
+
   const orderIngredients = useMemo(() => 
     props.data.ingredients.filter(id => id !== null).map(id => 
       ingredients.find(item => id === item._id)
     ), [ingredients, props.data.ingredients]);
 
   const priceScore = useMemo(() => {
-    return orderIngredients.reduce((acc, item) => 
-      item.type === 'bun' ? acc + item.price * 2 : acc + (item ? item.price : 0), 0)
+    return orderIngredients.reduce((acc, ing) => acc + ing.price, 0)
   }, [orderIngredients])
 
   return (
@@ -39,12 +45,7 @@ function Order(props) {
           {checkDay ? 'Сегодня' : 'Вчера'}, {createdAt.slice(11,16)} {`i-GMT+3`}</p>
       </div>
       <h2 className={`text text_type_main-medium ${styleOrder.title}`}>{name}</h2>
-      <p className={`text text_type_main-default ${styleOrder.status}`}>{
-        status === 'done' ? 'Выполнен' : 
-        status === 'pending' ? 'Готовится' :
-        status === 'created' ? 'Создан' : '' 
-        }
-      </p>
+      <p className={`text text_type_main-default`} style={{color: statusOrder.color}}>{statusOrder.text}</p>
       <div className={styleOrder.details}>
         <ul className={styleOrder.ingredientsList}>
           {orderIngredients && orderLength < 6 && orderIngredients.map((ing, index) => {

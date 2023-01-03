@@ -18,7 +18,7 @@ function OrderInfo() {
 
   const status = order !== undefined && order.status === 'done' ? 
     { text: 'Выполнен', color: 'var(--colors-interface-success)' } : 
-    order === 'pending' ? 
+    order.status === 'pending' ? 
     { text: 'Готовится', color: 'var(--colors-interface-accent)' } : 
     { text: 'Отменен', color: 'var(--colors-interface-error)' };
 
@@ -37,8 +37,7 @@ function OrderInfo() {
   }
 
   const priceScore = useMemo(() => {
-    return orderIngredients.reduce((acc, item) => 
-      item.type === 'bun' ? acc + item.price * 2 : acc + (item ? item.price : 0), 0)
+    return orderIngredients.reduce((acc, ing) => acc + ing.price, 0)
   }, [orderIngredients])
 
   orderIngredients.map(ing => {
