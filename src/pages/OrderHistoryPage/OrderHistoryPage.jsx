@@ -1,23 +1,34 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import NavProfile from '../../components/NavProfile/NavProfile';
-import { wsConnectionClosed, wsConnectionOpen } from '../../services/actions/wsAction';
+import Order from '../../components/Order/Order';
+import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
 import styleOrderHistoryPage from './OrderHistoryPage.module.css';
 
 function OrderHistoryPage() {
-  const ordersUser = useSelector(store => store.wsOrders);
+  const {orders} = useSelector(store => store.wsOrders);
   const dispatch = useDispatch();
+  const location = useLocation();
   
   useEffect(() => {
-    dispatch(wsConnectionOpen());
+    dispatch({
+        type: WS_CONNECTION_START,
+        payload: {
+            url: "wss://norma.nomoreparties.space/orders",
+            isAuth: true,
+        },
+    });
     return () => {
-      dispatch(wsConnectionClosed());
-    }
-  }, [dispatch])
+        dispatch({
+            type: WS_CONNECTION_STOP,
+        });
+    };
+}, [dispatch]);
 
-  console.log(ordersUser);
+console.log(orders);
 
-  return (
+  return (orders !== undefined &&
     <section className={styleOrderHistoryPage.wrapper}>
       <nav className={styleOrderHistoryPage.nav}>
         <NavProfile />
@@ -25,7 +36,17 @@ function OrderHistoryPage() {
           В этом разделе вы можете просмотреть свою историю заказов
         </p>
       </nav>
-
+      <ul className={styleOrderHistoryPage.orders}>
+        {orders.map(order => {
+          return (
+            <Link className={styleOrderHistoryPage.link}
+            to={{pathname: `/profile/orders/${`${order._id}`}`, state: {background: location}}}
+            key={order._id}>
+              <Order data={order} />
+            </Link>
+          )
+        }).reverse()}
+      </ul>
     </section>
   )
 }

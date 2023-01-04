@@ -13,6 +13,7 @@ import OrderHistoryPage from '../../pages/OrderHistoryPage/OrderHistoryPage';
 import OrderFeedPage from '../../pages/OrderFeedPage/OrderFeedPage';
 import ModalOrderInfo from '../ModalOrderInfo/ModalOrderInfo';
 import OrderPreRender from '../OrderPreRender/OrderPreRender';
+import OrderAuthPreRender from '../OrderAuthPreRender/OrderAuthPreRender';
 
 function ModalSwitch() {
   const location = useLocation();
@@ -37,7 +38,7 @@ function ModalSwitch() {
         <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
           <ResetPassPage />
         </ProtectedRoute>
-        <ProtectedRoute path='/profile' onlyForAuth={true} exact>
+        <ProtectedRoute path='/profile' onlyForAuth exact>
           <ProfilePage />
         </ProtectedRoute>
         <Route path='/ingredients/:id' exact>
@@ -52,6 +53,9 @@ function ModalSwitch() {
         <Route path='/feed/:id' exact>
           <OrderPreRender />
         </Route>
+        <Route path='/profile/orders/:id' exact>
+          <OrderAuthPreRender />
+        </Route>
       </Switch>
       {background && (
         <Route path='/ingredients/:id'>
@@ -60,6 +64,11 @@ function ModalSwitch() {
       )}
       {background && (
         <Route path='/feed/:id'>
+          <ModalOrderInfo />
+        </Route>
+      )}
+      {background && (
+        <Route path='/profile/orders/:id'>
           <ModalOrderInfo />
         </Route>
       )}

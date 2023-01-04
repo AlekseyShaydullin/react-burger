@@ -2,7 +2,8 @@ import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-de
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavProfile from "../../components/NavProfile/NavProfile";
-import { getUser, logout, updateUser } from "../../services/actions/usersAction";
+import { getUser, refreshToken, updateUser } from "../../services/actions/usersAction";
+import { getCookie } from "../../utils/cookie";
 import styleProfilePage from './ProfilePage.module.css';
 
 function ProfilePage() {
@@ -11,10 +12,16 @@ function ProfilePage() {
   const [valName, setValName] = useState('');
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');
+  const cookie = getCookie('accessToken');
+  const token = localStorage.getItem('refreshToken')
+
+  // console.log(cookie);
+  // console.log(token);
 
   useEffect(() => {
     if(user) {
       dispatch(getUser());
+      // console.log(user);
       setValName(user.name);
       setValEmail(user.email);
     }
@@ -32,6 +39,8 @@ function ProfilePage() {
     setValEmail(user.email);
   };
 
+  // console.log(user);
+
   return(
     <section className={styleProfilePage.wrapper}>
       <nav className={styleProfilePage.nav}>
@@ -45,7 +54,7 @@ function ProfilePage() {
           type={'text'} 
           placeholder={'Имя'} 
           icon={'EditIcon'}
-          value={user.name}
+          value={valName}
           name={'name'}
           error={false}
           errorText={'Error'}
@@ -55,7 +64,7 @@ function ProfilePage() {
         <EmailInput 
           placeholder={'Логин'} 
           isIcon={true}
-          value={user.email}
+          value={valEmail}
           name={'email'}
           onChange={e => setValEmail(e.target.value)}
         />

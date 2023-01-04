@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styleHomePage from './HomePage.module.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -6,7 +6,6 @@ import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstruc
 import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import ModalIngredient from '../../components/ModalIngredient/ModalIngredient';
-import ModalOrderInfo from '../../components/ModalOrderInfo/ModalOrderInfo';
 
 function HomePage() {
   return (

@@ -97,6 +97,7 @@ export async function setOrderApi(ingredients) {
     return await request('auth/user', {
       method: 'GET',
       headers: { 
+      "Content-Type": "application/json",
       Authorization: "Bearer " + getCookie("accessToken")
     }
     });

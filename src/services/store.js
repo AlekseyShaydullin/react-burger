@@ -3,7 +3,6 @@ import { rootReducer } from './reducers';
 import { legacy_createStore as createStore, applyMiddleware} from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { socketMiddleware } from './middleware/socketMiddleware';
-import { wsUrl } from '../utils/constants';
 import { wsAction } from './actions/wsAction';
 
 export const store = createStore(
@@ -11,5 +10,5 @@ export const store = createStore(
   composeWithDevTools(
     applyMiddleware(
       thunk,
-      socketMiddleware(wsUrl, wsAction, false)
+      socketMiddleware(wsAction)
       )));

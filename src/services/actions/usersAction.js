@@ -164,7 +164,7 @@ export function resetPassword(form) {
     dispatch({
       type: RESET_PASSWORD_REQUEST
     });
-    setResetPassApi()
+    setResetPassApi(form)
       .then((res) => {
         if(res && res.success) {
           dispatch({

@@ -33,7 +33,6 @@ const initialState = {
   },
   accessToken: '',
   refreshToken: '',
-  password: '',
   successEmail: false,
   authorizedUser: false,
   validUser: false

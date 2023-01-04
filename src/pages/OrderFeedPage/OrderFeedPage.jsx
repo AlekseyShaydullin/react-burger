@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import Order from '../../components/Order/Order';
-import { wsConnectionClosed, wsConnectionOpen } from '../../services/actions/wsAction';
+import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
 function OrderFeedPage() {
@@ -12,11 +12,19 @@ function OrderFeedPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(wsConnectionOpen());
+    dispatch({
+        type: WS_CONNECTION_START,
+        payload: {
+            url: "wss://norma.nomoreparties.space/orders/all",
+            isAuth: false,
+        },
+    });
     return () => {
-      dispatch(wsConnectionClosed());
-    }
-  }, [dispatch])
+        dispatch({
+            type: WS_CONNECTION_STOP,
+        });
+    };
+}, [dispatch]);
 
   const completedOrders = orders
     .filter(order => order.status === 'done')
@@ -26,7 +34,7 @@ function OrderFeedPage() {
     .filter(order => order.status !== 'done')
     .filter((order, index) => index < 10);
 
-  return (
+  return (orders !== undefined &&
     <>
     <main className={styleOrderFeedPage.main__wrapper}>
       <section className={`${styleOrderFeedPage.feed} mt-10`}>

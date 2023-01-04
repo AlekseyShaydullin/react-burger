@@ -1,13 +1,16 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
+import OrderStatus from '../OrderStatus/OrderStatus';
 import styleOrder from './Order.module.css'
 
 function Order(props) {
   const { number, name } = props.data;
   const ingredients = useSelector(store => store.ingredients.data)
+  const location = useLocation();
 
   const orderLength = props.data.ingredients.length;
   const disabledIngredientsCount = orderLength - 5;
@@ -21,7 +24,6 @@ function Order(props) {
     return orderIngredients.reduce((acc, ing) => acc + ing.price, 0)
   }, [orderIngredients])
 
-  
   return (
     <li className={`${styleOrder.wrapper} mr-2`}>
       <div className={styleOrder.info}>
@@ -29,6 +31,7 @@ function Order(props) {
         <OrderCheckDay order={props.data} />
       </div>
       <h2 className={`text text_type_main-medium ${styleOrder.title}`}>{name}</h2>
+      {location.pathname === '/profile/orders' && <OrderStatus order={props.data} />}
       <div className={styleOrder.details}>
         <ul className={styleOrder.ingredientsList}>
           {orderIngredients && orderLength < 6 && orderIngredients.map((ing, index) => {
