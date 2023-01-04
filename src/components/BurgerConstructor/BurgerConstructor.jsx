@@ -16,8 +16,6 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  console.log(order);
-
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
     drop(item) {

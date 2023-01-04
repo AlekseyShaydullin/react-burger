@@ -1,10 +1,20 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import NavProfile from '../../components/NavProfile/NavProfile';
+import { wsConnectionClosed, wsConnectionOpen } from '../../services/actions/wsAction';
 import styleOrderHistoryPage from './OrderHistoryPage.module.css';
 
 function OrderHistoryPage() {
-  const ordersUser = useSelector(store => store.wsUserOrders.orders);
+  const ordersUser = useSelector(store => store.wsOrders);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(wsConnectionOpen());
+    return () => {
+      dispatch(wsConnectionClosed());
+    }
+  }, [dispatch])
+
   console.log(ordersUser);
 
   return (

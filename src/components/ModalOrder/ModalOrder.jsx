@@ -13,8 +13,6 @@ const ModalOrder = () => {
     dispatch(resetIngredients())
   }
 
-  console.log(order);
-
   return (order !== null &&
     <Modal onClose={closeOrderModal} visible={true}>
       <OrderDetails />

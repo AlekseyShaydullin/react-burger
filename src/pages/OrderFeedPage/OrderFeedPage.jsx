@@ -1,13 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import Order from '../../components/Order/Order';
+import { wsConnectionClosed, wsConnectionOpen } from '../../services/actions/wsAction';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
 function OrderFeedPage() {
   const orders = useSelector(store => store.wsOrders.orders);
   const ordersData = useSelector(store => store.wsOrders);
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(wsConnectionOpen());
+    return () => {
+      dispatch(wsConnectionClosed());
+    }
+  }, [dispatch])
 
   const completedOrders = orders
     .filter(order => order.status === 'done')

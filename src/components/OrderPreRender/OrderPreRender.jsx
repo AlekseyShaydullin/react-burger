@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styleOrderPreRender from './OrderPreRender.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import OrderInfo from '../OrderInfo/OrderInfo'
+import { wsConnectionClosed, wsConnectionOpen } from '../../services/actions/wsAction';
 
 function OrderPreRender() {
   const location = useLocation();
   const params = useParams();
   const orders = useSelector(store => store.wsOrders.orders);
   const ingredients = useSelector(store => store.ingredients.data);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(wsConnectionOpen());
+    return () => {
+      dispatch(wsConnectionClosed());
+    }
+  }, [dispatch])
 
   const order = orders.find(item => params.id === item._id);
 

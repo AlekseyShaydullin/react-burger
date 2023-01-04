@@ -12,9 +12,9 @@ export const socketMiddleware = (wsUrl, wsActions, auth) => {
 
       if(type === wsInit) {
         if(!auth) {
-          socket = new WebSocket(wsUrl)
+          socket = new WebSocket(`${wsUrl}/all`)
         } else {
-          socket = new WebSocket(`${wsUrl}?token=${'accessToken'}`);
+          socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
         }
       }
 
