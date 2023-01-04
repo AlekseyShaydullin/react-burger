@@ -12,8 +12,11 @@ import { getCookie } from '../../utils/cookie';
 function BurgerConstructor() {
   const {ingredients} = useSelector(store => store.burgerIngredients);
   const {bun} = useSelector(store => store.burgerIngredients);
+  const order = useSelector(store => store.order)
   const dispatch = useDispatch();
   const history = useHistory();
+
+  console.log(order);
 
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
@@ -47,7 +50,7 @@ function BurgerConstructor() {
 
   const handleOrderModal = () => {
     const refreshToken = localStorage.getItem('refreshToken');
-		const accessToken = getCookie('token');
+		const accessToken = getCookie('accessToken');
 
     if(ingredients !== null && bun !== null && refreshToken && accessToken) {
       dispatch(setOrder([bun._id, ...ingredients.map(ing => ing._id), bun._id]));
@@ -108,7 +111,7 @@ function BurgerConstructor() {
               <CurrencyIcon type="primary" />
             </div>
             <Button type="primary" size="large" htmlType={'button'} onClick={handleOrderModal}>
-              Оформить заказ
+              {order.orderRequest === true ? 'Оформление...' :'Оформить заказ'}
             </Button>
           </div>
       </article>

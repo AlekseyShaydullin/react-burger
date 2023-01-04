@@ -20,7 +20,9 @@ export async function getData() {
 export async function setOrderApi(ingredients) {
   return await request('orders', {
     method: 'POST',
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: 'Bearer ' + getCookie('accessToken')},
     body: JSON.stringify({
       'ingredients': ingredients,
     }),
