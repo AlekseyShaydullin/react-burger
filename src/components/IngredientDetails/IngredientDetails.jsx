@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { showIngredientDetails } from '../../services/actions/showIngredientDetails';
 import IngredientCard from '../IngredientCard/IngredientCard';
+import { getIngredientDetail, getIngredientLoading, getIngredients } from '../../utils/constants';
 
 const IngredientDetails = () => {
-  const selectedElement = useSelector(store => store.ingredientDetail.ingredient);
-  const dispatch = useDispatch();
-  const ingredients = useSelector(store => store.ingredients.data);
-  const { isLoading } = useSelector(store => store.ingredients);
+  const selectedElement = useSelector(getIngredientDetail);
+  const ingredients = useSelector(getIngredients);
+  const { isLoading } = useSelector(getIngredientLoading);
   const { id } = useParams();
   const location = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if(isLoading) {

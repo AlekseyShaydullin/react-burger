@@ -2,9 +2,10 @@ import React from 'react';
 import doneIndicationImg from '../../images/done.png';
 import styleOrderDetails from '../OrderDetails/OrderDetails.module.css';
 import {useSelector} from 'react-redux';
+import { getOrder } from '../../utils/constants';
 
 const OrderDetails = () => {
-  const order = useSelector(store => store.order.order)
+  const {order} = useSelector(getOrder);
   
   return (
     <section className={`${styleOrderDetails.container} pb-20`}>

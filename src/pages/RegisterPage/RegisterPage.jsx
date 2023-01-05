@@ -4,11 +4,12 @@ import styleRegisterPage from './RegisterPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { register } from '../../services/actions/usersAction';
+import { getUser } from '../../utils/constants';
 
 function RegisterPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user } = useSelector(store => store.userInfo);
+  const { user } = useSelector(getUser);
   const [valName, setValName] = useState('');
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');

@@ -15,11 +15,9 @@ function OrderCheckDay(props) {
   }
 
   return (
-    <>
-      <p className={`text text_type_main-default text_color_inactive`}>
-        {checkDay() ? 'Сегодня' : 'Вчера'}, {order.createdAt.slice(11,16)} {`i-GMT+3`}
-      </p>
-    </>
+    <p className={`text text_type_main-default text_color_inactive`}>
+      {checkDay() ? 'Сегодня' : 'Вчера'}, {order.createdAt.slice(11,16)} {`i-GMT+3`}
+    </p>
   )
 }
 

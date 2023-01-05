@@ -4,6 +4,7 @@ import styleLoginPage from './LoginPage.module.css';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../services/actions/usersAction';
+import { getUser } from '../../utils/constants';
 
 function LoginPage () {
   const history = useHistory();
@@ -11,7 +12,7 @@ function LoginPage () {
   const dispatch = useDispatch();
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');
-  const { user } = useSelector(store => store.userInfo);
+  const { user } = useSelector(getUser);
 
   const onSubmit = useCallback(
     e => {

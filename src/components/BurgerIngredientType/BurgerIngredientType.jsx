@@ -4,9 +4,10 @@ import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import PropTypes from 'prop-types';
 import {useSelector} from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { getIngredients } from '../../utils/constants';
 
 const BurgerIngredientType = forwardRef((props, ref) => {
-  const ingredients = useSelector(store => store.ingredients.data);
+  const ingredients = useSelector(getIngredients);
   const location = useLocation();
 
   return (

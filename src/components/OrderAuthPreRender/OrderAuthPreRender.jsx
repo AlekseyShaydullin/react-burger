@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import OrderInfo from '../OrderInfo/OrderInfo'
 import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
+import { getIngredients, getWsOrders } from '../../utils/constants';
 
 function OrderAuthPreRender() {
+  const orders = useSelector(getWsOrders);
+  const ingredients = useSelector(getIngredients);
   const location = useLocation();
   const params = useParams();
-  const orders = useSelector(store => store.wsOrders.orders);
-  const ingredients = useSelector(store => store.ingredients.data);
   const dispatch = useDispatch();
 
   useEffect(() => {

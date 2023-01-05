@@ -8,11 +8,12 @@ import ConstructorBurgerItem from '../ConstructorBurgerItem/ConstructorBurgerIte
 import { setOrder } from '../../services/actions/setOrder';
 import { useHistory } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
+import { getBurgerIngredients, getOrder } from '../../utils/constants';
 
 function BurgerConstructor() {
-  const {ingredients} = useSelector(store => store.burgerIngredients);
-  const {bun} = useSelector(store => store.burgerIngredients);
-  const order = useSelector(store => store.order)
+  const {ingredients} = useSelector(getBurgerIngredients);
+  const {bun} = useSelector(getBurgerIngredients);
+  const order = useSelector(getOrder)
   const dispatch = useDispatch();
   const history = useHistory();
 

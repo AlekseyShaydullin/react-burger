@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styleHomePage from './HomePage.module.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from "react-dnd-html5-backend";

@@ -4,11 +4,12 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { resetPassword } from '../../services/actions/usersAction';
+import { getUser } from '../../utils/constants';
 
 function ResetPassPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { successEmail } = useSelector(store => store.userInfo);
+  const { successEmail } = useSelector(getUser);
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
 
