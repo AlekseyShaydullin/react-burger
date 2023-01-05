@@ -4,11 +4,13 @@ import { currentBurgerReducer } from "./currentBurgerReducer";
 import { showIngredientDetailsReducer } from "./showIngredientDetailsReducer";
 import { setOrderReducer } from "./setOrderReducer";
 import { usersReducer } from "./usersReducer";
+import { wsReducer } from "./wsReducer";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   burgerIngredients: currentBurgerReducer,
   ingredientDetail: showIngredientDetailsReducer,
   order: setOrderReducer,
-  userInfo: usersReducer
+  userInfo: usersReducer,
+  wsOrders: wsReducer
 })

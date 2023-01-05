@@ -2,7 +2,6 @@ import React from 'react';
 import styleModalOverlay from '../ModalOverlay/ModalOverlay.module.css'
 import PropTypes from 'prop-types';
 
-
 const ModalOverlay = (props) => {
   const {visible, closeModal} = props;
 

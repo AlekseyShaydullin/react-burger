@@ -9,6 +9,12 @@ import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import OrderHistoryPage from '../../pages/OrderHistoryPage/OrderHistoryPage';
+import OrderFeedPage from '../../pages/OrderFeedPage/OrderFeedPage';
+import ModalOrderInfo from '../ModalOrderInfo/ModalOrderInfo';
+import OrderPreRender from '../OrderPreRender/OrderPreRender';
+import OrderAuthPreRender from '../OrderAuthPreRender/OrderAuthPreRender';
+import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 
 function ModalSwitch() {
   const location = useLocation();
@@ -33,16 +39,41 @@ function ModalSwitch() {
         <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
           <ResetPassPage />
         </ProtectedRoute>
-        <ProtectedRoute path='/profile' onlyForAuth={true} exact>
+        <ProtectedRoute path='/profile' onlyForAuth exact>
           <ProfilePage />
         </ProtectedRoute>
         <Route path='/ingredients/:id' exact>
           <IngredientDetails />
         </Route>
+        <ProtectedRoute path='/profile/orders' onlyForAuth exact>
+          <OrderHistoryPage />
+        </ProtectedRoute>
+        <Route path='/feed'  exact>
+          <OrderFeedPage />
+        </Route>
+        <Route path='/feed/:id' exact>
+          <OrderPreRender />
+        </Route>
+        <ProtectedRoute path='/profile/orders/:id' onlyForAuth exact>
+          <OrderAuthPreRender />
+        </ProtectedRoute>
+        <Route path="*">
+          <ErrorPage />
+        </Route>
       </Switch>
       {background && (
         <Route path='/ingredients/:id'>
           <IngredientDetails />
+        </Route>
+      )}
+      {background && (
+        <Route path='/feed/:id'>
+          <ModalOrderInfo />
+        </Route>
+      )}
+      {background && (
+        <Route path='/profile/orders/:id'>
+          <ModalOrderInfo />
         </Route>
       )}
     </>

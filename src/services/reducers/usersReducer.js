@@ -26,14 +26,16 @@ import {
 
 const initialState = {
   success: false,
-  error: false,
+  error: '',
   user: {
     email: '',
     name: ''
   },
   accessToken: '',
   refreshToken: '',
-  successEmail: false
+  successEmail: false,
+  authorizedUser: false,
+  validUser: false
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -41,15 +43,12 @@ export const usersReducer = (state = initialState, action) => {
     case REGISTRATION_REQUEST:
       return {
         ...state,
-        success: true,
-        error: false
+        success: true
       };
 
     case REGISTRATION_SUCCESS:
       return {
         ...state,
-        success: false,
-        error: false,
         user: action.user,
         accessToken: action.accessToken,
         refreshToken: action.refreshToken
@@ -59,21 +58,19 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         success: false,
-        error: true,
+        error: action.error
       };
 
     case LOGIN_REQUEST:
       return {
         ...state,
         success: true,
-        error: false
+        authorizedUser: action.authorizedUser
       };
     
     case LOGIN_SUCCESS:
       return {
         ...state,
-        success: false,
-        error: false,
         user: action.user,
         accessToken: action.accessToken,
         refreshToken: action.refreshToken
@@ -83,7 +80,7 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         success: false,
-        error: true,
+        error: action.error,
       };
 
     case GET_REFRESH_TOKEN_REQUEST:
@@ -106,7 +103,7 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         success: false,
-        error: true,
+        error: action.error
       };
       
     case GET_USER_REQUEST:
@@ -119,16 +116,15 @@ export const usersReducer = (state = initialState, action) => {
     case GET_USER_SUCCESS:
       return {
         ...state,
-        success: false,
-        error: false,
-        user: action.user
+        user: action.user,
+        authorizedUser: true
       };
 
     case GET_USER_ERROR:
       return {
         ...state,
         success: false,
-        error: true
+        error: action.error
       };
 
     case SET_USER_REQUEST:
@@ -150,7 +146,7 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         success: false,
-        error: true,
+        error: action.error
       };
 
     case FORGOT_PASSWORD_REQUEST:
@@ -165,14 +161,15 @@ export const usersReducer = (state = initialState, action) => {
         ...state,
         success: false,
         error: false,
-        successEmail: action.successEmail
+        successEmail: action.successEmail,
+        validUser: true
       };
 
     case FORGOT_PASSWORD_ERROR:
       return {
         ...state,
         success: false,
-        error: true,
+        error: action.error
       };
 
     case RESET_PASSWORD_REQUEST:
@@ -194,7 +191,7 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         success: false,
-        error: true,
+        error: action.error
       };
 
     case EXIT_SUCCESS:
@@ -210,7 +207,7 @@ export const usersReducer = (state = initialState, action) => {
     case EXIT_ERROR:
       return {
         success: false,
-        error: true,
+        error: action.error
       }
 
     default:

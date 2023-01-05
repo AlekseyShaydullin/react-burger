@@ -26,7 +26,7 @@ function AppHeader() {
             <NavLink
               className={`${styleAppHeader.link} p-4 text text_type_main-default`}
               activeClassName={styleAppHeader.link_active}
-              to={{pathname: '/profile/order'}}
+              to={{pathname: '/feed'}}
               exact
               onClick={() => setType('strip')}
             >

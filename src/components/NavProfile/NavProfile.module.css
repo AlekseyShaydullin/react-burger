@@ -1,0 +1,26 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
+.link {
+  text-decoration: none;
+  height: auto;
+  transition: var(--common-transition);
+}
+
+.link:hover {
+  color: var(--text-primary-color);
+}
+
+.active_link {
+  text-decoration: none;
+  color: var(--text-primary-color);
+}
