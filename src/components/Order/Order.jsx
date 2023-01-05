@@ -6,6 +6,7 @@ import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
 import styleOrder from './Order.module.css'
+import { v4 as uuid4 } from 'uuid';
 
 function Order(props) {
   const { number, name } = props.data;
@@ -34,30 +35,28 @@ function Order(props) {
       {location.pathname === '/profile/orders' && <OrderStatus order={props.data} />}
       <div className={styleOrder.details}>
         <ul className={styleOrder.ingredientsList}>
-          {orderIngredients && orderLength < 6 && orderIngredients.map((ing, index) => {
+          {orderIngredients && orderLength < 6 && orderIngredients.map((ing) => {
             return(
-              <li className={styleOrder.list} key={index}>
-                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={ing._id} />}
+              <li className={styleOrder.list} key={uuid4()}>
+                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} />}
               </li>
             )
           })}
-          {orderIngredients && orderLength >= 6 && orderIngredients.slice(0,5).map((ing, index) => {
+          {orderIngredients && orderLength >= 6 && orderIngredients.slice(0,5).map((ing) => {
             return(
-              <li className={styleOrder.list} key={index}>
-                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={ing._id} />}
+              <li className={styleOrder.list} key={uuid4()}>
+                {ing && <OrderIngredientImg img={ing.image} alt={ing.name} />}
               </li>
             )
           })}
-          {orderIngredients && orderLength > 6 && orderIngredients.slice(5,6).map((ing, index) => {
-            return( 
-              <>
-                <li className={styleOrder.list} key={index}>
-                  <p className={`text text_type_main-default ${styleOrder.disabledCount}`}>{`+${disabledIngredientsCount}`}</p>
-                  <div className={styleOrder.disabledImg}>
-                    {ing && <OrderIngredientImg img={ing.image} alt={ing.name} key={ing._id} />}
-                  </div>
-                </li>
-              </>
+          {orderIngredients && orderLength > 6 && orderIngredients.slice(5,6).map((ing) => {
+            return(
+              <li className={styleOrder.list} key={uuid4()}>
+                <p className={`text text_type_main-default ${styleOrder.disabledCount}`}>{`+${disabledIngredientsCount}`}</p>
+                <div className={styleOrder.disabledImg}>
+                  {ing && <OrderIngredientImg img={ing.image} alt={ing.name} />}
+                </div>
+              </li>
             )
           })}
         </ul>

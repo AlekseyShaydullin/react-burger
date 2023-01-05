@@ -14,6 +14,7 @@ import OrderFeedPage from '../../pages/OrderFeedPage/OrderFeedPage';
 import ModalOrderInfo from '../ModalOrderInfo/ModalOrderInfo';
 import OrderPreRender from '../OrderPreRender/OrderPreRender';
 import OrderAuthPreRender from '../OrderAuthPreRender/OrderAuthPreRender';
+import ErrorPage from '../../pages/ErrorPage/ErrorPage';
 
 function ModalSwitch() {
   const location = useLocation();
@@ -56,6 +57,9 @@ function ModalSwitch() {
         <ProtectedRoute path='/profile/orders/:id' onlyForAuth exact>
           <OrderAuthPreRender />
         </ProtectedRoute>
+        <Route path="*">
+          <ErrorPage />
+        </Route>
       </Switch>
       {background && (
         <Route path='/ingredients/:id'>
