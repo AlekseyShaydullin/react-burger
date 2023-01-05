@@ -17,6 +17,7 @@ const ErrorPage = () => {
         <Button
           type={'primary'}
           size={'large'}
+          htmlType={'button'}
         >
           Перейти на главную страницу
         </Button>

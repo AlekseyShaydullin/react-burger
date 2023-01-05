@@ -28,11 +28,9 @@ function OrderFeedPage() {
 
   const completedOrders = orders
     .filter(order => order.status === 'done')
-    .filter((order, index) => index < 10);
 
   const uncompletedOrders = orders
     .filter(order => order.status !== 'done')
-    .filter((order, index) => index < 10);
 
   return (orders !== undefined &&
     <>
