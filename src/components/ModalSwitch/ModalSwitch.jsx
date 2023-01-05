@@ -47,15 +47,15 @@ function ModalSwitch() {
         <ProtectedRoute path='/profile/orders' onlyForAuth exact>
           <OrderHistoryPage />
         </ProtectedRoute>
-        <Route path='/feed' exact>
+        <Route path='/feed'  exact>
           <OrderFeedPage />
         </Route>
         <Route path='/feed/:id' exact>
           <OrderPreRender />
         </Route>
-        <Route path='/profile/orders/:id' exact>
+        <ProtectedRoute path='/profile/orders/:id' onlyForAuth exact>
           <OrderAuthPreRender />
-        </Route>
+        </ProtectedRoute>
       </Switch>
       {background && (
         <Route path='/ingredients/:id'>

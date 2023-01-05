@@ -9,17 +9,13 @@ export const socketMiddleware = (wsActions) => {
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 
-      console.log(payload);
-
       if (type === wsInit) {
         const isAuth = payload.isAuth
         const accessToken = getCookie('accessToken');
-        console.log(accessToken);
+
         const wsUrl = isAuth ? payload.url + `?token=${accessToken}` : payload.url
         socket = new WebSocket(wsUrl);
     }
-
-      console.log(socket);
 
       if(socket) {
         socket.onOpen = event => {

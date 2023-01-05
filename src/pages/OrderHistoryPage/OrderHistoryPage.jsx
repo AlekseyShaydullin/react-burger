@@ -26,8 +26,6 @@ function OrderHistoryPage() {
     };
 }, [dispatch]);
 
-console.log(orders);
-
   return (orders !== undefined &&
     <section className={styleOrderHistoryPage.wrapper}>
       <nav className={styleOrderHistoryPage.nav}>

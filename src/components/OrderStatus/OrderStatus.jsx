@@ -9,7 +9,6 @@ function OrderStatus(props) {
     { text: 'Готовится', color: 'var(--colors-interface-accent)' } : 
     { text: 'Отменен', color: 'var(--colors-interface-error)' };
 
-
   return (
     <>
       <p className={`text text_type_main-default mt-3`} style={{ color: status.color }}>{status.text}</p>

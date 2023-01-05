@@ -12,8 +12,6 @@ function ModalOrderInfo() {
     history.goBack();
   }
 
-  console.log(location);
-
   return (
     <Modal onClose={closeOrderInfoModal} visible>
       {location.state.background.pathname === '/profile/orders' ? <OrderAuthPreRender /> : <OrderPreRender />}

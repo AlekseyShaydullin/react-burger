@@ -2,8 +2,7 @@ import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-de
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavProfile from "../../components/NavProfile/NavProfile";
-import { getUser, refreshToken, updateUser } from "../../services/actions/usersAction";
-import { getCookie } from "../../utils/cookie";
+import { updateUser } from "../../services/actions/usersAction";
 import styleProfilePage from './ProfilePage.module.css';
 
 function ProfilePage() {
@@ -12,20 +11,13 @@ function ProfilePage() {
   const [valName, setValName] = useState('');
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');
-  const cookie = getCookie('accessToken');
-  const token = localStorage.getItem('refreshToken')
-
-  // console.log(cookie);
-  // console.log(token);
 
   useEffect(() => {
     if(user) {
-      dispatch(getUser());
-      // console.log(user);
       setValName(user.name);
       setValEmail(user.email);
     }
-  }, []);
+  }, [user]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -38,8 +30,6 @@ function ProfilePage() {
     setValName(user.name);
     setValEmail(user.email);
   };
-
-  // console.log(user);
 
   return(
     <section className={styleProfilePage.wrapper}>
@@ -76,7 +66,7 @@ function ProfilePage() {
           onChange={e => setValPass(e.target.value)}
         />
         <div className={styleProfilePage.button}>
-          <Button type={'secondary'} htmlType={'button'} onClick={cancelChange}>Отмена</Button>
+          <Button type={'secondary'} htmlType={'button'} onClick={()=> cancelChange()}>Отмена</Button>
           <Button type={'primary'} htmlType={'submit'}>Сохранить</Button>
         </div>
       </form>
