@@ -1,11 +1,35 @@
-import {ADD_BURGER_INGREDIENTS, SET_BURGER_BUN, DELETE_BURGER_INGREDIENT, SORTED_BURGER_INGREDIENTS, RESET_INGREDIENTS} from '../actions/currentBurger';
+import { TIngredient } from '../../utils/types/data';
+import {
+  ADD_BURGER_INGREDIENTS, 
+  SET_BURGER_BUN, 
+  DELETE_BURGER_INGREDIENT, 
+  SORTED_BURGER_INGREDIENTS, 
+  RESET_INGREDIENTS, 
+  IAddBurgerIngredient, 
+  ISetBurgerBun, 
+  IDeleteBurgerIngredient, 
+  IResetIngredients, 
+  ISortedBurgerIngredients
+} from '../actions/currentBurger';
 
 const initialState = {
   ingredients: [],
   bun: null
 }
 
-export const currentBurgerReducer = (state = initialState, action) => {
+interface IState {
+  ingredients: Array<TIngredient>;
+  bun: number | null;
+}
+
+export type TActionCurrentBurger = 
+  IAddBurgerIngredient 
+  | ISetBurgerBun 
+  | IDeleteBurgerIngredient 
+  | ISortedBurgerIngredients 
+  | IResetIngredients;
+
+export const currentBurgerReducer = (state: IState = initialState, action: TActionCurrentBurger) => {
   switch (action.type) {
     case ADD_BURGER_INGREDIENTS:
       return {

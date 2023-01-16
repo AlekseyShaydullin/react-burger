@@ -38,7 +38,176 @@ const initialState = {
   validUser: false
 };
 
-export const usersReducer = (state = initialState, action) => {
+interface IState {
+  success: boolean;
+  error: string;
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+  successEmail: boolean;
+  authorizedUser: boolean;
+  validUser: boolean;
+}
+
+export interface IRegistrationRequest {
+  readonly type: typeof REGISTRATION_REQUEST;
+}
+
+export interface IRegistrationSuccess {
+  readonly type: typeof REGISTRATION_SUCCESS;
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface IRegistrationError {
+  readonly type: typeof REGISTRATION_ERROR;
+  error: string;
+}
+
+export interface ILoginRequest {
+  readonly type: typeof LOGIN_REQUEST;
+  authorizedUser: boolean;
+}
+
+export interface ILoginSuccess {
+  readonly type: typeof LOGIN_SUCCESS;
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface ILoginError {
+  readonly type: typeof LOGIN_ERROR;
+  error: string;
+}
+
+export interface IRefreshTokenRequest {
+  readonly type: typeof GET_REFRESH_TOKEN_REQUEST;
+}
+
+export interface IRefreshTokenSuccess {
+  readonly type: typeof GET_REFRESH_TOKEN_SUCCESS;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface IRefreshTokenError {
+  readonly type: typeof GET_REFRESH_TOKEN_ERROR;
+  error: string;
+}
+
+export interface IGetUserRequest {
+  readonly type: typeof GET_USER_REQUEST;
+}
+
+export interface IGetUserSuccess {
+  readonly type: typeof GET_USER_SUCCESS;
+  user: {
+    email: string;
+    name: string;
+  };
+}
+
+export interface IGetUserError {
+  readonly type: typeof GET_USER_ERROR;
+  error: string;
+}
+
+export interface ISetUserRequest {
+  readonly type: typeof SET_USER_REQUEST;
+}
+
+export interface ISetUserSuccess {
+  readonly type: typeof SET_USER_SUCCESS;
+  user: {
+    email: string;
+    name: string;
+  };
+}
+
+export interface ISetUserError {
+  readonly type: typeof SET_USER_ERROR;
+  error: string;
+}
+
+export interface IForgotPasswordRequest {
+  readonly type: typeof FORGOT_PASSWORD_REQUEST;
+}
+
+export interface IForgotPasswordSuccess {
+  readonly type: typeof FORGOT_PASSWORD_SUCCESS;
+  successEmail: boolean;
+}
+
+export interface IForgotPasswordError {
+  readonly type: typeof FORGOT_PASSWORD_ERROR;
+  error: string;
+}
+
+export interface IResetPasswordRequest {
+  readonly type: typeof RESET_PASSWORD_REQUEST;
+}
+
+export interface IResetPasswordSuccess {
+  readonly type: typeof RESET_PASSWORD_SUCCESS;
+}
+
+export interface IResetPasswordError {
+  readonly type: typeof RESET_PASSWORD_ERROR;
+  error: string;
+}
+
+export interface IExitSuccess {
+  readonly type: typeof EXIT_SUCCESS;
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface IExitError {
+  readonly type: typeof EXIT_ERROR;
+  error: string;
+}
+
+export type TActionUsers = 
+  IRegistrationRequest
+  | IRegistrationSuccess
+  | IRegistrationError
+  | ILoginRequest
+  | ILoginSuccess
+  | ILoginError
+  | IRefreshTokenRequest
+  | IRefreshTokenSuccess
+  | IRefreshTokenError
+  | IGetUserRequest
+  | IGetUserSuccess
+  | IGetUserError
+  | ISetUserRequest
+  | ISetUserSuccess
+  | ISetUserError
+  | IForgotPasswordRequest
+  | IForgotPasswordSuccess
+  | IForgotPasswordError
+  | IResetPasswordRequest
+  | IResetPasswordSuccess
+  | IResetPasswordError
+  | IExitSuccess
+  | IExitError;
+
+export const usersReducer = (state: IState = initialState, action: TActionUsers) => {
   switch(action.type) {
     case REGISTRATION_REQUEST:
       return {

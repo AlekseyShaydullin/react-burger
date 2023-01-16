@@ -1,14 +1,15 @@
 import { apiUrl } from './constants';
 import { getCookie } from './cookie';
+import { TIngredient, TLoginApi, TRegisterApi, TResponse, TSetResetPassApi } from './types/data';
 
-function checkRes(res) {
+function checkRes(res: TResponse) {
   if (res.ok) {
     return res.json()
   }
   return Promise.reject(`Ошибка ${res}`)
 }
 
-async function request(url, options) {
+async function request(url: string, options?: {}) {
   const res = await fetch(`${apiUrl}${url}`, options);
   return checkRes(res);
 }
@@ -17,7 +18,7 @@ export async function getData() {
   return await request('ingredients');
 }
 
-export async function setOrderApi(ingredients) {
+export async function setOrderApi(ingredients: TIngredient) {
   return await request('orders', {
     method: 'POST',
     headers: {
@@ -29,7 +30,7 @@ export async function setOrderApi(ingredients) {
   });
   }
 
-  export async function setEmailApi(email) {
+  export async function setEmailApi(email: string) {
     return await request('password-reset', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
@@ -39,7 +40,7 @@ export async function setOrderApi(ingredients) {
     });
   }
 
-  export async function setResetPassApi({password, token}) {
+  export async function setResetPassApi({password, token} : TSetResetPassApi) {
     return await request('password-reset/reset', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
@@ -50,7 +51,7 @@ export async function setOrderApi(ingredients) {
     });
   }
 
-  export async function registerApi({email, password, name}) {
+  export async function registerApi({email, password, name}: TRegisterApi) {
     return await request('auth/register', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
@@ -62,7 +63,7 @@ export async function setOrderApi(ingredients) {
     });
   }
 
-  export async function loginApi({email, password}) {
+  export async function loginApi({email, password}: TLoginApi) {
     return await request('auth/login', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
@@ -103,7 +104,7 @@ export async function setOrderApi(ingredients) {
     });
   }
 
-  export async function updateUserApi({email, password, name}) {
+  export async function updateUserApi({email, password, name}: TRegisterApi) {
     return await request('auth/user', {
       method: 'PATCH',
       headers: { 

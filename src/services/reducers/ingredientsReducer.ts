@@ -1,3 +1,4 @@
+import { TIngredient } from '../../utils/types/data';
 import {GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_ERROR, GET_INGREDIENTS_SUCCESS} from '../actions/getIngredients';
 
 const initialState = {
@@ -7,8 +8,29 @@ const initialState = {
   data: null
 }
 
+interface IState {
+  isLoading: boolean;
+  dataRequest: boolean;
+  dataFailed: boolean;
+  data: Array<TIngredient> | null;
+}
 
-export const ingredientsReducer = (state = initialState, action) => {
+export interface IGetIngredientRequest {
+  readonly type: typeof GET_INGREDIENTS_REQUEST;
+}
+
+export interface IGetIngredientSuccess {
+  readonly type: typeof GET_INGREDIENTS_SUCCESS;
+  data: Array<TIngredient> | null;
+}
+
+export interface IGetIngredientError {
+  readonly type: typeof GET_INGREDIENTS_ERROR;
+}
+
+export type TActionIngredients = IGetIngredientRequest | IGetIngredientSuccess | IGetIngredientError;
+
+export const ingredientsReducer = (state: IState = initialState, action: TActionIngredients) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: 
       return {

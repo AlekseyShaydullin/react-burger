@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
@@ -6,7 +6,7 @@ import { getUser, refreshToken } from '../../services/actions/usersAction';
 import ModalSwitch from '../ModalSwitch/ModalSwitch';
 import { getIngredients } from '../../services/actions/getIngredients';
 
-function App() {
+function App: FC = () => {
   const dispatch = useDispatch();
   const cookie = getCookie('accessToken');
   const token = localStorage.getItem('refreshToken')
