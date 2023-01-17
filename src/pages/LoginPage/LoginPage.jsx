@@ -18,8 +18,9 @@ function LoginPage () {
     e => {
       e.preventDefault();
       dispatch(
-        login({email: valEmail, password: valPass, history: history})
+        login({email: valEmail, password: valPass})
       );
+      history.replace({ pathname: '/' });
     },
     [dispatch, history, valEmail, valPass]
   );

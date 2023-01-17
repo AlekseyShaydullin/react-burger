@@ -3,8 +3,8 @@ import styleOrderAuthPreRender from './OrderAuthPreRender.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import OrderInfo from '../OrderInfo/OrderInfo'
-import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
-import { getIngredients, getWsOrders } from '../../utils/constants';
+import { wsAuthConnectionStart, wsConnectionStop } from '../../services/actions/wsAction';
+import { getIngredients, getWsOrders, wsUrl } from '../../utils/constants';
 
 function OrderAuthPreRender() {
   const orders = useSelector(getWsOrders);
@@ -14,17 +14,9 @@ function OrderAuthPreRender() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({
-        type: WS_CONNECTION_START,
-        payload: {
-            url: "wss://norma.nomoreparties.space/orders",
-            isAuth: true,
-        },
-    });
+    dispatch(wsAuthConnectionStart(wsUrl));
     return () => {
-        dispatch({
-            type: WS_CONNECTION_STOP,
-        });
+        dispatch(wsConnectionStop());
     };
 }, [dispatch]);
 

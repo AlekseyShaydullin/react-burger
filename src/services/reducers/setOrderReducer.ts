@@ -1,4 +1,4 @@
-import {SET_ORDER_REQUEST, SET_ORDER_ERROR, SET_ORDER_SUCCESS} from '../actions/setOrder';
+import {SET_ORDER_REQUEST, SET_ORDER_ERROR, SET_ORDER_SUCCESS, CLEAR_CONSTRUCTOR} from '../actions/setOrder';
 import { RESET_STATE_ORDER } from '../actions/stateOrder';
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 }
 
 interface IState {
-  order: number | null;
+  order: Array<string> | null;
   orderRequest: boolean;
   orderFailed: boolean;
 }
@@ -19,7 +19,7 @@ export interface IRequest {
 
 export interface ISuccess {
   readonly type: typeof SET_ORDER_SUCCESS;
-  order: number | null;
+  order: Array<string> | null;
 }
 
 export interface IError {
@@ -30,7 +30,12 @@ export interface IResetStateOrder {
   readonly type: typeof RESET_STATE_ORDER;
 }
 
-export type TActionOrder = IRequest | ISuccess | IError | IResetStateOrder;
+export interface ISetOrder {
+  readonly type: typeof CLEAR_CONSTRUCTOR;
+  data: null;
+}
+
+export type TActionOrder = IRequest | ISuccess | IError | ISetOrder | IResetStateOrder;
 
 export const setOrderReducer = (state: IState = initialState, action: TActionOrder) => {
   switch (action.type) {

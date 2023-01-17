@@ -1,17 +1,17 @@
 import { setOrderApi } from "../../utils/api";
-import { TOrder } from "../../utils/types/data";
+import { AppDispatch } from "../../utils/types/main";
 
 export const SET_ORDER_REQUEST: 'SET_ORDER_REQUEST' = 'SET_ORDER_REQUEST';
 export const SET_ORDER_ERROR: 'SET_ORDER_ERROR' = 'SET_ORDER_ERROR';
 export const SET_ORDER_SUCCESS: 'SET_ORDER_SUCCESS' = 'SET_ORDER_SUCCESS';
 export const CLEAR_CONSTRUCTOR: 'CLEAR_CONSTRUCTOR' = 'CLEAR_CONSTRUCTOR';
 
-export function setOrder(ingredients: TOrder) {
-  return function(dispatch) {
+export function setOrder(order: Array<string> | null) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: SET_ORDER_REQUEST
     })
-    ingredients !== false && setOrderApi(ingredients)
+    setOrderApi(order)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -26,7 +26,7 @@ export function setOrder(ingredients: TOrder) {
         .then(() => {
           dispatch({
               type: CLEAR_CONSTRUCTOR,
-              data: [],
+              data: null,
           });
       })
       .catch((err) => {

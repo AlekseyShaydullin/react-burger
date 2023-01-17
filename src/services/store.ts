@@ -12,3 +12,5 @@ export const store = createStore(
       thunk,
       socketMiddleware(wsAction)
       )));
+
+export type RootState = ReturnType<typeof store.getState>;

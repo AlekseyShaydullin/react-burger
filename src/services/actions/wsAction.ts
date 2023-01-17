@@ -1,10 +1,44 @@
+import { IOrder, TOrderData } from "../../utils/types/data";
+
 export const WS_CONNECTION_START: 'WS_CONNECTION_START' = 'WS_CONNECTION_START';
+export const WS_AUTHCONNECTION_START: 'WS_AUTHCONNECTION_START' = 'WS_AUTHCONNECTION_START';
 export const WS_CONNECTION_STOP: 'WS_CONNECTION_STOP' = 'WS_CONNECTION_STOP';
 export const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
 export const WS_CONNECTION_ERROR: 'WS_CONNECTION_ERROR' = 'WS_CONNECTION_ERROR';
 export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSED';
 export const WS_GET_ORDERS: 'WS_GET_ORDERS' = 'WS_GET_ORDERS';
 export const WS_SEND_ORDERS: 'WS_SEND_ORDERS' = 'WS_SEND_ORDERS';
+
+export type TWSActions = {
+  readonly wsInit: typeof WS_CONNECTION_START;
+  readonly wsClosed: typeof WS_CONNECTION_STOP;
+  readonly onOpen: typeof WS_CONNECTION_SUCCESS;
+  readonly onError: typeof WS_CONNECTION_ERROR;
+  readonly onClose: typeof WS_CONNECTION_CLOSED;
+  readonly onMessage: typeof WS_GET_ORDERS;
+  readonly wsSendMessage: typeof WS_SEND_ORDERS;
+}
+
+export interface IWSConnectionStart {
+  readonly type: typeof WS_CONNECTION_START;
+  payload: {
+    url: string;
+    isAuth: boolean;
+  }
+}
+
+export interface IWSAuthConnectionStart {
+  readonly type: typeof WS_AUTHCONNECTION_START;
+  payload: {
+    url: string;
+    isAuth: boolean;
+  }
+}
+
+export interface IWSSendOrders {
+  readonly type: typeof WS_SEND_ORDERS;
+  payload: IOrder;
+}
 
 export const wsAction = {
   wsInit: WS_CONNECTION_START,
@@ -32,16 +66,43 @@ export const wsConnectionClosed = () => ({
   type: WS_CONNECTION_CLOSED
 })
 
-export const wsGetOrders = (data) => {
+export const wsGetOrders = (data: TOrderData) => {
   return {
     type: WS_GET_ORDERS,
     payload: data
   }
 }
 
-export const wsSendOrders = (data) => {
+export const wsSendOrders = (data: IOrder): IWSSendOrders => {
   return {
     type: WS_SEND_ORDERS,
     payload: data
   }
 }
+
+export const wsConnectionStart = (URL: string): IWSConnectionStart => {
+  return {
+    type: WS_CONNECTION_START,
+    payload: {
+      url: URL,
+      isAuth: false
+    }
+  }
+}
+
+export const wsAuthConnectionStart = (URL: string): IWSAuthConnectionStart => {
+  return {
+    type: WS_AUTHCONNECTION_START,
+    payload: {
+      url: URL,
+      isAuth: true
+    }
+  }
+}
+
+export const wsConnectionStop = () => {
+  return {
+    type: WS_CONNECTION_STOP
+  }
+}
+

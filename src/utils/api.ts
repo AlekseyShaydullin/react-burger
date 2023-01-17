@@ -1,6 +1,6 @@
 import { apiUrl } from './constants';
 import { getCookie } from './cookie';
-import { TIngredient, TLoginApi, TRegisterApi, TResponse, TSetResetPassApi } from './types/data';
+import { TLoginApi, TRegisterApi, TResponse, TSetResetPassApi } from './types/data';
 
 function checkRes(res: TResponse) {
   if (res.ok) {
@@ -18,14 +18,14 @@ export async function getData() {
   return await request('ingredients');
 }
 
-export async function setOrderApi(ingredients: TIngredient) {
+export async function setOrderApi(order: Array<string> | null) {
   return await request('orders', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
       Authorization: 'Bearer ' + getCookie('accessToken')},
     body: JSON.stringify({
-      'ingredients': ingredients,
+      'ingredients': order,
     }),
   });
   }

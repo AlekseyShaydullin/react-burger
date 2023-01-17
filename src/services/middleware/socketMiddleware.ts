@@ -1,10 +1,16 @@
+import { Middleware, MiddlewareAPI  } from "redux";
+import { RootState } from "../../services/store";
 import { getCookie } from "../../utils/cookie";
+import { AppDispatch, AppThunk } from "../../utils/types/main";
+import { TWSActions } from "../actions/wsAction";
+import { TWSActionData } from "../reducers/wsReducer";
 
-export const socketMiddleware = (wsActions) => {
-  return store => {
-    let socket = null;
+export const socketMiddleware = (wsActions: TWSActions): Middleware => {
+  return ((store: MiddlewareAPI<AppDispatch, RootState>
+  ): AppThunk<void, RootState, unknown, TWSActionData> => {
+    let socket: WebSocket | null = null;
 
-    return next => action => {
+    return next => (action: TWSActionData) => {
       const { dispatch } = store;
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
@@ -18,7 +24,7 @@ export const socketMiddleware = (wsActions) => {
     }
 
       if(socket) {
-        socket.onOpen = event => {
+        socket.onopen = (event) => {
           dispatch({ type: onOpen, payload: event })
         };
 
@@ -32,7 +38,7 @@ export const socketMiddleware = (wsActions) => {
           dispatch({ type: onMessage, payload: parsedData })
         };
 
-        socket.onClose = event => {
+        socket.onclose = event => {
           dispatch({ type: onClose, payload: event })
         };
 
@@ -43,5 +49,5 @@ export const socketMiddleware = (wsActions) => {
       }
       next(action);
     }
-  }
+  }) as Middleware;
 }

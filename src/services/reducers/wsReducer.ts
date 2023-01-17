@@ -1,6 +1,10 @@
+import { TOrder } from "../../utils/types/data";
 import { 
+  IWSAuthConnectionStart,
+  IWSConnectionStart,
+  IWSSendOrders,
   WS_CONNECTION_CLOSED, 
-  WS_CONNECTION_ERROR, 
+  WS_CONNECTION_ERROR,
   WS_CONNECTION_SUCCESS, 
   WS_GET_ORDERS
 } from "../actions/wsAction";
@@ -8,31 +12,37 @@ import {
 const initialState = {
   wsConnected: false,
   data: {
-    orders: [],
+    orders: null,
     total: 0,
     totalToday: 0,
     length: 0
   },
-  error: undefined
+  error: undefined,
+  url: '',
+  isAuth: false
 }
 
 interface IState {
   wsConnected: boolean;
   data: {
-    orders: Array<Object>;
+    orders: Array<TOrder> | null;
     total: number;
     totalToday: number;
     length: number;
   };
   error?: Event;
+  url: string;
+  isAuth: boolean;
 }
 
 export interface IWSConnectionSuccess {
   readonly type: typeof WS_CONNECTION_SUCCESS;
+  payload: Event;
 }
 
 export interface IWSConnectionClosed {
   readonly type: typeof WS_CONNECTION_CLOSED;
+  payload: Event;
 }
 
 export interface IWSConnectionError {
@@ -42,21 +52,23 @@ export interface IWSConnectionError {
 
 export interface IWSGetOrders {
   readonly type: typeof WS_GET_ORDERS;
-  payload: Event;
-  data: {
-    orders: Array<Object>;
+  payload: {
+    orders: Array<TOrder>;
     total: number;
     totalToday: number;
   };
 }
 
-export type TWSAction = 
-  IWSConnectionSuccess
+export type TWSActionData = 
+  IWSConnectionStart
+  | IWSAuthConnectionStart
+  | IWSConnectionSuccess
   | IWSConnectionClosed
   | IWSConnectionError
-  | IWSGetOrders;
+  | IWSGetOrders
+  | IWSSendOrders;
 
-export const wsReducer = (state: IState = initialState, action: TWSAction) => {
+export const wsReducer = (state: IState = initialState, action: TWSActionData) => {
   switch(action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -84,7 +96,6 @@ export const wsReducer = (state: IState = initialState, action: TWSAction) => {
         ? [{...state.data}, action.payload]
         : action.payload
       }
-
     default:
       return state;
   }

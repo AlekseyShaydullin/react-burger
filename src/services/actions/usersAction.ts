@@ -8,6 +8,8 @@ import { loginApi,
   setResetPassApi,
 } from "../../utils/api";
 import { setCookie } from "../../utils/cookie";
+import { TLoginApi, TRegisterApi, TSetResetPassApi } from "../../utils/types/data";
+import { AppDispatch } from "../../utils/types/main";
 
 export const REGISTRATION_REQUEST: 'REGISTRATION_REQUEST' = 'REGISTRATION_REQUEST';
 export const REGISTRATION_ERROR: 'REGISTRATION_ERROR' = 'REGISTRATION_ERROR';
@@ -40,12 +42,12 @@ export const GET_REFRESH_TOKEN_SUCCESS: 'GET_REFRESH_TOKEN_SUCCESS' = 'GET_REFRE
 export const EXIT_SUCCESS: 'EXIT_SUCCESS' = 'EXIT_SUCCESS';
 export const EXIT_ERROR: 'EXIT_ERROR' = 'EXIT_ERROR';
 
-export function register(form) {
-  return function(dispatch) {
+export function register({email, password, name}: TRegisterApi) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: REGISTRATION_REQUEST,
     });
-    registerApi(form)
+    registerApi({email, password, name})
       .then((res) => {
         if(res && res.success) {
           setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
@@ -58,7 +60,7 @@ export function register(form) {
           });
         } else {
           dispatch({
-            type: REGISTRATION_ERROR
+            type: REGISTRATION_ERROR,
           });
         }
       })
@@ -71,12 +73,12 @@ export function register(form) {
   }
 }
 
-export function login(form, history) {
-  return function(dispatch) {
+export function login({email, password}: TLoginApi) {
+  return function(dispatch: AppDispatch) {
     dispatch({  
       type: LOGIN_REQUEST
     });
-    loginApi(form)
+    loginApi({email, password})
       .then((res) => {
         if(res && res.success) {
           if(!localStorage.length){
@@ -89,7 +91,6 @@ export function login(form, history) {
               refreshToken: res.refreshToken
             });
           }
-          history.replace({ pathname: '/' });
         } else {
           dispatch({
             type: LOGIN_ERROR
@@ -106,7 +107,7 @@ export function login(form, history) {
 }
 
 export function getUser() {
-  return function(dispatch) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_REQUEST
     });
@@ -132,12 +133,12 @@ export function getUser() {
   }
 }
 
-export function updateUser(form) {
-  return function(dispatch) {
+export function updateUser({email, password, name}: TRegisterApi) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: SET_USER_REQUEST
     });
-    updateUserApi(form)
+    updateUserApi({email, password, name})
       .then((res) => {
         if(res && res.success) {
           dispatch({
@@ -159,12 +160,12 @@ export function updateUser(form) {
   }
 }
 
-export function resetPassword(form) {
-  return function(dispatch) {
+export function resetPassword({password, token}: TSetResetPassApi) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: RESET_PASSWORD_REQUEST
     });
-    setResetPassApi(form)
+    setResetPassApi({password, token})
       .then((res) => {
         if(res && res.success) {
           dispatch({
@@ -185,8 +186,8 @@ export function resetPassword(form) {
   }
 }
 
-export function forgotPassword(email, history) {
-  return function(dispatch) {
+export function forgotPassword(email: string) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST
     });
@@ -197,7 +198,6 @@ export function forgotPassword(email, history) {
             type: FORGOT_PASSWORD_SUCCESS,
             successEmail: true
           });
-          history.replace({ pathname: '/reset-password' });
         } else {
           dispatch({
             type: FORGOT_PASSWORD_ERROR
@@ -214,7 +214,7 @@ export function forgotPassword(email, history) {
 }
 
 export function refreshToken() {
-  return function(dispatch) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: GET_REFRESH_TOKEN_REQUEST
     });
@@ -244,7 +244,7 @@ export function refreshToken() {
 }
 
 export function logout() {
-  return function(dispatch) {
+  return function(dispatch: AppDispatch) {
     logoutApi()
       .then((res) => {
         if(res && res.success) {
@@ -252,7 +252,10 @@ export function logout() {
           localStorage.removeItem('refreshToken');
           dispatch({
             type: EXIT_SUCCESS,
-            user: '',
+            user: {
+              email: '',
+              name: '',
+            },
             accessToken: '',
             refreshToken: '',
           })

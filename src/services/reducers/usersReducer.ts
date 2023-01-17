@@ -68,12 +68,12 @@ export interface IRegistrationSuccess {
 
 export interface IRegistrationError {
   readonly type: typeof REGISTRATION_ERROR;
-  error: string;
+  error?: string;
 }
 
 export interface ILoginRequest {
   readonly type: typeof LOGIN_REQUEST;
-  authorizedUser: boolean;
+  authorizedUser?: boolean;
 }
 
 export interface ILoginSuccess {
@@ -88,7 +88,7 @@ export interface ILoginSuccess {
 
 export interface ILoginError {
   readonly type: typeof LOGIN_ERROR;
-  error: string;
+  error?: string;
 }
 
 export interface IRefreshTokenRequest {
@@ -103,7 +103,7 @@ export interface IRefreshTokenSuccess {
 
 export interface IRefreshTokenError {
   readonly type: typeof GET_REFRESH_TOKEN_ERROR;
-  error: string;
+  error?: string;
 }
 
 export interface IGetUserRequest {
@@ -120,7 +120,7 @@ export interface IGetUserSuccess {
 
 export interface IGetUserError {
   readonly type: typeof GET_USER_ERROR;
-  error: string;
+  error?: string;
 }
 
 export interface ISetUserRequest {
@@ -137,7 +137,7 @@ export interface ISetUserSuccess {
 
 export interface ISetUserError {
   readonly type: typeof SET_USER_ERROR;
-  error: string;
+  error?: string;
 }
 
 export interface IForgotPasswordRequest {
@@ -151,7 +151,7 @@ export interface IForgotPasswordSuccess {
 
 export interface IForgotPasswordError {
   readonly type: typeof FORGOT_PASSWORD_ERROR;
-  error: string;
+  error?: string;
 }
 
 export interface IResetPasswordRequest {
@@ -164,7 +164,7 @@ export interface IResetPasswordSuccess {
 
 export interface IResetPasswordError {
   readonly type: typeof RESET_PASSWORD_ERROR;
-  error: string;
+  error?: string;
 }
 
 export interface IExitSuccess {
@@ -179,7 +179,7 @@ export interface IExitSuccess {
 
 export interface IExitError {
   readonly type: typeof EXIT_ERROR;
-  error: string;
+  error?: string;
 }
 
 export type TActionUsers = 

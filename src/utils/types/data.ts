@@ -15,6 +15,21 @@ export type TIngredient = {
   __v: number;
 };
 
+export type TOrderData = {
+  orders: {
+    _id: string;
+    ingredients: Array<string>;
+    status: TStatus;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+  }
+  total: number;
+  totalToday: number;
+  length: number;
+};
+
 export type TOrder = {
   _id: string;
   ingredients: Array<string>;
@@ -41,17 +56,21 @@ export type TResponse = {
 }
 
 export type TSetResetPassApi = {
-  password: string; 
-  token: string
+  password: HTMLInputElement; 
+  token: string;
 }
 
 export type TRegisterApi = {
-  email: string; 
-  password: string;
-  name: string;
+  email: HTMLInputElement; 
+  password: HTMLInputElement;
+  name: HTMLInputElement;
 }
 
 export type TLoginApi = {
-  email: string; 
-  password: string;
+  email: HTMLInputElement; 
+  password: HTMLInputElement;
+}
+
+export type TSetIngredients = {
+  order: Array<string> | null;
 }

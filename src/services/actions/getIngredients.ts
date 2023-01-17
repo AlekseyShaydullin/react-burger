@@ -1,17 +1,12 @@
 import {getData} from '../../utils/api';
-import { TIngredient } from '../../utils/types/data';
+import { AppDispatch } from '../../utils/types/main';
 
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_ERROR: 'GET_INGREDIENTS_ERROR' = 'GET_INGREDIENTS_ERROR';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
 
-export type TResponse = {
-  success: boolean;
-  data?: TIngredient;
-}
-
 export function getIngredients() {
-  return function(dispatch: any) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST
     })

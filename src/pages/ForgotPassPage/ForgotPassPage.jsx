@@ -12,7 +12,8 @@ function ForgotPassPage() {
   
   const onSubmit = e => {
     e.preventDefault();
-    dispatch(forgotPassword(valEmail, history))
+    dispatch(forgotPassword(valEmail, history));
+    history.replace({ pathname: '/reset-password' });
   };
 
   const login = useCallback(() => {
