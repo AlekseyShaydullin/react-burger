@@ -17,7 +17,7 @@ export type TIngredient = {
 
 export type TIngredientKey = {
   _id: string;
-  name?: string;
+  name: string;
   type?: string;
   proteins?: number;
   fat?: number;

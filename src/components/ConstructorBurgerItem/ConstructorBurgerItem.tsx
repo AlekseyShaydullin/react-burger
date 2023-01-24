@@ -1,13 +1,20 @@
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDrag, useDrop } from 'react-dnd';
+import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
 import { useDispatch } from '../../utils/types/main';
 import {deleteBurgerIngredient} from '../../services/actions/currentBurger';
 import styleConstructorItem from './ConstructorBurgerItem.module.css';
-import {useRef} from 'react';
+import {FC, useRef} from 'react';
+import { TIngredientKey } from '../../utils/types/data';
 
-function ConstructorBurgerItem({ing, index, moveIng}) {
+type TConstructorBurgerItem = {
+  ing: TIngredientKey;
+  index: number;
+  moveIng: (dragIndex: number, hoverIndex: number) => void;
+};
+
+const ConstructorBurgerItem: FC<TConstructorBurgerItem> = ({ing, index, moveIng}) => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
 
   const [{isDragging}, dragRef] = useDrag({
     type: 'item',
@@ -19,22 +26,26 @@ function ConstructorBurgerItem({ing, index, moveIng}) {
 
   const [, drop] = useDrop({
     accept: 'item',
-    hover: (item, monitor) => {
-      if (!ref.current) return
+    hover: (item: {index: number; type: string; id: string}, monitor: DropTargetMonitor) => {
+      if (!ref.current) return;
       const dragIndex = item.index;
       const hoverIndex = index;
 
-      if (dragIndex === hoverIndex) return
+      if (dragIndex === hoverIndex) return;
 
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const clientOffset = monitor.getClientOffset();
+
+      if (!hoverBoundingRect || !clientOffset) return;
+      
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
+      const hoverActualY = clientOffset.y - hoverBoundingRect.top;
 
-      if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
-      if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
+      if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
+      if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
 
-      moveIng(dragIndex, hoverIndex)
-      item.index = hoverIndex
+      moveIng(dragIndex, hoverIndex);
+      item.index = hoverIndex;
     }
   })
 
@@ -43,7 +54,8 @@ function ConstructorBurgerItem({ing, index, moveIng}) {
   const onHandleClose = () => {dispatch(deleteBurgerIngredient(index))}
 
   return (
-    <li className={isDragging ? `${styleConstructorItem.item} ${styleConstructorItem.item_hover} pr-2` : `${styleConstructorItem.item} pr-2`} ref={ref}>
+    <li className={isDragging ? `${styleConstructorItem.item} ${styleConstructorItem.item_hover} pr-2` 
+    : `${styleConstructorItem.item} pr-2`} ref={ref}>
       <div className={styleConstructorItem.icon}>
         <DragIcon type="primary" />
       </div>

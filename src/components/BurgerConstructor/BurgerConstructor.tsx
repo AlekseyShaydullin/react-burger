@@ -17,9 +17,6 @@ const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  console.log();
-  
-
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
     drop(item: TIngredientKey) {

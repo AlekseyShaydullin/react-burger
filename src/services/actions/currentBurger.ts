@@ -1,5 +1,5 @@
 import { v4 as uuid4 } from 'uuid';
-import { TIngredient, TIngredientKey } from '../../utils/types/data';
+import { TIngredientKey } from '../../utils/types/data';
 
 export const ADD_BURGER_INGREDIENTS: 'ADD_BURGER_INGREDIENTS' = 'ADD_BURGER_INGREDIENTS';
 export const SET_BURGER_BUN: 'SET_BURGER_BUN' = 'SET_BURGER_BUN';
