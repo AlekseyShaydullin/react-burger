@@ -5,12 +5,11 @@ export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIEN
 export const GET_INGREDIENTS_ERROR: 'GET_INGREDIENTS_ERROR' = 'GET_INGREDIENTS_ERROR';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
 
-export function getIngredients() {
+export const getIngredients = () => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST
     })
-
     getData()
     .then(res => {
       if (res && res.success) {

@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { Link, useLocation } from 'react-router-dom';
 import Order from '../../components/Order/Order';
 import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
-import { getWsOrders, getWsOrdersData } from '../../utils/constants';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
 function OrderFeedPage() {
-  const orders = useSelector(getWsOrders);
-  const ordersData = useSelector(getWsOrdersData);
+  const orders = useSelector(store => store.wsOrders.orders);
+  const ordersData = useSelector(store => store.wsOrders);
   const location = useLocation();
   const dispatch = useDispatch();
 

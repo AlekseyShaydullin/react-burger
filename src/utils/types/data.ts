@@ -15,6 +15,22 @@ export type TIngredient = {
   __v: number;
 };
 
+export type TIngredientKey = {
+  _id: string;
+  name?: string;
+  type?: string;
+  proteins?: number;
+  fat?: number;
+  carbohydrates?: number;
+  calories?: number;
+  price: number;
+  image: string;
+  image_mobile: string;
+  image_large: string;
+  __v?: number;
+  keyId?: string;
+};
+
 export type TOrderData = {
   orders: {
     _id: string;
@@ -74,3 +90,8 @@ export type TLoginApi = {
 export type TSetIngredients = {
   order: Array<string> | null;
 }
+
+export type TApi = TResponse
+  | TSetResetPassApi
+  | TRegisterApi
+  | TLoginApi;

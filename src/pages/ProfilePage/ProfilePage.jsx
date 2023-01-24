@@ -1,14 +1,13 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../../utils/types/main';
 import NavProfile from "../../components/NavProfile/NavProfile";
 import { updateUser } from "../../services/actions/usersAction";
-import { getUser } from "../../utils/constants";
 import styleProfilePage from './ProfilePage.module.css';
 
 function ProfilePage() {
   const dispatch = useDispatch();
-  const { user } = useSelector(getUser);
+  const { user } = useSelector(store => store.userInfo);
   const [valName, setValName] = useState('');
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');

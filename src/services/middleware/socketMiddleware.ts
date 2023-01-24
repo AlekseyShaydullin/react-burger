@@ -1,13 +1,12 @@
 import { Middleware, MiddlewareAPI  } from "redux";
 import { RootState } from "../../services/store";
 import { getCookie } from "../../utils/cookie";
-import { AppDispatch, AppThunk } from "../../utils/types/main";
-import { TWSActions } from "../actions/wsAction";
+import { AppDispatch } from "../../utils/types/main";
+import { TWsSocketMiddlewareActions } from "../actions/wsAction";
 import { TWSActionData } from "../reducers/wsReducer";
 
-export const socketMiddleware = (wsActions: TWSActions): Middleware => {
-  return ((store: MiddlewareAPI<AppDispatch, RootState>
-  ): AppThunk<void, RootState, unknown, TWSActionData> => {
+export const socketMiddleware = (wsActions: TWsSocketMiddlewareActions ): Middleware => {
+  return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
     return next => (action: TWSActionData) => {

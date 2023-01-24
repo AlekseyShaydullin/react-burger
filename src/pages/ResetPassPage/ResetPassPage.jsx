@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styleResetPass from './ResetPassPage.module.css';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { useHistory } from 'react-router-dom';
 import { resetPassword } from '../../services/actions/usersAction';
-import { getUser } from '../../utils/constants';
 
 function ResetPassPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { successEmail } = useSelector(getUser);
+  const { successEmail } = useSelector(store => store.userInfo);
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
 

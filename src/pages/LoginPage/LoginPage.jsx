@@ -2,9 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { EmailInput,PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleLoginPage from './LoginPage.module.css';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { login } from '../../services/actions/usersAction';
-import { getUser } from '../../utils/constants';
 
 function LoginPage () {
   const history = useHistory();
@@ -12,7 +11,7 @@ function LoginPage () {
   const dispatch = useDispatch();
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');
-  const { user } = useSelector(getUser);
+  const { user } = useSelector(store => store.userInfo);
 
   const onSubmit = useCallback(
     e => {

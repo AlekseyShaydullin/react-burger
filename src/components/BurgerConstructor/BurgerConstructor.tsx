@@ -1,25 +1,28 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { FC, useCallback, useMemo } from 'react'
 import styleBurgerConstruct from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { useDrop } from 'react-dnd';
 import {sortedIngredients, setBurgerBun, addBurgerIngredient} from '../../services/actions/currentBurger';
 import ConstructorBurgerItem from '../ConstructorBurgerItem/ConstructorBurgerItem';
 import { setOrder } from '../../services/actions/setOrder';
 import { useHistory } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
-import { getBurgerIngredients, getOrder } from '../../utils/constants';
+import { TIngredientKey } from '../../utils/types/data';
 
-function BurgerConstructor() {
-  const {ingredients} = useSelector(getBurgerIngredients);
-  const {bun} = useSelector(getBurgerIngredients);
-  const order = useSelector(getOrder)
+const BurgerConstructor: FC = () => {
+  const {ingredients} = useSelector(store => store.burgerIngredients);
+  const {bun} = useSelector(store => store.burgerIngredients);
+  const order = useSelector(store => store.order)
   const dispatch = useDispatch();
   const history = useHistory();
 
+  console.log();
+  
+
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: TIngredientKey) {
       if (item.type === 'bun') {dispatch(setBurgerBun(item))}
       else {dispatch(addBurgerIngredient(item))}
     },
@@ -29,10 +32,10 @@ function BurgerConstructor() {
   })
   
   const price = useMemo(() => {
-    return ingredients.reduce((acc, item) => acc + item.price, 0)
+    return ingredients.reduce((acc: number, item: TIngredientKey) => acc + item.price, 0)
   }, [ingredients]);
   
-  const moveIngredient = useCallback((dragIndex, hoverIndex) => {
+  const moveIngredient = useCallback((dragIndex: number, hoverIndex: number) => {
     const dragItem = ingredients[dragIndex];
     const hoverItem = ingredients[hoverIndex];
     const newIngredients = [...ingredients];
@@ -41,9 +44,9 @@ function BurgerConstructor() {
     dispatch(sortedIngredients(newIngredients));
   }, [dispatch, ingredients])
 
-  const renderIngredients = (ing, index) => {
+  const renderIngredients = (ingredients: TIngredientKey, index: number) => {
     return (
-      <ConstructorBurgerItem ing={ing} index={index} key={ing.keyId} moveIng={moveIngredient}/>
+      <ConstructorBurgerItem ing={ingredients} index={index} key={ingredients.keyId} moveIng={moveIngredient}/>
     )
   }
 

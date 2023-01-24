@@ -1,5 +1,5 @@
 import { v4 as uuid4 } from 'uuid';
-import { TIngredient } from '../../utils/types/data';
+import { TIngredient, TIngredientKey } from '../../utils/types/data';
 
 export const ADD_BURGER_INGREDIENTS: 'ADD_BURGER_INGREDIENTS' = 'ADD_BURGER_INGREDIENTS';
 export const SET_BURGER_BUN: 'SET_BURGER_BUN' = 'SET_BURGER_BUN';
@@ -9,13 +9,13 @@ export const RESET_INGREDIENTS: 'RESET_INGREDIENTS' = 'RESET_INGREDIENTS';
 
 export interface ISetBurgerBun {
   readonly type: typeof SET_BURGER_BUN;
-  data: Array<TIngredient>;
+  data: TIngredientKey;
 }
 
 export interface IAddBurgerIngredient {
   readonly type: typeof ADD_BURGER_INGREDIENTS;
-  data: Array<TIngredient>;
-  keyId: number | string;
+  data: TIngredientKey;
+  keyId: string;
 }
 
 export interface IDeleteBurgerIngredient {
@@ -25,22 +25,23 @@ export interface IDeleteBurgerIngredient {
 
 export interface ISortedBurgerIngredients {
   readonly type: typeof SORTED_BURGER_INGREDIENTS;
-  sorted: Array<TIngredient>;
+  sorted: Array<TIngredientKey>;
 }
 
 export interface IResetIngredients {
   readonly type: typeof RESET_INGREDIENTS;
 }
 
-export const setBurgerBun = (item: Array<TIngredient>): ISetBurgerBun => ({
+export const setBurgerBun = (item: TIngredientKey): ISetBurgerBun => ({
   type: SET_BURGER_BUN, 
   data: item
 });
 
-export const addBurgerIngredient = (item: Array<TIngredient>): IAddBurgerIngredient => ({
+export const addBurgerIngredient = (item: TIngredientKey): IAddBurgerIngredient => ({
   type: ADD_BURGER_INGREDIENTS, 
   data: item, 
   keyId: uuid4()
+  
 });
 
 export const deleteBurgerIngredient = (id: number): IDeleteBurgerIngredient => ({
@@ -48,7 +49,7 @@ export const deleteBurgerIngredient = (id: number): IDeleteBurgerIngredient => (
   index: id 
 })
 
-export const sortedIngredients = (ingredients: Array<TIngredient>): ISortedBurgerIngredients => ({
+export const sortedIngredients = (ingredients: Array<TIngredientKey>): ISortedBurgerIngredients => ({
   type: SORTED_BURGER_INGREDIENTS, 
   sorted: ingredients
 })

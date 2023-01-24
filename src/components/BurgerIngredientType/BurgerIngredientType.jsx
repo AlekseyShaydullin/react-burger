@@ -2,12 +2,11 @@ import React, { forwardRef } from 'react';
 import styleBurgerIngredType from './BurgerIngredientType.module.css';
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient';
 import PropTypes from 'prop-types';
-import {useSelector} from 'react-redux';
+import { useSelector } from '../../utils/types/main';
 import { Link, useLocation } from 'react-router-dom';
-import { getIngredients } from '../../utils/constants';
 
 const BurgerIngredientType = forwardRef((props, ref) => {
-  const ingredients = useSelector(getIngredients);
+  const ingredients = useSelector(store => store.ingredients.data);
   const location = useLocation();
 
   return (

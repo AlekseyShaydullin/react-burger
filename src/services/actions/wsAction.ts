@@ -9,7 +9,7 @@ export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSE
 export const WS_GET_ORDERS: 'WS_GET_ORDERS' = 'WS_GET_ORDERS';
 export const WS_SEND_ORDERS: 'WS_SEND_ORDERS' = 'WS_SEND_ORDERS';
 
-export type TWSActions = {
+export type TWsSocketMiddlewareActions = {
   readonly wsInit: typeof WS_CONNECTION_START;
   readonly wsClosed: typeof WS_CONNECTION_STOP;
   readonly onOpen: typeof WS_CONNECTION_SUCCESS;
@@ -17,6 +17,22 @@ export type TWSActions = {
   readonly onClose: typeof WS_CONNECTION_CLOSED;
   readonly onMessage: typeof WS_GET_ORDERS;
   readonly wsSendMessage: typeof WS_SEND_ORDERS;
+}
+
+export interface IWSConnectionSuccess {
+  readonly type: typeof WS_CONNECTION_SUCCESS;
+}
+
+export interface IWSConnectionOpen {
+  readonly type: typeof WS_CONNECTION_START;
+}
+
+export interface IWSConnectionError {
+  readonly type: typeof WS_CONNECTION_ERROR;
+}
+
+export interface IWSConnectionClosed {
+  readonly type: typeof WS_CONNECTION_CLOSED;
 }
 
 export interface IWSConnectionStart {
@@ -40,7 +56,15 @@ export interface IWSSendOrders {
   payload: IOrder;
 }
 
-export const wsAction = {
+export type TWSActions = IWSConnectionSuccess
+  | IWSConnectionOpen
+  | IWSConnectionError
+  | IWSConnectionClosed
+  | IWSConnectionStart
+  | IWSAuthConnectionStart
+  | IWSSendOrders;
+
+export const wsAction: TWsSocketMiddlewareActions = {
   wsInit: WS_CONNECTION_START,
   wsClosed: WS_CONNECTION_STOP,
   onOpen: WS_CONNECTION_SUCCESS,
@@ -50,19 +74,19 @@ export const wsAction = {
   wsSendMessage: WS_SEND_ORDERS
 };
 
-export const wsConnectionSuccess = () => ({
+export const wsConnectionSuccess = (): IWSConnectionSuccess => ({
   type: WS_CONNECTION_SUCCESS
 });
 
-export const wsConnectionOpen = () => ({
+export const wsConnectionOpen = (): IWSConnectionOpen => ({
   type: WS_CONNECTION_START
 })
 
-export const wsConnectionError = () => ({
+export const wsConnectionError = (): IWSConnectionError => ({
   type: WS_CONNECTION_ERROR
 })
 
-export const wsConnectionClosed = () => ({
+export const wsConnectionClosed = (): IWSConnectionClosed => ({
   type: WS_CONNECTION_CLOSED
 })
 

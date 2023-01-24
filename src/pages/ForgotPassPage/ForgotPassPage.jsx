@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styleForgotPass from './ForgotPassPage.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/types/main';
 import { useHistory } from 'react-router-dom';
 import { forgotPassword } from '../../services/actions/usersAction';
 

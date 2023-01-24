@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import styleIngredientDetails from '../IngredientDetails/IngredientDetails.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { showIngredientDetails } from '../../services/actions/showIngredientDetails';
 import IngredientCard from '../IngredientCard/IngredientCard';
 import { getIngredientDetail, getIngredientLoading, getIngredients } from '../../utils/constants';
 
 const IngredientDetails = () => {
-  const selectedElement = useSelector(getIngredientDetail);
-  const ingredients = useSelector(getIngredients);
-  const { isLoading } = useSelector(getIngredientLoading);
+  const selectedElement = useSelector(store => store.ingredientDetail.ingredient);
+  const ingredients = useSelector(store => store.ingredients.data);
+  const { isLoading } = useSelector(store => store.ingredients);
   const { id } = useParams();
   const location = useLocation();
   const history = useHistory();

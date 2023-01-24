@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { useHistory, useLocation } from "react-router-dom";
 import { deleteIngredientDetails } from "../../services/actions/showIngredientDetails";
-import { getIngredient } from "../../utils/constants";
 import IngredientDetails from "../IngredientDetails/IngredientDetails"
 import Modal from "../Modal/Modal"
 
 const ModalIngredient = () => {
-  const { ingredient } = useSelector(getIngredient)
+  const { ingredient } = useSelector(store => store.ingredientDetail)
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation()

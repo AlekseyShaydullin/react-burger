@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { Link, useLocation } from 'react-router-dom';
 import NavProfile from '../../components/NavProfile/NavProfile';
 import Order from '../../components/Order/Order';
 import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
-import { getWsOrdersData } from '../../utils/constants';
 import styleOrderHistoryPage from './OrderHistoryPage.module.css';
 
 function OrderHistoryPage() {
-  const {orders} = useSelector(getWsOrdersData);
+  const {orders} = useSelector(store => store.wsOrders);
   const dispatch = useDispatch();
   const location = useLocation();
   

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/types/main';
 import { NavLink, useHistory } from 'react-router-dom';
 import { logout } from '../../services/actions/usersAction';
 import styleNavProfile from './NavProfile.module.css';

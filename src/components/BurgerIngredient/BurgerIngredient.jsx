@@ -2,14 +2,13 @@ import React from 'react';
 import styleBurgerIngredient from './BurgerIngredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientType } from '../../utils/types';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import {showIngredientDetails} from '../../services/actions/showIngredientDetails';
 import { useDrag } from 'react-dnd';
-import { getBurgerIngredients } from '../../utils/constants';
 
 function BurgerIngredient(props) {
-  const {ingredients} = useSelector(getBurgerIngredients);
-  const {bun} = useSelector(getBurgerIngredients);
+  const {ingredients} = useSelector(store => store.burgerIngredients);
+  const {bun} = useSelector(store => store.burgerIngredients);
   const dispatch = useDispatch();
   const [, dragRef] = useDrag({
     type: 'ingredient',

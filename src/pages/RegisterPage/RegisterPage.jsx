@@ -1,15 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleRegisterPage from './RegisterPage.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { Redirect, useHistory } from 'react-router-dom';
 import { register } from '../../services/actions/usersAction';
-import { getUser } from '../../utils/constants';
 
 function RegisterPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user } = useSelector(getUser);
+  const { user } = useSelector(store => store.userInfo);
   const [valName, setValName] = useState('');
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');

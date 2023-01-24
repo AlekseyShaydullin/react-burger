@@ -17,15 +17,22 @@ interface IState {
 
 export interface IGetIngredientRequest {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
+  dataRequest?: boolean;
+  dataFailed?: boolean;
 }
 
 export interface IGetIngredientSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
   data: Array<TIngredient> | null;
+  isLoading?: boolean;
+  dataRequest?: boolean;
+  dataFailed?: boolean;
 }
 
 export interface IGetIngredientError {
   readonly type: typeof GET_INGREDIENTS_ERROR;
+  dataRequest?: boolean;
+  dataFailed?: boolean;
 }
 
 export type TActionIngredients = IGetIngredientRequest | IGetIngredientSuccess | IGetIngredientError;

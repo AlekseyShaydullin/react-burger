@@ -1,4 +1,4 @@
-import { TIngredient } from '../../utils/types/data';
+import { TIngredientKey } from '../../utils/types/data';
 import {
   ADD_BURGER_INGREDIENTS, 
   SET_BURGER_BUN, 
@@ -14,12 +14,12 @@ import {
 
 const initialState = {
   ingredients: [],
-  bun: null
+  bun: null,
 }
 
 interface IState {
-  ingredients: Array<TIngredient>;
-  bun: number | null;
+  ingredients: TIngredientKey[];
+  bun: TIngredientKey | null;
 }
 
 export type TActionCurrentBurger = 
@@ -29,7 +29,7 @@ export type TActionCurrentBurger =
   | ISortedBurgerIngredients 
   | IResetIngredients;
 
-export const currentBurgerReducer = (state: IState = initialState, action: TActionCurrentBurger) => {
+export const currentBurgerReducer = (state: IState = initialState, action: TActionCurrentBurger): IState => {
   switch (action.type) {
     case ADD_BURGER_INGREDIENTS:
       return {
@@ -53,7 +53,23 @@ export const currentBurgerReducer = (state: IState = initialState, action: TActi
       }
     case RESET_INGREDIENTS:
       return {
-        ingredients: [],
+        ingredients: [
+          {
+            _id: '',
+            name: '',
+            type: '',
+            proteins: 0,
+            fat: 0,
+            carbohydrates: 0,
+            calories: 0,
+            price: 0,
+            image: '',
+            image_mobile: '',
+            image_large: '',
+            __v: 0, 
+            keyId: ''
+          }
+        ],
         bun: null,
       };
     default: 

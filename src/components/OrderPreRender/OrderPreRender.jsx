@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import styleOrderPreRender from './OrderPreRender.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../utils/types/main';
 import { useLocation, useParams } from 'react-router-dom';
 import OrderInfo from '../OrderInfo/OrderInfo'
 import { wsConnectionStart, wsConnectionStop } from '../../services/actions/wsAction';
-import { getIngredients, getWsOrders, wsUrlAll } from '../../utils/constants';
+import { wsUrlAll } from '../../utils/constants';
 
 function OrderPreRender() {
-  const orders = useSelector(getWsOrders);
-  const ingredients = useSelector(getIngredients);
+  const orders = useSelector(store => store.wsOrders.orders);
+  const ingredients = useSelector(store => store.ingredients.data);
   const location = useLocation();
   const params = useParams();
   const dispatch = useDispatch();

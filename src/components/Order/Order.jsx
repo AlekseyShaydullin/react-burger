@@ -1,17 +1,16 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../utils/types/main';
 import { useLocation } from 'react-router-dom';
 import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
 import styleOrder from './Order.module.css'
 import { v4 as uuid4 } from 'uuid';
-import { getIngredients } from '../../utils/constants';
 
 function Order(props) {
   const { number, name } = props.data;
-  const ingredients = useSelector(getIngredients)
+  const ingredients = useSelector(store => store.ingredients.data)
   const location = useLocation();
 
   const orderLength = props.data.ingredients.length;
