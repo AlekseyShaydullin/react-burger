@@ -1,5 +1,5 @@
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
+import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from '../../utils/types/main';
 import {deleteBurgerIngredient} from '../../services/actions/currentBurger';
 import styleConstructorItem from './ConstructorBurgerItem.module.css';
@@ -37,7 +37,7 @@ const ConstructorBurgerItem: FC<TConstructorBurgerItem> = ({ing, index, moveIng}
       const clientOffset = monitor.getClientOffset();
 
       if (!hoverBoundingRect || !clientOffset) return;
-      
+
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const hoverActualY = clientOffset.y - hoverBoundingRect.top;
 

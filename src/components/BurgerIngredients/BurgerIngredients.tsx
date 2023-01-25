@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import styleBurgerIngred from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientType from '../BurgerIngredientType/BurgerIngredientType';
 
-function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
   const Tabs = {
     BUN: 'bun',
     SAUCE: 'sauce',
@@ -14,9 +14,9 @@ function BurgerIngredients() {
   const [sauceActive, setSauceActive] = useState(false);
   const [ingredientsActive, setIngredientsActive] = useState(false);
   const [current, setCurrent] = useState(Tabs.BUN);
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
+  const bunRef = useRef<HTMLLIElement>(null);
+  const sauceRef = useRef<HTMLLIElement>(null);
+  const mainRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -37,22 +37,22 @@ function BurgerIngredients() {
     !sauceActive && ingredientsActive && setCurrent('main');
 }, [bunActive, sauceActive, ingredientsActive]);
 
-  const handlerTabClick = (tab) => {
+  const handlerTabClick = (tab: string) => {
     if(tab !== current) {
       switch (tab) {
         case 'bun':
-          bunRef.current.scrollIntoView({ behavior: 'smooth' });
+          bunRef.current?.scrollIntoView({ behavior: 'smooth' });
           setCurrent(Tabs.BUN);
           break;
         case 'sauce':
-          sauceRef.current.scrollIntoView({ behavior: 'smooth' });
+          sauceRef.current?.scrollIntoView({ behavior: 'smooth' });
           setCurrent(Tabs.SAUCE);
           break;
         case 'main':
-          mainRef.current.scrollIntoView({ behavior: 'smooth' });
+          mainRef.current?.scrollIntoView({ behavior: 'smooth' });
           setCurrent(Tabs.MAIN);
           break;
-        default: return bunRef.current.scrollIntoView({ behavior: 'smooth' });
+        default: return bunRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
     }
   }
@@ -61,20 +61,20 @@ function BurgerIngredients() {
     <section className={`${styleBurgerIngred.wrapper} mt-10`}>
       <h1 className={'text text_type_main-large'}>Соберите бургер</h1>
       <nav className={`${styleBurgerIngred.tabs} mt-5 mb-10`}>
-        <Tab value={'bun'} active={current === Tabs.BUN} onClick={handlerTabClick} id={'bun'}>
+        <Tab value={'bun'} active={current === Tabs.BUN} onClick={handlerTabClick}>
           Булки
         </Tab>
-        <Tab value={'sauce'} active={current === Tabs.SAUCE} onClick={handlerTabClick} id={'sauce'}>
+        <Tab value={'sauce'} active={current === Tabs.SAUCE} onClick={handlerTabClick}>
           Соусы
         </Tab>
-        <Tab value={'main'} active={current === Tabs.MAIN} onClick={handlerTabClick} id={'main'}>
+        <Tab value={'main'} active={current === Tabs.MAIN} onClick={handlerTabClick}>
           Начинки
         </Tab>
       </nav>
       <ul className={styleBurgerIngred.ingredients}>
-        <BurgerIngredientType ref={bunRef} type={'bun'} title={'Булки'} id={'bun'} />
-        <BurgerIngredientType ref={sauceRef} type={'sauce'} title={'Соусы'} id={'sauce'} />
-        <BurgerIngredientType ref={mainRef} type={'main'} title={'Начинки'} id={'main'} />
+        <BurgerIngredientType ref={bunRef} title={'Булки'} id={'bun'} />
+        <BurgerIngredientType ref={sauceRef} title={'Соусы'} id={'sauce'} />
+        <BurgerIngredientType ref={mainRef} title={'Начинки'} id={'main'} />
       </ul>
     </section>
   )
