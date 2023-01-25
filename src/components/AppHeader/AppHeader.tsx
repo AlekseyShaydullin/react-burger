@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import styleAppHeader from './AppHeader.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from "react-router-dom";
 
-function AppHeader() {
+const AppHeader: FC = () => {
   const [type, setType] = useState('construct');
 
   return (

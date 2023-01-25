@@ -5,7 +5,7 @@ export const DELETE_INGREDIENT_DETAILS: 'DELETE_INGREDIENT_DETAILS' = 'DELETE_IN
 
 
 
-export const showIngredientDetails = (data: Array<TIngredient>) => ({
+export const showIngredientDetails = (data: TIngredient) => ({
   type: ADD_INGREDIENT_DETAILS, 
   ingredient: data
 })

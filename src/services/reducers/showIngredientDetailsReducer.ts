@@ -13,7 +13,7 @@ interface IState {
 
 export interface IAddIngredientDetails {
   readonly type: typeof ADD_INGREDIENT_DETAILS
-  ingredient: Array<TIngredient> | null;
+  ingredient: TIngredient | null;
 }
 
 export interface IDeleteIngredientDetails {
