@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
+import { TIngredient } from '../../utils/types/data'
 import styleIngredientCard from './IngredientCard.module.css'
 
-function IngredientCard({selectedElement}) {
+type TIngredientCard = {
+  selectedElement: TIngredient
+}
+
+const IngredientCard: FC<TIngredientCard> = ({selectedElement}) => {
   return (
       <>
         <img src={selectedElement.image_large} alt={selectedElement.name} />

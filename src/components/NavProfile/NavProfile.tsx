@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useDispatch } from '../../utils/types/main';
 import { NavLink, useHistory } from 'react-router-dom';
 import { logout } from '../../services/actions/usersAction';
 import styleNavProfile from './NavProfile.module.css';
 
-function NavProfile() {
+const NavProfile: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 

@@ -16,7 +16,7 @@ export function setOrder(order: Array<string> | null) {
         if (res && res.success) {
           dispatch({
             type: SET_ORDER_SUCCESS,
-            order: res.order.number
+            order: res.order
           })
         } else {
           dispatch({

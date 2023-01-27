@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Route, Redirect } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 import {useLocation} from "react-router-dom";
-import PropTypes from "prop-types";
 
-export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
+type TProtectedRoute = {
+  onlyForAuth: boolean;
+  children: ReactNode;
+}
+
+export const ProtectedRoute: FC<TProtectedRoute> = ({ onlyForAuth, children, ...rest }) => {
   const isAuthorized = getCookie('accessToken');
   const location = useLocation();
 
   if (!onlyForAuth && isAuthorized) {
-    const { from } = location.state || { from: { pathname: "/" } };
+    const { from }: {from?: {pathname: string}} = location.state || { from: { pathname: "/" } };
 
     return (
       <Route {...rest}>
-        <Redirect to={from} />
+        <Redirect to={from!} />
       </Route>
     );
   }
@@ -28,9 +32,4 @@ export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
   }
 
   return <Route {...rest}>{children}</Route>;
-};
-
-ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired,
-  onlyForAuth: PropTypes.bool.isRequired,
 };

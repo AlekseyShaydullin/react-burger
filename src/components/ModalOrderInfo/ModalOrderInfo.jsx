@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { TLocation } from '../../utils/types/data';
 import Modal from '../Modal/Modal';
 import OrderAuthPreRender from '../OrderAuthPreRender/OrderAuthPreRender';
 import OrderPreRender from '../OrderPreRender/OrderPreRender';

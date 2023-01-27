@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 type TStatus = 'done' | 'pending' | 'created';
 
 export type TIngredient = {
@@ -95,3 +97,27 @@ export type TApi = TResponse
   | TSetResetPassApi
   | TRegisterApi
   | TLoginApi;
+
+  export type TLocation = {
+    background: {
+      pathname: string;
+      search: string;
+      hash: string;
+      state: null;
+      key: string;
+    }
+    from: string;
+    state?: object;
+  };
+
+  export type TModal = {
+    title?: string;
+    visible: boolean;
+    onClose: () => void;
+    children: ReactNode;
+}
+
+export type TModalOverlay = {
+  visible: boolean;
+  closeModal: () => void;
+}

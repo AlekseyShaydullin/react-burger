@@ -7,7 +7,7 @@ const initialState = {
 }
 
 interface IState {
-  ingredient: Array<TIngredient> | null;
+  ingredient: TIngredient | null ;
   active: boolean;
 }
 

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import doneIndicationImg from '../../images/done.png';
 import styleOrderDetails from '../OrderDetails/OrderDetails.module.css';
-import { useSelector } from '../../utils/types/main';
 
-const OrderDetails = () => {
-  const {order} = useSelector(store => store.order);
+type TOrderDetails = {
+  order: string
+}
+
+const OrderDetails: FC<TOrderDetails> = (props) => {
   
   return (
     <section className={`${styleOrderDetails.container} pb-20`}>
-      <p className={`${styleOrderDetails.title} text text_type_digits-large`}>{order}</p>
+      <p className={`${styleOrderDetails.title} text text_type_digits-large`}>{props.order}</p>
       <p className={`text text_type_main-medium pt-8 pb-15`}>идентификатор заказа</p>
       <img className={styleOrderDetails.image} src={doneIndicationImg} alt={'finished'} />
       <p className={`text text_type_main-default pt-15 pb-2`}>Ваш заказ начали готовить</p>

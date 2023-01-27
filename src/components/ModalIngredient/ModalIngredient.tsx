@@ -3,12 +3,14 @@ import { useHistory, useLocation } from "react-router-dom";
 import { deleteIngredientDetails } from "../../services/actions/showIngredientDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails"
 import Modal from "../Modal/Modal"
+import { FC } from 'react';
+import { TLocation} from '../../utils/types/data';
 
-const ModalIngredient = () => {
+const ModalIngredient: FC = () => {
   const { ingredient } = useSelector(store => store.ingredientDetail)
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation()
+  const location = useLocation<TLocation>()
 
   const closeIngredientModal = () => {
     dispatch(deleteIngredientDetails());
@@ -23,10 +25,15 @@ const ModalIngredient = () => {
     )
   }
 
-  return( ingredient !== null && ingredient !== undefined &&
-    <Modal title={'Детали ингредиента'} onClose={closeIngredientModal} visible>
-      <IngredientDetails />
-    </Modal>
+  return( 
+    <>
+      {(ingredient !== null && ingredient !== undefined &&
+        <Modal title={'Детали ингредиента'} onClose={closeIngredientModal} visible>
+          <IngredientDetails />
+        </Modal>
+      )}
+    </>
+
   )
 }
 

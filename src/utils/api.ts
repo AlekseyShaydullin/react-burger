@@ -30,6 +30,18 @@ export async function setOrderApi(order: Array<string> | null) {
   });
   }
 
+  export async function setOrderNumberApi(order: string | null) {
+    return await request('orders', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: 'Bearer ' + getCookie('accessToken')},
+      body: JSON.stringify({
+        'ingredients': order,
+      }),
+    });
+    }
+
   export async function setEmailApi(email: string) {
     return await request('password-reset', {
       method: 'POST',

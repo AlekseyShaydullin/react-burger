@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styleHomePage from './HomePage.module.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -7,7 +7,7 @@ import ModalOrder from '../../components/ModalOrder/ModalOrder';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import ModalIngredient from '../../components/ModalIngredient/ModalIngredient';
 
-function HomePage() {
+const HomePage: FC = () => {
   return (
     <>
       <DndProvider backend={HTML5Backend}>
