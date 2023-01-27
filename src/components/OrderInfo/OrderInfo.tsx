@@ -1,30 +1,40 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
 import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
 import styleOrderInfo from './OrderInfo.module.css';
-import PropTypes from "prop-types";
+import { TIngredient, TOrder } from '../../utils/types/data';
 
-function OrderInfo(props) {
-  const sortOrders = []
+type TOrderInfoProps = {
+  order: TOrder;
+  ingredients: TIngredient[];
+}
+
+export type TSortedOrderIngredients = {
+  item: TIngredient;
+  count: number;
+};
+
+const OrderInfo: FC<TOrderInfoProps> = (props) => {
+  const sortOrders: TSortedOrderIngredients[] = []
 
   const orderIngredients = useMemo(() => 
-    props.order.ingredients.filter(id => id !== null).map(id => props.ingredients !== undefined && 
-      props.ingredients.find(item => id === item._id)
+    props.order.ingredients?.filter(id => id !== null).map(id =>
+      props.ingredients?.find(item => id === item._id)
     ), [props.ingredients, props.order.ingredients]);
 
   const priceScore = useMemo(() => {
-    return orderIngredients.reduce((acc, ing) => acc + ing.price, 0)
+    return orderIngredients.reduce((acc, ing) => acc + ing!.price, 0)
   }, [orderIngredients])
 
   orderIngredients.map(ing => {
-    const isLocated = sortOrders?.filter(el => el.item._id === ing._id).length !== 0 ? true : false;
+    const isLocated = sortOrders?.filter(el => el.item._id === ing!._id).length !== 0 ? true : false;
 
     if(!isLocated) {
       sortOrders.push({
-        item: ing,
-        count: orderIngredients.filter(item => item._id === ing._id).length
+        item: ing!,
+        count: orderIngredients.filter(item => item!._id === ing!._id).length
       })
     }
   })
@@ -59,10 +69,5 @@ function OrderInfo(props) {
     </>
   )
 }
-
-OrderInfo.propTypes = {
-  order: PropTypes.object.isRequired,
-  ingredients: PropTypes.array.isRequired
-};
 
 export default OrderInfo;

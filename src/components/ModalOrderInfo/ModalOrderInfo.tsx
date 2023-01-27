@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { TLocation } from '../../utils/types/data';
 import Modal from '../Modal/Modal';
 import OrderAuthPreRender from '../OrderAuthPreRender/OrderAuthPreRender';
 import OrderPreRender from '../OrderPreRender/OrderPreRender';
 
-function ModalOrderInfo() {
+const ModalOrderInfo: FC = () => {
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<TLocation>();
   
   const closeOrderInfoModal = () => {
     history.goBack();

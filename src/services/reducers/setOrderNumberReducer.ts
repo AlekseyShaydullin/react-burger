@@ -37,7 +37,7 @@ export interface ISetOrderNumber {
 
 export type TActionOrderNumber = IRequestNumber | ISuccessNumber | IErrorNumber | ISetOrderNumber | IResetStateOrderNumber;
 
-export const setOrderNumberReducer = (state: IState = initialState, action: TActionOrderNumber) => {
+export const setOrderNumberReducer = (state: IState = initialState, action: TActionOrderNumber): IState => {
   switch (action.type) {
     case SET_ORDER_NUMBER_REQUEST:
       return {

@@ -1,5 +1,5 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useSelector } from '../../utils/types/main';
 import { useLocation } from 'react-router-dom';
 import OrderCheckDay from '../OrderCheckDay/OrderCheckDay';
@@ -7,8 +7,13 @@ import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
 import styleOrder from './Order.module.css'
 import { v4 as uuid4 } from 'uuid';
+import { TOrder } from '../../utils/types/data';
 
-function Order(props) {
+type TOrderProps = {
+  data: TOrder
+}
+
+const Order: FC<TOrderProps> = (props) => {
   const { number, name } = props.data;
   const ingredients = useSelector(store => store.ingredients.data)
   const location = useLocation();
@@ -17,12 +22,12 @@ function Order(props) {
   const disabledIngredientsCount = orderLength - 5;
 
   const orderIngredients = useMemo(() => 
-    props.data.ingredients.filter(id => id !== null).map(id => 
-      ingredients.find(item => id === item._id)
+    props.data.ingredients?.filter(id => id !== null).map(id => 
+      ingredients?.find(item => id === item._id)
     ), [ingredients, props.data.ingredients]);
 
   const priceScore = useMemo(() => {
-    return orderIngredients.reduce((acc, ing) => acc + ing.price, 0)
+    return orderIngredients.reduce((acc, ing) => acc + ing!.price, 0)
   }, [orderIngredients])
 
   return (

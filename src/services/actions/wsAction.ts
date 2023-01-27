@@ -21,6 +21,7 @@ export type TWsSocketMiddlewareActions = {
 
 export interface IWSConnectionSuccess {
   readonly type: typeof WS_CONNECTION_SUCCESS;
+  payload?: Event;
 }
 
 export interface IWSConnectionOpen {
@@ -29,10 +30,17 @@ export interface IWSConnectionOpen {
 
 export interface IWSConnectionError {
   readonly type: typeof WS_CONNECTION_ERROR;
+  payload?: Event;
 }
 
 export interface IWSConnectionClosed {
   readonly type: typeof WS_CONNECTION_CLOSED;
+  payload?: Event;
+}
+
+export interface IWSConnectionStop {
+  readonly type: typeof WS_CONNECTION_STOP;
+  payload?: Event;
 }
 
 export interface IWSConnectionStart {
@@ -83,14 +91,14 @@ export const wsConnectionOpen = (): IWSConnectionOpen => ({
 })
 
 export const wsConnectionError = (): IWSConnectionError => ({
-  type: WS_CONNECTION_ERROR
+  type: WS_CONNECTION_ERROR,
 })
 
 export const wsConnectionClosed = (): IWSConnectionClosed => ({
   type: WS_CONNECTION_CLOSED
 })
 
-export const wsGetOrders = (data: TOrderData) => {
+export const wsGetOrders = (data: Array<TOrderData> | null) => {
   return {
     type: WS_GET_ORDERS,
     payload: data
@@ -124,7 +132,7 @@ export const wsAuthConnectionStart = (URL: string): IWSAuthConnectionStart => {
   }
 }
 
-export const wsConnectionStop = () => {
+export const wsConnectionStop = (): IWSConnectionStop => {
   return {
     type: WS_CONNECTION_STOP
   }

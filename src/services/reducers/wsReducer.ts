@@ -1,7 +1,11 @@
 import { TOrder } from "../../utils/types/data";
 import { 
   IWSAuthConnectionStart,
+  IWSConnectionClosed,
+  IWSConnectionError,
   IWSConnectionStart,
+  IWSConnectionStop,
+  IWSConnectionSuccess,
   IWSSendOrders,
   WS_CONNECTION_CLOSED, 
   WS_CONNECTION_ERROR,
@@ -17,7 +21,6 @@ const initialState = {
     totalToday: 0,
     length: 0
   },
-  error: undefined,
   url: '',
   isAuth: false
 }
@@ -30,24 +33,8 @@ interface IState {
     totalToday: number;
     length: number;
   };
-  error?: Event;
   url: string;
   isAuth: boolean;
-}
-
-export interface IWSConnectionSuccess {
-  readonly type: typeof WS_CONNECTION_SUCCESS;
-  payload: Event;
-}
-
-export interface IWSConnectionClosed {
-  readonly type: typeof WS_CONNECTION_CLOSED;
-  payload: Event;
-}
-
-export interface IWSConnectionError {
-  readonly type: typeof WS_CONNECTION_ERROR;
-  payload: Event;
 }
 
 export interface IWSGetOrders {
@@ -56,7 +43,9 @@ export interface IWSGetOrders {
     orders: Array<TOrder>;
     total: number;
     totalToday: number;
+    length: number;
   };
+  
 }
 
 export type TWSActionData = 
@@ -65,36 +54,31 @@ export type TWSActionData =
   | IWSConnectionSuccess
   | IWSConnectionClosed
   | IWSConnectionError
+  | IWSConnectionStop
   | IWSGetOrders
   | IWSSendOrders;
 
-export const wsReducer = (state: IState = initialState, action: TWSActionData) => {
+export const wsReducer = (state: IState = initialState, action: TWSActionData): IState => {
   switch(action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
         ...state,
-        error: undefined,
         wsConnected: true
       };
     case WS_CONNECTION_CLOSED:
       return {
         ...state,
-        error: undefined,
         wsConnected: false
       };
     case WS_CONNECTION_ERROR:
       return {
         ...state,
-        error: action.payload,
         wsConnected: false
       }
     case WS_GET_ORDERS:
       return {
         ...state,
-        error: undefined,
-        data: state.data.length
-        ? [{...state.data}, action.payload]
-        : action.payload
+        data: action.payload
       }
     default:
       return state;

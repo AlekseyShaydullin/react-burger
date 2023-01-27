@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../utils/types/main';
 import { Link, useLocation } from 'react-router-dom';
 import Order from '../../components/Order/Order';
 import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
 
-function OrderFeedPage() {
-  const orders = useSelector(store => store.wsOrders.orders);
-  const ordersData = useSelector(store => store.wsOrders);
+const OrderFeedPage: FC = () => {
+  const orders = useSelector(store => store.wsOrders.data.orders);
+  const ordersData = useSelector(store => store.wsOrders.data);
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -26,15 +26,13 @@ function OrderFeedPage() {
     };
 }, [dispatch]);
 
-  const completedOrders = orders
-    .filter(order => order.status === 'done')
+  const completedOrders = orders !== null && orders.filter(order => order.status === 'done')
 
-  const uncompletedOrders = orders
-    .filter(order => order.status !== 'done')
+  const uncompletedOrders = orders !== null && orders.filter(order => order.status !== 'done')
 
-  return (orders !== undefined &&
-    <>
-    <main className={styleOrderFeedPage.main__wrapper}>
+  return (
+    <>{(orders !== undefined &&
+      <main className={styleOrderFeedPage.main__wrapper}>
       <section className={`${styleOrderFeedPage.feed} mt-10`}>
         <h1 className={'text text_type_main-large mb-5'}>Лента заказов</h1>
         <ul className={styleOrderFeedPage.orders}>
@@ -55,7 +53,7 @@ function OrderFeedPage() {
           <div className={styleOrderFeedPage.ordersWrapper}>
             <h2 className={styleOrderFeedPage.title}>Готовы:</h2>
             <ul className={styleOrderFeedPage.list}>
-              {completedOrders.map(order => {
+              {completedOrders !== false && completedOrders.map(order => {
                 return (
                   <li className={`text text_type_digits-default 
                   ${styleOrderFeedPage.item} ${styleOrderFeedPage.item_job}`}
@@ -69,7 +67,7 @@ function OrderFeedPage() {
           <div className={styleOrderFeedPage.ordersWrapper}>
             <h2 className={styleOrderFeedPage.title}>В работе:</h2>
             <ul className={styleOrderFeedPage.list}>
-            {uncompletedOrders.map(order => {
+            {uncompletedOrders !== false && uncompletedOrders.map(order => {
                 return (
                   <li className={`text text_type_digits-default 
                   ${styleOrderFeedPage.item}`}
@@ -91,6 +89,8 @@ function OrderFeedPage() {
         </div>
       </section>
     </main>
+    )}
+      
     </>
   )
 }

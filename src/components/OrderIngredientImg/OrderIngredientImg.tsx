@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styleOrderIngredientImg from './OrderIngredientImg.module.css';
-import PropTypes from "prop-types";
 
-function OrderIngredientImg(props) {
+type TOrderIngredientImgProps = {
+  img: string;
+  alt: string;
+}
+
+const OrderIngredientImg: FC<TOrderIngredientImgProps> = (props) => {
 
   return (
     <div className={styleOrderIngredientImg.wrapper}>
@@ -12,10 +16,5 @@ function OrderIngredientImg(props) {
     </div>
   )
 }
-
-OrderIngredientImg.propTypes = {
-  img: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired
-};
 
 export default OrderIngredientImg

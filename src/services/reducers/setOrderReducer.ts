@@ -37,7 +37,7 @@ export interface ISetOrder {
 
 export type TActionOrder = IRequest | ISuccess | IError | ISetOrder | IResetStateOrder;
 
-export const setOrderReducer = (state: IState = initialState, action: TActionOrder) => {
+export const setOrderReducer = (state: IState = initialState, action: TActionOrder): IState => {
   switch (action.type) {
     case SET_ORDER_REQUEST:
       return {

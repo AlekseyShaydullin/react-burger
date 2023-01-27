@@ -1,7 +1,11 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React, { FC } from 'react';
+import { TOrder } from '../../utils/types/data';
 
-function OrderStatus(props) {
+type TOrderStatusProps = {
+  order: TOrder
+}
+
+const OrderStatus: FC<TOrderStatusProps> = (props) => {
 
   const status = props.order.status === 'done' ? 
     { text: 'Выполнен', color: 'var(--colors-interface-success)' } : 
@@ -15,9 +19,5 @@ function OrderStatus(props) {
     </>
   )
 }
-
-OrderStatus.propTypes = {
-  order: PropTypes.object.isRequired
-};
 
 export default OrderStatus;

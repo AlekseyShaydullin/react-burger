@@ -22,7 +22,7 @@ export interface IDeleteIngredientDetails {
 
 export type TActionIngredientDetails = IAddIngredientDetails | IDeleteIngredientDetails;
 
-export const showIngredientDetailsReducer = (state: IState = initialState, action: TActionIngredientDetails) => {
+export const showIngredientDetailsReducer = (state: IState = initialState, action: TActionIngredientDetails): IState => {
   switch (action.type) {
     case ADD_INGREDIENT_DETAILS:
       return {

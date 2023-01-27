@@ -1,14 +1,18 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React, { FC } from 'react';
+import { TOrder } from '../../utils/types/data';
 
-function OrderCheckDay(props) {
+type TOrderCheckDayProps = {
+  order: TOrder;
+}
+
+const OrderCheckDay: FC<TOrderCheckDayProps> = (props) => {
   const order = props.order
 
   const currentDay = new Date().getDate();
   const dayOfOrder = order.createdAt.slice(8,10);
 
   const checkDay = () => {
-    if(dayOfOrder == currentDay) {
+    if(Number(dayOfOrder) === currentDay) {
       return true
     }
     return false
@@ -20,9 +24,5 @@ function OrderCheckDay(props) {
     </p>
   )
 }
-
-OrderCheckDay.propTypes = {
-  order: PropTypes.object.isRequired
-};
 
 export default OrderCheckDay

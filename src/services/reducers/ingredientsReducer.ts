@@ -37,7 +37,7 @@ export interface IGetIngredientError {
 
 export type TActionIngredients = IGetIngredientRequest | IGetIngredientSuccess | IGetIngredientError;
 
-export const ingredientsReducer = (state: IState = initialState, action: TActionIngredients) => {
+export const ingredientsReducer = (state: IState = initialState, action: TActionIngredients): IState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: 
       return {
