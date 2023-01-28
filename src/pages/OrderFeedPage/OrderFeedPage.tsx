@@ -2,8 +2,9 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../utils/types/main';
 import { Link, useLocation } from 'react-router-dom';
 import Order from '../../components/Order/Order';
-import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
+import { wsConnectionStart, wsConnectionStop } from '../../services/actions/wsAction';
 import styleOrderFeedPage from './OrderFeedPage.module.css';
+import { wsUrlAll } from '../../utils/constants';
 
 const OrderFeedPage: FC = () => {
   const orders = useSelector(store => store.wsOrders.data.orders);
@@ -12,19 +13,11 @@ const OrderFeedPage: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({
-        type: WS_CONNECTION_START,
-        payload: {
-            url: "wss://norma.nomoreparties.space/orders/all",
-            isAuth: false,
-        },
-    });
+    dispatch(wsConnectionStart(wsUrlAll));
     return () => {
-        dispatch({
-            type: WS_CONNECTION_STOP,
-        });
+        dispatch(wsConnectionStop());
     };
-}, [dispatch]);
+  }, [dispatch]);
 
   const completedOrders = orders !== null && orders.filter(order => order.status === 'done')
 

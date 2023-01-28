@@ -1,3 +1,4 @@
+import { TOrder } from '../../utils/types/data';
 import {SET_ORDER_REQUEST, SET_ORDER_ERROR, SET_ORDER_SUCCESS, CLEAR_CONSTRUCTOR} from '../actions/setOrder';
 import { RESET_STATE_ORDER } from '../actions/stateOrder';
 
@@ -8,7 +9,7 @@ const initialState = {
 }
 
 interface IState {
-  order: Array<string> | null;
+  order: TOrder | null;
   orderRequest: boolean;
   orderFailed: boolean;
 }
@@ -19,7 +20,7 @@ export interface IRequest {
 
 export interface ISuccess {
   readonly type: typeof SET_ORDER_SUCCESS;
-  order: Array<string> | null;
+  order: TOrder | null;
 }
 
 export interface IError {

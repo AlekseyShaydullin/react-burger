@@ -6,7 +6,6 @@ import { getUser, refreshToken } from '../../services/actions/usersAction';
 import ModalSwitch from '../ModalSwitch/ModalSwitch';
 import { getIngredients } from '../../services/actions/getIngredients';
 
-
 const App: FC = () => {
   const dispatch = useDispatch();
   const cookie = getCookie('accessToken');

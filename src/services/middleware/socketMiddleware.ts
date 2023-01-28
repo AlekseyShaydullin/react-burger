@@ -5,7 +5,6 @@ import { AppDispatch } from "../../utils/types/main";
 import { TWsSocketMiddlewareActions } from "../actions/wsAction";
 import { TWSActionData } from "../reducers/wsReducer";
 
-
 export const socketMiddleware = (wsActions: TWsSocketMiddlewareActions ): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
@@ -18,8 +17,7 @@ export const socketMiddleware = (wsActions: TWsSocketMiddlewareActions ): Middle
       if (type === wsInit) {
         const isAuth = payload.isAuth
         const accessToken = getCookie('accessToken');
-
-        const wsUrl = isAuth ? payload.url + `?token=${accessToken}` : payload.url
+        const wsUrl = isAuth ? payload.url + `?token=${accessToken}` : payload.url;
         socket = new WebSocket(wsUrl);
     }
 

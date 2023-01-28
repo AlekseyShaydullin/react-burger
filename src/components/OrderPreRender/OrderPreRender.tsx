@@ -23,7 +23,7 @@ const OrderPreRender: FC = () => {
     return () => {
         dispatch(wsConnectionStop());
     };
-}, [dispatch]);
+  }, [dispatch]);
 
   const order = orders?.find(item => params.id === item._id);
 
@@ -36,7 +36,6 @@ const OrderPreRender: FC = () => {
           </section>
         )}
       </>
-
     )
   }
 

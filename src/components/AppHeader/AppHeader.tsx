@@ -64,5 +64,4 @@ const AppHeader: FC = () => {
   );
 }
 
-
 export default AppHeader;

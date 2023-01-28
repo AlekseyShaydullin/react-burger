@@ -52,7 +52,7 @@ export interface IWSConnectionStart {
 }
 
 export interface IWSAuthConnectionStart {
-  readonly type: typeof WS_AUTHCONNECTION_START;
+  readonly type: typeof WS_CONNECTION_START;
   payload: {
     url: string;
     isAuth: boolean;
@@ -124,7 +124,7 @@ export const wsConnectionStart = (URL: string): IWSConnectionStart => {
 
 export const wsAuthConnectionStart = (URL: string): IWSAuthConnectionStart => {
   return {
-    type: WS_AUTHCONNECTION_START,
+    type: WS_CONNECTION_START,
     payload: {
       url: URL,
       isAuth: true

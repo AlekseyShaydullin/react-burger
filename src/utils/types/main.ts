@@ -8,13 +8,11 @@ import { TActionUsers } from "../../services/reducers/usersReducer";
 import { TWSActionData } from "../../services/reducers/wsReducer";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { TWSActions } from "../../services/actions/wsAction";
-import { TActionOrderNumber } from "../../services/reducers/setOrderNumberReducer";
 
 export type TApplicationActions = 
   TActionCurrentBurger
   | TActionIngredients
   | TActionOrder
-  | TActionOrderNumber
   | TActionIngredientDetails
   | TActionUsers
   | TWSActions

@@ -6,14 +6,14 @@ import OrderDetails from "../OrderDetails/OrderDetails"
 import { FC } from 'react';
 
 const ModalOrder: FC = () => {
-  const { order } = useSelector(store => store.orderNumber)
+  const { order } = useSelector(store => store.order)
   const dispatch = useDispatch();
 
   const closeOrderModal = () => {
     dispatch(resetOrder());
     dispatch(resetIngredients())
   }
-
+  
   return (
     <>
       {order !== null && (

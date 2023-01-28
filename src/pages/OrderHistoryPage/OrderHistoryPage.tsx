@@ -3,33 +3,26 @@ import { useDispatch, useSelector } from '../../utils/types/main';
 import { Link, useLocation } from 'react-router-dom';
 import NavProfile from '../../components/NavProfile/NavProfile';
 import Order from '../../components/Order/Order';
-import { WS_CONNECTION_START, WS_CONNECTION_STOP } from '../../services/actions/wsAction';
+import { wsAuthConnectionStart, wsConnectionStop } from '../../services/actions/wsAction';
 import styleOrderHistoryPage from './OrderHistoryPage.module.css';
 import { TLocation } from '../../utils/types/data';
+import { wsUrl } from '../../utils/constants';
 
 const OrderHistoryPage: FC = () => {
   const {orders} = useSelector(store => store.wsOrders.data);
   const dispatch = useDispatch();
   const location = useLocation<TLocation>();
-  
+
   useEffect(() => {
-    dispatch({
-        type: WS_CONNECTION_START,
-        payload: {
-            url: "wss://norma.nomoreparties.space/orders",
-            isAuth: true,
-        },
-    });
+    dispatch(wsAuthConnectionStart(wsUrl));
     return () => {
-        dispatch({
-            type: WS_CONNECTION_STOP,
-        });
+        dispatch(wsConnectionStop());
     };
 }, [dispatch]);
 
   return (
     <>
-      {(orders !== undefined &&
+      {(orders !== undefined && orders !== null &&
         <section className={styleOrderHistoryPage.wrapper}>
         <nav className={styleOrderHistoryPage.nav}>
           <NavProfile />
