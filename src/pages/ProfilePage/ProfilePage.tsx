@@ -1,11 +1,11 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState, MouseEventHandler, ChangeEvent } from "react";
 import { useDispatch, useSelector } from '../../utils/types/main';
 import NavProfile from "../../components/NavProfile/NavProfile";
 import { updateUser } from "../../services/actions/usersAction";
 import styleProfilePage from './ProfilePage.module.css';
 
-function ProfilePage() {
+const ProfilePage: FC = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(store => store.userInfo);
   const [valName, setValName] = useState('');
@@ -19,7 +19,7 @@ function ProfilePage() {
     }
   }, [user]);
 
-  const onSubmit = (e) => {
+  const onSubmit: MouseEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     dispatch(
       updateUser({ email: valEmail, password: valPass, name: valName })
@@ -49,14 +49,14 @@ function ProfilePage() {
           error={false}
           errorText={'Error'}
           size={'default'}
-          onChange={e => setValName(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setValName(e.target.value)}
         />
         <EmailInput 
           placeholder={'Логин'} 
           isIcon={true}
           value={valEmail}
           name={'email'}
-          onChange={e => setValEmail(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setValEmail(e.target.value)}
         />
         <PasswordInput 
           placeholder={'Пароль'} 
@@ -66,7 +66,7 @@ function ProfilePage() {
           onChange={e => setValPass(e.target.value)}
         />
         <div className={styleProfilePage.button}>
-          <Button type={'secondary'} htmlType={'button'} onClick={()=> cancelChange()}>Отмена</Button>
+          <Button type={'secondary'} htmlType={'button'} onClick={() => cancelChange()}>Отмена</Button>
           <Button type={'primary'} htmlType={'submit'}>Сохранить</Button>
         </div>
       </form>

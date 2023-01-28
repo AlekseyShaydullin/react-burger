@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import HomePage from '../../pages/HomePage/HomePage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
@@ -15,9 +15,10 @@ import ModalOrderInfo from '../ModalOrderInfo/ModalOrderInfo';
 import OrderPreRender from '../OrderPreRender/OrderPreRender';
 import OrderAuthPreRender from '../OrderAuthPreRender/OrderAuthPreRender';
 import ErrorPage from '../../pages/ErrorPage/ErrorPage';
+import { TLocation } from '../../utils/types/data';
 
-function ModalSwitch() {
-  const location = useLocation();
+const ModalSwitch: FC = () => {
+  const location = useLocation<TLocation>();
   const background = location.state && location.state.background;
 
   return(

@@ -1,9 +1,10 @@
+import React, { FC } from 'react';
 import { Link } from "react-router-dom";
 import styleErrorPage from "./ErrorPage.module.css";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import loadingImg from '../../images/Loading-404.gif';
 
-const ErrorPage = () => {
+const ErrorPage: FC = () => {
   return (
     <section className={styleErrorPage.wrapper}>
       <img className={styleErrorPage.img} src={loadingImg} alt='Загрузка' />

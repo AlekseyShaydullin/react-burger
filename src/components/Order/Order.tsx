@@ -7,7 +7,7 @@ import OrderIngredientImg from '../OrderIngredientImg/OrderIngredientImg';
 import OrderStatus from '../OrderStatus/OrderStatus';
 import styleOrder from './Order.module.css'
 import { v4 as uuid4 } from 'uuid';
-import { TOrder } from '../../utils/types/data';
+import { TLocation, TOrder } from '../../utils/types/data';
 
 type TOrderProps = {
   data: TOrder
@@ -16,7 +16,7 @@ type TOrderProps = {
 const Order: FC<TOrderProps> = (props) => {
   const { number, name } = props.data;
   const ingredients = useSelector(store => store.ingredients.data)
-  const location = useLocation();
+  const location = useLocation<TLocation>();
 
   const orderLength = props.data.ingredients.length;
   const disabledIngredientsCount = orderLength - 5;

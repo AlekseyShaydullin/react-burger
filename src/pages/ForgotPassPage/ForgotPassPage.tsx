@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { FC, useCallback, useState, MouseEventHandler } from 'react';
 import styleForgotPass from './ForgotPassPage.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from '../../utils/types/main';
 import { useHistory } from 'react-router-dom';
 import { forgotPassword } from '../../services/actions/usersAction';
 
-function ForgotPassPage() {
+const ForgotPassPage: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [valEmail, setValEmail] = useState('');
   
-  const onSubmit = e => {
+  const onSubmit: MouseEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    dispatch(forgotPassword(valEmail, history));
+    dispatch(forgotPassword(valEmail));
     history.replace({ pathname: '/reset-password' });
   };
 

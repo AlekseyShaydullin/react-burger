@@ -40,7 +40,7 @@ const initialState = {
 
 interface IState {
   success: boolean;
-  error: string;
+  error?: string | boolean;
   user: {
     email: string;
     name: string;
@@ -48,7 +48,7 @@ interface IState {
   accessToken: string;
   refreshToken: string;
   successEmail: boolean;
-  authorizedUser: boolean;
+  authorizedUser?: boolean;
   validUser: boolean;
 }
 
@@ -207,7 +207,7 @@ export type TActionUsers =
   | IExitSuccess
   | IExitError;
 
-export const usersReducer = (state: IState = initialState, action: TActionUsers) => {
+export const usersReducer = (state: IState = initialState, action: TActionUsers): IState => {
   switch(action.type) {
     case REGISTRATION_REQUEST:
       return {
@@ -375,6 +375,7 @@ export const usersReducer = (state: IState = initialState, action: TActionUsers)
 
     case EXIT_ERROR:
       return {
+        ...state,
         success: false,
         error: action.error
       }

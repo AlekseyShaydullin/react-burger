@@ -4,6 +4,8 @@ import { getCookie } from "../../utils/cookie";
 import {useLocation} from "react-router-dom";
 
 type TProtectedRoute = {
+  path: string;
+  exact: boolean;
   onlyForAuth: boolean;
   children: ReactNode;
 }

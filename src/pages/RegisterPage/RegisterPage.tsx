@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { FC, useState, useCallback, MouseEventHandler, ChangeEvent } from 'react';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styleRegisterPage from './RegisterPage.module.css';
 import { useDispatch, useSelector } from '../../utils/types/main';
 import { Redirect, useHistory } from 'react-router-dom';
 import { register } from '../../services/actions/usersAction';
 
-function RegisterPage() {
+const RegisterPage: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { user } = useSelector(store => store.userInfo);
@@ -13,7 +13,7 @@ function RegisterPage() {
   const [valPass, setValPass] = useState('');
   const [valEmail, setValEmail] = useState('');
 
-  const onSubmit = useCallback(
+  const onSubmit: MouseEventHandler<HTMLFormElement> = useCallback(
     e => {
       e.preventDefault();
       dispatch(register({ email: valEmail, password: valPass, name: valName }))
@@ -39,19 +39,19 @@ function RegisterPage() {
           error={false}
           errorText={'Error'}
           size={'default'}
-          onChange={e => setValName(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setValName(e.target.value)}
         />
         <EmailInput 
           name={'email'} 
           placeholder={'E-mail'} 
           value={valEmail}
-          onChange={e => setValEmail(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setValEmail(e.target.value)}
         />
         <PasswordInput 
           name={'password'}
           icon={'HideIcon'}
           value={valPass}
-          onChange={e => setValPass(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setValPass(e.target.value)}
         />
         <Button type={'primary'} htmlType={'submit'}>Зарегистрироваться</Button>
       </form>

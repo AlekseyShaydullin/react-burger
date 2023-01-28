@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { FC, useState, useEffect, useCallback, MouseEventHandler, ChangeEvent } from 'react';
 import styleResetPass from './ResetPassPage.module.css';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from '../../utils/types/main';
 import { useHistory } from 'react-router-dom';
 import { resetPassword } from '../../services/actions/usersAction';
 
-function ResetPassPage() {
+const ResetPassPage: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { successEmail } = useSelector(store => store.userInfo);
@@ -18,9 +18,9 @@ function ResetPassPage() {
     }
   });
 
-  const onSubmit = e => {
+  const onSubmit: MouseEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    dispatch(resetPassword(password, token));
+    dispatch(resetPassword({password, token}));
     history.replace({ pathname: '/login' })
   };
 
@@ -37,7 +37,7 @@ function ResetPassPage() {
           name={'password'}
           icon={'HideIcon'}
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
         />
         <Input
           type={'text'}
@@ -47,7 +47,7 @@ function ResetPassPage() {
           error={false}
           errorText={'Error'}
           size={'default'}
-          onChange={e => setToken(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setToken(e.target.value)}
         />
         <Button type={'primary'} htmlType={'submit'}>Сохранить</Button>
       </form>

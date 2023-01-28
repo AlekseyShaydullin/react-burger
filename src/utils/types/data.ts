@@ -73,19 +73,19 @@ export type TResponse = {
 }
 
 export type TSetResetPassApi = {
-  password: HTMLInputElement; 
+  password: string; 
   token: string;
 }
 
 export type TRegisterApi = {
-  email: HTMLInputElement; 
-  password: HTMLInputElement;
-  name: HTMLInputElement;
+  email: string; 
+  password: string;
+  name: string;
 }
 
 export type TLoginApi = {
-  email: HTMLInputElement; 
-  password: HTMLInputElement;
+  email: string; 
+  password: string;
 }
 
 export type TSetIngredients = {
