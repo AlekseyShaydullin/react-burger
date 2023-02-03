@@ -13,7 +13,7 @@ export function setOrder(order: Array<string> | null) {
     })
     setOrderApi(order)
       .then(res => {
-        if (res && res.success) {
+        if (res) {
           dispatch({
             type: SET_ORDER_SUCCESS,
             order: res.order

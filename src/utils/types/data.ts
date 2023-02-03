@@ -83,6 +83,21 @@ export type TRegisterApi = {
   name: string;
 }
 
+export type TUserValues = {
+  user: {
+    email: string,
+    name: string
+  };
+  accessToken: string;
+  refreshToken: string;
+  success: boolean;
+}
+
+export type TDataValues<T> = {
+  success: boolean;
+  data: T;
+}
+
 export type TLoginApi = {
   email: string; 
   password: string;

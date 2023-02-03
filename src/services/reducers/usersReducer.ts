@@ -182,8 +182,7 @@ export interface IExitError {
   error?: string;
 }
 
-export type TActionUsers = 
-  IRegistrationRequest
+export type TActionUsers = IRegistrationRequest
   | IRegistrationSuccess
   | IRegistrationError
   | ILoginRequest
